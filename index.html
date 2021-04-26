@@ -256,6 +256,761 @@
 
 
   
+    <article id="post-Nacos" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h1><p>官方文档:<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/architecture.html">https://nacos.io/zh-cn/docs/architecture.html</a></p>
+<p>Nacos是一个<strong>服务发现</strong>、<strong>配置管理</strong>和<strong>服务管理</strong>的组件。</p>
+<p>说到服务注册与发现，我想到Eureka、Zookeeper</p>
+<p>说到服务治理，我想到Dubbo</p>
+<p>说到配置管理，我想到Apollo</p>
+<h2 id="1-什么是Nacos"><a href="#1-什么是Nacos" class="headerlink" title="1.什么是Nacos"></a>1.什么是Nacos</h2><p>Nacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。 </p>
+<p>Nacos 支持几乎所有主流类型的“服务”的发现、配置和管理。</p>
+<p>特性：</p>
+<ul>
+<li><strong>服务发现和服务健康监测</strong></li>
+</ul>
+<p>Nacos 支持基于 DNS 和 基于 RPC 的服务发现。服务提供者使用 原生SDK、OpenAPI、或一个独立的Agent TODO注册 Service 后，服务消费者可以使用DNS TODO 或HTTP&amp;API查找和发现服务。</p>
+<p>Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。 对于复杂的云环境和网络拓扑环境中（如 VPC、边缘网络等）服务的健康检查，Nacos 提供了 agent 上报模式和服务端主动检测2种健康检查模式。Nacos 还提供了统一的健康检查仪表盘，帮助您根据健康状态管理服务的可用性及流量。</p>
+<p><img src="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png" alt="image-20210218143247759"></p>
+<ul>
+<li><strong>动态配置服务</strong> </li>
+</ul>
+<p>更新配置后无需重新部署或重启服务，立即生效； </p>
+<p>Nacos 提供了一个简洁易用的UI（控制台）帮助您管理所有的服务和应用的配置；</p>
+<p>Nacos 提供包括配置版本跟踪、金丝雀发布、一键回滚配置以及客户端配置更新状态跟踪等功能</p>
+<p><img src="https://i.loli.net/2021/02/18/GkafSoXjIgeyrLz.png" alt="image-20210218143220497"></p>
+<ul>
+<li><strong>动态 DNS 服务</strong> </li>
+</ul>
+<p>动态 DNS 服务支持权重路由，你可以更容易地实现中间层负载均衡、更灵活的路由策略、流量控制以及数据中心内网的简单DNS解析服务。</p>
+<ul>
+<li><strong>服务及其元数据管理</strong></li>
+</ul>
+<p>Nacos 能让你从微服务平台建设的视角管理数据中心的所有服务及元数据，包括管理服务的描述、生命周期、服务的静态依赖分析、服务的健康状态、服务的流量管理、路由及安全策略、服务的 SLA 以及最首要的 metrics 统计数据。</p>
+<h2 id="2-为什么用Nacos"><a href="#2-为什么用Nacos" class="headerlink" title="2.为什么用Nacos"></a>2.为什么用Nacos</h2><p>用不用主要取决于：</p>
+<ol>
+<li>是否能够更好为业务发展做支撑；</li>
+<li>功能是否满足需求；</li>
+<li>是否稳定，是否经过大规模的生成环境验证；</li>
+<li>是否有完善的文档和活跃的社区；</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/18/wXBznRJ1hU4Y89H.png" alt="image-20210218143611698"></p>
+<p>架构图</p>
+<p><img src="https://i.loli.net/2021/02/18/k1PpSMQlhBmWIg7.png" alt="image-20210218144250142"></p>
+<p><img src="https://i.loli.net/2021/02/18/OldgjmJQk1YDyo2.png" alt="image-20210218144409899"></p>
+<p>这张图很眼熟，如果去掉蓝色的块儿，就跟Dubbo的那个结构图很像了（提供方、消费方、注册中心、监控、控制台）</p>
+<p>逻辑架构及其组件介绍</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210218144519631.png" alt="image-20210218144519631"></p>
+<p>3.Nacos下载安装</p>
+<p>从 <a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases">最新稳定版本</a> 下载 nacos-server-$version.zip 包 </p>
+<p><img src="https://i.loli.net/2021/02/18/hug3FVzpjZXM2d6.png" alt="image-20210218152232512"></p>
+<h3 id="nacos-安装"><a href="#nacos-安装" class="headerlink" title="nacos 安装"></a>nacos 安装</h3><p>下载后上传到服务器的/usr/local  目录下</p>
+<p>解压文件        </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nacos-server-1.4.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/18/LEMYpo7vBWTKDXN.png" alt="image-20210218152442108"></p>
+<p>进入解压文件的bin目录下    nacos/bin</p>
+<p>启动nacos</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh startup.sh -m standalone</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/18/cNRk15uxOJAaV9z.png" alt="image-20210218152705804"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nacos       查看nacos状态</span><br></pre></td></tr></table></figure>
+
+<p>访问   <a target="_blank" rel="noopener" href="http://master:8848/nacos/">http://master:8848/nacos/</a></p>
+<p>用户名：nacos</p>
+<p>密码;nacos</p>
+<p><img src="https://i.loli.net/2021/02/18/d8VXD9ZPnUBeJ5p.png" alt="image-20210218153802457"></p>
+<p>nacos配置外部mysql 数据支持</p>
+<p>单机模式时nacos默认使用嵌入式数据库实现数据的存储，若想使用外部mysql存储nacos数据，需要进行以下步 </p>
+<p>骤： </p>
+<p>1.安装数据库，版本要求：5.6.5+ ，mysql 8 以下 </p>
+<p>2.初始化mysql数据库，新建数据库nacos_confifig，导入数据库初始化文件：/usr/local/nacos/conf/nacos- </p>
+<p>mysql.sql </p>
+<p>3.修改/usr/local/nacos/conf/application.properties文件，增加支持mysql数据源配置（目前只支持 </p>
+<p>mysql），添加mysql数据源的url、用户名和密码。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">### If use MySQL as datasource:</span><br><span class="line">spring.datasource.platform&#x3D;mysql</span><br><span class="line"></span><br><span class="line">### Count of DB:</span><br><span class="line">db.num&#x3D;1</span><br><span class="line"></span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url.0&#x3D;jdbc:mysql:&#x2F;&#x2F;192.168.40.130:3306&#x2F;nacos_config?characterEncoding&#x3D;utf8&amp;connectTimeout&#x3D;1000&amp;socketTimeout&#x3D;3000&amp;autoReconnect&#x3D;true&amp;useUnicode&#x3D;true&amp;useSSL&#x3D;false&amp;serverTimezone&#x3D;UTC</span><br><span class="line">db.user.0&#x3D;root</span><br><span class="line">db.password.0&#x3D;root</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/Nacos/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Nacos踩坑日记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="nacos踩坑日记"><a href="#nacos踩坑日记" class="headerlink" title="nacos踩坑日记"></a>nacos踩坑日记</h1><h2 id="Spring-cloud-Alibaba-Nacos服务注册发现和配置中心"><a href="#Spring-cloud-Alibaba-Nacos服务注册发现和配置中心" class="headerlink" title="Spring cloud Alibaba Nacos服务注册发现和配置中心"></a>Spring cloud Alibaba Nacos服务注册发现和配置中心</h2><p>版本注意：<br>  孵化版本（groupId为org.springframework.cloud）：<br>      spring-cloud-alibaba-dependencies版本0.9.0：与Spring Cloud Greenwich兼容<br>      spring-cloud-alibaba-dependencies版本0.2.2：与Spring Cloud Finchley兼容<br>      且若想支持动态刷新配置，Spring Boot必须引用2.0.X版本系列的，大于或者等于2.1.X版本的暂时不支持动态刷新配置！</p>
+<p>  毕业版本（groupId为com.alibaba.cloud，目前基本用这个了）：<br>      spring-cloud-alibaba-dependencies版本2.1.0.RELEASE：与Spring Cloud Greenwich兼容<br>      spring-cloud-alibaba-dependencies版本2.2.0.RELEASE：与Spring Cloud Hoxton兼容</p>
+<h3 id="创建服务提供者"><a href="#创建服务提供者" class="headerlink" title="创建服务提供者"></a>创建服务提供者</h3><p>springcloud未集成nacos需要手动添加maven依赖</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;2.2.0.RELEASE&lt;/version&gt;</span><br><span class="line">       &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">   &lt;/parent&gt;</span><br><span class="line">   &lt;groupId&gt;com.example&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;nacos-server&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">   &lt;name&gt;nacos-server&lt;/name&gt;</span><br><span class="line">   &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;</span><br><span class="line">   &lt;properties&gt;</span><br><span class="line">       &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">       &lt;spring-cloud-alibaba.version&gt;2.2.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;</span><br><span class="line">   &lt;/properties&gt;</span><br><span class="line">   &lt;dependencies&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">           &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;!-- nacos配置中心--&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;/artifactId&gt;</span><br><span class="line">          &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;--&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;!-- nacos注册中心--&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;</span><br><span class="line">          &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;--&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.nacos&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;nacos-client&lt;/artifactId&gt;</span><br><span class="line">           &lt;version&gt;1.2.0&lt;/version&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">   &lt;/dependencies&gt;</span><br><span class="line">   &lt;dependencyManagement&gt;</span><br><span class="line">       &lt;dependencies&gt;</span><br><span class="line">           &lt;dependency&gt;</span><br><span class="line">               &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">               &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;/artifactId&gt;</span><br><span class="line">               &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;</span><br><span class="line">               &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">               &lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">               &lt;exclusions&gt;</span><br><span class="line">                   &lt;exclusion&gt;</span><br><span class="line">                       &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">                       &lt;artifactId&gt;nacos-client&lt;/artifactId&gt;</span><br><span class="line">                   &lt;/exclusion&gt;</span><br><span class="line">               &lt;/exclusions&gt;</span><br><span class="line">           &lt;/dependency&gt;</span><br><span class="line">       &lt;/dependencies&gt;</span><br><span class="line">   &lt;/dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p>启动器上加上服务发现注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableDiscoveryClient</span>    <span class="comment">//服务发现</span></span><br><span class="line"><span class="meta">@EnableFeignClients(&quot;com.example.democlient.client&quot;)</span><span class="comment">//消费者</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(NacosServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>@EnableDiscoveryClient</code>开启Spring Cloud的服务注册与发现</strong></p>
+<p>创建配置文件<code>bootstrap.properties</code>，并配置服务名称和Nacos地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;nacos-server</span><br><span class="line">server.port&#x3D;8622</span><br><span class="line">spring.cloud.nacos.config.server-addr&#x3D;master:8848</span><br><span class="line">spring.cloud.nacos.discovery.server-addr&#x3D;master:8848</span><br></pre></td></tr></table></figure>
+
+<p>注意:</p>
+<p><strong>注意</strong>：这里必须使用<code>bootstrap.properties</code>或者<code>bootstrap.yaml</code>。同时，<code>spring.application.name</code>值必须与上一阶段Nacos中创建的配置Data Id匹配（除了.properties或者.yaml后缀）。</p>
+<p>在bootstrap.properties中配置需要写成：<br>spring.cloud.nacos.discovery.server-addr=xxx.xxx.xxx.xxx:8848<br>spring.cloud.nacos.config.server-addr=xxx.xxx.xxx.xxx:8848<br>缺任意一个就会报错</p>
+<p>缺少discovery服务发现的地址配置server-addr报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">03</span>-<span class="number">02</span> <span class="number">17</span>:<span class="number">42</span>:<span class="number">30.958</span> ERROR <span class="number">6824</span> --- [ main] com.alibaba.nacos.client.naming          : [NA] failed to request</span><br><span class="line"></span><br><span class="line">java.net.ConnectException: Connection refused: connect</span><br><span class="line">	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:<span class="number">85</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:<span class="number">350</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:<span class="number">206</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:<span class="number">188</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:<span class="number">172</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
+
+<p>缺少config<code>下的</code>server-addr报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">03</span>-<span class="number">02</span> <span class="number">17</span>:<span class="number">42</span>:<span class="number">30.958</span> ERROR <span class="number">36536</span> --- [ main] c.a.n.client.config.impl.ClientWorker    : [fixed-localhost_8848] [sub-server] get server config exception, dataId=nacos-server, group=DEFAULT_GROUP, tenant=</span><br><span class="line"></span><br><span class="line">java.net.ConnectException: no available server</span><br><span class="line">	at com.alibaba.nacos.client.config.http.ServerHttpAgent.httpGet(ServerHttpAgent.java:<span class="number">123</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.http.MetricsHttpAgent.httpGet(MetricsHttpAgent.java:<span class="number">48</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.impl.ClientWorker.getServerConfig(ClientWorker.java:<span class="number">230</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.NacosConfigService.getConfigInner(NacosConfigService.java:<span class="number">143</span>) [nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.NacosConfigService.getConfig(NacosConfigService.java:<span class="number">92</span>) [nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br></pre></td></tr></table></figure>
+
+<p>在源码中—如果不设置默认是localhost</p>
+<p><img src="https://i.loli.net/2021/03/09/59UvhuBPgL468xW.png" alt="image-20210309150859808"></p>
+<p>在那nacos上添加配置信息</p>
+<p><img src="https://i.loli.net/2021/03/09/RE5weXzlBSNO9oP.png" alt="image-20210309144632746"></p>
+<p>注意:命名是    <code>服务名字.properties</code> 或者 <code>服务名字.yaml</code></p>
+<p>创建controller测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value(value = &quot;$&#123;fileServerBaseUrl&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String URL;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.URL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@RefreshScope</code>，主要用来让这个类下的配置内容支持动态刷新，也就是当我们的应用启动之后，修改了Nacos中的配置内容之后，这里也会马上生效。</p>
+<p>启动成功后访问 </p>
+<p><img src="https://i.loli.net/2021/03/09/FsMXltyfVigGheB.png" alt="image-20210309145218863"></p>
+<p>可以看到注册中心上服务已注册</p>
+<p><img src="https://i.loli.net/2021/03/09/6xFL2imA1bohWkf.png" alt="image-20210309151037513"></p>
+<h3 id="创建client"><a href="#创建client" class="headerlink" title="创建client"></a>创建client</h3><p>maven依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;commons-lang3&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.8.1&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;io.springfox&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;springfox-swagger-ui&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.7.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+<p>创建开放接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(value &#x3D; &quot;nacos-server&quot;)</span><br><span class="line">public interface OpenApi &#123;</span><br><span class="line">   @PostMapping(&quot;&#x2F;getInfo&quot;)</span><br><span class="line">   String getOpenMesg(@RequestParam(&quot;name&quot;) String name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建消费者"><a href="#创建消费者" class="headerlink" title="创建消费者"></a>创建消费者</h3><p>maven依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">        &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">        &lt;spring-cloud-alibaba.version&gt;2.2.0.RELEASE&lt;&#x2F;spring-cloud-alibaba.version&gt;</span><br><span class="line">    &lt;&#x2F;properties&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- nacos配置中心--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;--&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- nacos注册中心--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;--&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.nacos&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;nacos-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.0&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.projectlombok&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;lombok&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.example&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;demo-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;0.0.1-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">    &lt;dependencyManagement&gt;</span><br><span class="line">        &lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">                &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">                &lt;exclusions&gt;</span><br><span class="line">                    &lt;exclusion&gt;</span><br><span class="line">                        &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">                        &lt;artifactId&gt;nacos-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">                    &lt;&#x2F;exclusion&gt;</span><br><span class="line">                &lt;&#x2F;exclusions&gt;</span><br><span class="line">            &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;&#x2F;dependencies&gt;</span><br><span class="line">    &lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p>启动类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@EnableFeignClients(&quot;com.example.democlient.client&quot;)</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class NacosConsumerApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(NacosConsumerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced &#x2F;&#x2F;开启负载均衡</span><br><span class="line">    public RestTemplate restTemplate() &#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;nacos-consumer</span><br><span class="line">spring.cloud.nacos.config.server-addr&#x3D;master:8848</span><br><span class="line">spring.cloud.nacos.discovery.server-addr&#x3D;master:8848</span><br></pre></td></tr></table></figure>
+
+<p>创建测试类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j</span><br><span class="line">@RestController</span><br><span class="line">@Controller</span><br><span class="line">public class TestController &#123;</span><br><span class="line"></span><br><span class="line">    @Resource</span><br><span class="line">    OpenApi openApi;</span><br><span class="line">    @PostMapping(&quot;&#x2F;test&quot;)</span><br><span class="line">    String test(@RequestParam(&quot;name&quot;)String name)&#123;</span><br><span class="line">        log.info(&quot;请求参数&#123;&#125;&quot;,name);</span><br><span class="line">        return openApi.getOpenMesg(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动项目    (项目已注册到配置中心)</p>
+<p><img src="https://i.loli.net/2021/03/09/wbPUTgnhXiG4FaC.png" alt="image-20210309172824492"></p>
+<p>测试接口   localhost:8623/test</p>
+<p><img src="https://i.loli.net/2021/03/09/s2hb5lIxGmECnoR.png" alt="image-20210309172926293"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>​           Nginx是一款轻量级的 Web 服务器’反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个 BSD-like 协议下发行，可以在 UNIX、GNU/Linux、BSD、Mac OS X、Solaris，以及 Microsoft Windows 等操作系统中运行。</p>
+<p>​           Nginx(‘engine’)是一个高性能的HTTP和反向代理服务,也是一个IMAP/POP3/SMTP代理服务器.其特点是占有内存少,并发能力强,事实上nginx的并发能了确实在同类型的网页服务器中表现较好.</p>
+<p>1、静态HTTP服务器</p>
+<p>   首先，Nginx是一个HTTP服务器，可以将服务器上的静态文件（如HTML、图片）通过HTTP协议展现给客户端。</p>
+<p>配置：</p>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">listen 80; # 端口号</span><br><span class="line">location &#x2F; &#123;</span><br><span class="line">   root &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html; # 静态文件路径</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、反向代理服务器</p>
+<p>什么是反向代理？</p>
+<p>​    客户端本来可以直接通过HTTP协议访问某网站应用服务器，如果网站管理员在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。</p>
+<p><img src="https://i.loli.net/2020/10/04/eYTWum6dGn1bz87.png" alt="image-20201004141058738"></p>
+<p>配置：</p>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;192.168.0.112:8080; # 应用服务器HTTP地址</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​      既然服务器可以直接HTTP访问，为什么要在中间加上一个反向代理，不是多此一举吗？反向代理有什么作用？继续往下看，下面的负载均衡、虚拟主机，都基于反向代理实现，当然反向代理的功能也不仅仅是这些。</p>
+<p>3、负载均衡</p>
+<p>​      当网站访问量非常大，也摊上事儿了。因为网站越来越慢，一台服务器已经不够用了。于是将相同的应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。同时带来的好处是，其中一台服务器万一挂了，只要还有其他服务器正常运行，就不会影响用户使用。</p>
+<p>Nginx可以通过反向代理来实现负载均衡。</p>
+<p><img src="https://i.loli.net/2020/10/04/SRwkmcnpLjbhIAP.png" alt="image-20201004141823324"></p>
+<p>4、虚拟主机<br>         网站访问量大，需要负载均衡。然而并不是所有网站都如此出色，有的网站，由于访问量太小，需要节省成本，将多个网站部署在同一台服务器上。</p>
+<p>例如将<a target="_blank" rel="noopener" href="http://www.aaa.com和www.bbb.com两个网站部署在同一台服务器上,两个域名解析到同一个ip地址,但是用户通过两个域名却可以打开两个完全不同的网站,互相不影响,就像访问两个服务器一样,所以叫两个虚拟主机./">www.aaa.com和www.bbb.com两个网站部署在同一台服务器上，两个域名解析到同一个IP地址，但是用户通过两个域名却可以打开两个完全不同的网站，互相不影响，就像访问两个服务器一样，所以叫两个虚拟主机。</a></p>
+<p>配置：</p>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    server_name _;</span><br><span class="line">    return 444; # 过滤其他域名的请求，返回444状态码</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.aaa.com; # www.aaa.com域名</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;localhost:8080; # 对应端口号8080</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.bbb.com; # www.bbb.com域名</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;localhost:8081; # 对应端口号8081</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在服务器8080和8081分别开了一个应用，客户端通过不同的域名访问，根据server_name可以反向代理到对应的应用服务器。</p>
+<p>虚拟主机的原理是通过HTTP请求头中的Host是否匹配server_name来实现的，有兴趣的同学可以研究一下HTTP协议。</p>
+<p>另外，server_name配置还可以过滤有人恶意将某些域名指向你的主机服务器。</p>
+<h2 id="nginx-原理"><a href="#nginx-原理" class="headerlink" title="nginx 原理"></a>nginx 原理</h2><p>  Nginx采用Master-Worker模式</p>
+<p>启动Nginx后，其实就是在80端口启动了Socket服务进行监听，如图所示，Nginx涉及Master进程和Worker进程。</p>
+<p><img src="https://i.loli.net/2020/10/04/OM9CiS8WYGJZygh.jpg" alt="preview"></p>
+<p><img src="https://i.loli.net/2020/10/04/o12WSuQTe3zGIgc.jpg" alt="preview"></p>
+<p>Master进程的作用</p>
+<p>​      读取并验证配置文件nginx.conf；管理worker进程；</p>
+<p>Worker进程的作用</p>
+<p>​       每一个Worker进程都维护一个线程（避免线程切换），处理连接和请求；注意Worker进程的个数由配置文件决定，一般和CPU个数相关（有利于进程切换），配置几个就有几个Worker进程。</p>
+<p>一个master 和多个 worker 的好处<br>    1 可以使用 nginx -s reload 热部署，利用 nginx 进行如部署操作<br>    2 每个worker 是独立的进程，如果一个出问题，其他的独立worker 还能继续工作，实现请求过程，不会造成服务中断。</p>
+<p>Nginx 相对于 Apache 优点：</p>
+<ol>
+<li><p>高并发响应性能非常好，官方 Nginx 处理静态文件并发 5w/s(静态小文件)</p>
+</li>
+<li><p>反向代理性能非常强。（可用于负载均衡）</p>
+</li>
+<li><p>内存和 cpu 占用率低。（为 Apache 的 1/5-1/10）</p>
+</li>
+<li><p>对后端服务有健康检查功能。</p>
+</li>
+<li><p>支持 PHP cgi 方式和 fastcgi 方式。</p>
+</li>
+<li><p>利用nginx可以对IP限速，可以限制连接数。</p>
+</li>
+<li><p>配置代码简洁且容易上手。 </p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/Nginx/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-RabbitMq" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210406173340768.png" alt="image-20210406173340768"></p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210406173808159.png" alt="image-20210406173808159"></p>
+<h3 id="第一种模型-直连"><a href="#第一种模型-直连" class="headerlink" title="第一种模型(直连)"></a>第一种模型(直连)</h3><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210406174000020.png" alt="image-20210406174000020"></p>
+<blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在上图的模型中，有以下概念：</span><br><span class="line"></span><br><span class="line">P：生产者，也就是要发送消息的程序</span><br><span class="line">C：消费者：消息的接受者，会一直等待消息到来。</span><br><span class="line">queue：消息队列，图中红色部分。类似一个邮箱，可以缓存消息；生产者向其中投递消息，消费者从其中取出消息。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="第二种模型-work-quene"><a href="#第二种模型-work-quene" class="headerlink" title="第二种模型(work quene)"></a>第二种模型(work quene)</h3><p>Work queues，也被称为（Task queues），任务模型。当消息处理比较耗时的时候，可能生产消息的速度会远远大于消息的消费速度。长此以往，消息就会堆积越来越多，无法及时处理。此时就可以使用work 模型：让多个消费者绑定到一个队列，共同消费队列中的消息。队列中的消息一旦消费，就会消失，因此任务是不会被重复执行的。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210406174503424.png" alt="image-20210406174503424"></p>
+<blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">角色：</span><br><span class="line"></span><br><span class="line">P：生产者：任务的发布者</span><br><span class="line">C1：消费者-1，领取任务并且完成任务，假设完成速度较慢</span><br><span class="line">C2：消费者-2：领取任务并完成任务，假设完成速度快</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><code>总结:默认情况下，RabbitMQ将按顺序将每个消息发送给下一个使用者。平均而言，每个消费者都会收到相同数量的消息。这种分发消息的方式称为循环。</code></p>
+<h3 id="第三种模型-fanout-广播"><a href="#第三种模型-fanout-广播" class="headerlink" title="第三种模型(fanout)] 广播"></a>第三种模型(fanout)] 广播</h3><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210406180023808.png" alt="image-20210406180023808"></p>
+<blockquote>
+<p>在广播模式下，消息发送流程是这样的：</p>
+<p>可以有多个消费者<br>每个消费者有自己的queue（队列）<br>每个队列都要绑定到Exchange（交换机）<br>生产者发送的消息，只能发送到交换机，交换机来决定要发给哪个队列，生产者无法决定。<br>交换机把消息发送给绑定过的所有队列<br>队列的消费者都能拿到消息。实现一条消息被多个消费者消费</p>
+</blockquote>
+<h3 id="第四种模型-Route-路由模型"><a href="#第四种模型-Route-路由模型" class="headerlink" title="第四种模型(Route 路由模型)"></a>第四种模型(Route 路由模型)</h3><blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Fanout模式中，一条消息，会被所有订阅的队列都消费。但是，在某些场景下，我们希望不同的消息被不同的队列消费。这时就要用到Direct类型的Exchange。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>在Direct模型下：<br>队列与交换机的绑定，不能是任意绑定了，而是要指定一个RoutingKey（路由key）<br>消息的发送方在 向 Exchange发送消息时，也必须指定消息的 RoutingKey。</p>
+<p>Exchange不再把消息交给每一个绑定的队列，而是根据消息的Routing Key进行判断，只有队列的Routingkey与消息的 Routing key完全一致，才会接收到消息</p>
+</blockquote>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210407154205861.png" alt="image-20210407154205861"></p>
+<blockquote>
+<p>P：生产者，向Exchange发送消息，发送消息时，会指定一个routing key。<br>X：Exchange（交换机），接收生产者的消息，然后把消息递交给 与routing key完全匹配的队列<br>C1：消费者，其所在队列指定了需要routing key 为 error 的消息<br>C2：消费者，其所在队列指定了需要routing key 为 info、error、warning 的消息</p>
+</blockquote>
+<h3 id="第五种-Topic-订阅模型-动态路由模型"><a href="#第五种-Topic-订阅模型-动态路由模型" class="headerlink" title="第五种 Topic 订阅模型(动态路由模型)"></a>第五种 Topic 订阅模型(动态路由模型)</h3><blockquote>
+<p>Topic类型的Exchange与Direct相比，都是可以根据RoutingKey把消息路由到不同的队列。只不过Topic类型Exchange可以让队列在绑定Routing key的时候使用通配符！这种模型Routingkey 一般都是由一个或多个单词组成，多个单词之间以”.”分割，例如： item.insert</p>
+</blockquote>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210407154443927.png" alt="image-20210407154443927"></p>
+<blockquote>
+<p>统配符</p>
+<pre><code>    * (star) can substitute for exactly one word.    匹配不多不少恰好1个词
+    # (hash) can substitute for zero or more words.  匹配一个或多个词</code></pre>
+<p>如:</p>
+<pre><code>    audit.#    匹配audit.irs.corporate或者 audit.irs 等
+audit.*   只能匹配 audit.irs</code></pre>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/RabbitMq/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Redis集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis集群搭建"><a href="#Redis集群搭建" class="headerlink" title="Redis集群搭建"></a>Redis集群搭建</h1><p>进入 Redis 待安装目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local</span><br></pre></td></tr></table></figure>
+
+<p>下载、解压 Redis 源代码压缩包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-5.0.3.tar.gz</span><br><span class="line">tar -zxvf redis-5.0.3.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>然后进入解压后的目录并使用 <a target="_blank" rel="noopener" href="http://www.gnu.org/software/make/">make</a> 命令执行编译安装 Redis。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd redis-5.0.3</span><br><span class="line">make &amp;&amp; make install   </span><br><span class="line">若想指定目录</span><br><span class="line">make PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;redis install</span><br></pre></td></tr></table></figure>
+
+<p>不要高兴，因为你极有可能会遇到因为 <a target="_blank" rel="noopener" href="http://gcc.gnu.org/">GCC</a> 编译器未安装导致编译失败的情况。不要着急，请顺序执行如下命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br><span class="line">make distclean </span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Redis 基于 C 语言开发，故编译源码需要 GCC（Linux下的一个编译器，这里需要用来编译<code>.c</code>文件）的支持。如机器上未安装需要先执行命令<code>yum -y install gcc</code>安装 GCC 编译工具，然后<code>make distclean</code>清除之前生成的文件，最后<code>make &amp;&amp; make install</code>重新编译安装。</p>
+</blockquote>
+<p>最终出现类似下文输出则表示 Redis 安装成功。</p>
+<p><img src="https://i.loli.net/2021/03/10/S2dnkJtmljGRDv1.png" alt="image-20210310110034766"></p>
+<p>如果源码编译无误且执行结果正确，<code>make install</code>命令会将程序安装至系统预设的可执行文件存放路径，一般是<code>/usr/local/bin</code>目录，可以通过如下终端输出确认。当然，也可以使用<code>make install PREFIX=&lt;path&gt;</code>命令安装到指定路径。</p>
+<p><img src="https://i.loli.net/2021/03/10/4VZton953f6dl1v.png" alt="image-20210310111146188"></p>
+<p>单机版安装完成</p>
+<p>集群搭建</p>
+<h4 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点#"></a>启动节点<a target="_blank" rel="noopener" href="https://www.cnblogs.com/esofar/p/10486621.html#%E5%90%AF%E5%8A%A8%E8%8A%82%E7%82%B9">#</a></h4><p>搭建集群的第一步就是要先把参与搭建集群的每个节点启动起来。</p>
+<p>由于我们这是在一台机器上模拟多个节点，可以预先规划下各个节点的属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">节点编号</th>
+<th align="center">IP 地址</th>
+<th align="center">TCP 端口</th>
+<th align="center">节点类型</th>
+<th align="center">从节点</th>
+<th align="center">启动配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">A</td>
+<td align="center">127.0.0.1</td>
+<td align="center">7001</td>
+<td align="center">主</td>
+<td align="center">D</td>
+<td align="center">/usr/local/redis-cluster/7001/redis.conf</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td align="center">127.0.0.1</td>
+<td align="center">7002</td>
+<td align="center">主</td>
+<td align="center">E</td>
+<td align="center">/usr/local/redis-cluster/7002/redis.conf</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">127.0.0.1</td>
+<td align="center">7003</td>
+<td align="center">主</td>
+<td align="center">F</td>
+<td align="center">/usr/local/redis-cluster/7003/redis.conf</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td align="center">127.0.0.1</td>
+<td align="center">8001</td>
+<td align="center">从</td>
+<td align="center">/</td>
+<td align="center">/usr/local/redis-cluster/8001/redis.conf</td>
+</tr>
+<tr>
+<td align="center">E</td>
+<td align="center">127.0.0.1</td>
+<td align="center">8002</td>
+<td align="center">从</td>
+<td align="center">/</td>
+<td align="center">/usr/local/redis-cluster/8002/redis.conf</td>
+</tr>
+<tr>
+<td align="center">F</td>
+<td align="center">127.0.0.1</td>
+<td align="center">8003</td>
+<td align="center">从</td>
+<td align="center">/</td>
+<td align="center">/usr/local/redis-cluster/8003/redis.conf</td>
+</tr>
+</tbody></table>
+<p>根据上述规划，可以先通过如下命令创建各个节点启动配置文件的存放目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;usr&#x2F;local&#x2F;redis-cluster</span><br><span class="line">cd redis-cluster</span><br><span class="line">mkdir -p 7001 7002 7003 8001 8002 8003</span><br></pre></td></tr></table></figure>
+
+<p>顺序执行如下行命令，进入 Redis 源码包目录并将默认配置文件<code>redis.conf</code>分别复制到六个节点配置存放目录中，作为各自节点启动配置文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;redis-5.0.3</span><br><span class="line">cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;7001 </span><br><span class="line">cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;7002</span><br><span class="line">cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;7003 </span><br><span class="line">cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8001</span><br><span class="line">cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8002 </span><br><span class="line">cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8003</span><br></pre></td></tr></table></figure>
+
+<p>接下来需要分别修改每个节点的配置文件。下面贴的是节点 A 的配置文件<code>/usr/local/redis-cluster/7001/redis.conf</code>中启用或修改的一些必要参数。其他节点 B、C、D、E、F 参照修改，注意把涉及端口的地方修改成各自节点预先规划的即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bind 192.168.83.128                    # 设置当前节点主机地址       </span><br><span class="line">port 7001                              # 设置客户端连接监听端口     </span><br><span class="line">pidfile &#x2F;var&#x2F;run&#x2F;redis_7001.pid        # 设置 Redis 实例 pid 文件       </span><br><span class="line">daemonize yes                          # 以守护进程运行 Redis 实例     </span><br><span class="line">cluster-enabled yes                    # 启用集群模式</span><br><span class="line">cluster-node-timeout 15000             # 设置当前节点连接超时毫秒数</span><br><span class="line">cluster-config-file nodes-7001.conf    # 设置当前节点集群配置文件路径</span><br></pre></td></tr></table></figure>
+
+<p>完成上述工作就可以通过如下几组命令启动待搭建集群中的 6 个节点了。(在 /usr/local/redis/bin 目录下执行以下脚本)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8003&#x2F;redis.conf</span><br><span class="line">.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8003&#x2F;redis.conf</span><br><span class="line">.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8003&#x2F;redis.conf</span><br><span class="line">.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8003&#x2F;redis.conf</span><br><span class="line">.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8003&#x2F;redis.conf</span><br><span class="line">.&#x2F;redis-server &#x2F;usr&#x2F;local&#x2F;redis-cluster&#x2F;8003&#x2F;redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>最后通过<code>ps -ef|grep redis</code>命令确认各个节点服务是否已经正常运行。</p>
+<p> 6 个节点都成功启动。 </p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210310174640209.png" alt="image-20210310174640209"></p>
+<p>注意 :cluster节点配置端口不能和redis安装目录在一个目录,否则cluster启动后会如下图</p>
+<p><img src="https://i.loli.net/2021/03/10/UYyqT93hCkGn5Jg.png" alt="image-20210310134808806"></p>
+<p>集群管理工具搭建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli --cluster create 192.168.40.130:7001 192.168.40.130:7002 192.168.40.130:7003 192.168.40.130:8001 192.168.40.130:8002 192.168.40.130:8003 --cluster-replicas 1</span><br></pre></td></tr></table></figure>
+
+<p>主节点在前，从节点在后。其中<code>--cluster-replicas</code>参数用来指定一个主节点带有的从节点个数，如上<code>--cluster-replicas 1</code>即表示 1 个主节点有 1 个从节点。</p>
+<p>命令执行成功会有类似如下输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]# .&#x2F;redis-cli --cluster create 192.168.40.130:7001 192.168.40.130:7002 192.168.40.130:7003 192.168.40.130:8001 192.168.40.130:8002 192.168.40.130:8003 --cluster-replicas 1</span><br><span class="line">&gt;&gt;&gt; Performing hash slots allocation on 6 nodes...</span><br><span class="line">Master[0] -&gt; Slots 0 - 5460</span><br><span class="line">Master[1] -&gt; Slots 5461 - 10922</span><br><span class="line">Master[2] -&gt; Slots 10923 - 16383</span><br><span class="line">Adding replica 192.168.40.130:8001 to 192.168.40.130:7001</span><br><span class="line">Adding replica 192.168.40.130:8002 to 192.168.40.130:7002</span><br><span class="line">Adding replica 192.168.40.130:8003 to 192.168.40.130:7003</span><br><span class="line">&gt;&gt;&gt; Trying to optimize slaves allocation for anti-affinity</span><br><span class="line">[WARNING] Some slaves are in the same host as their master</span><br><span class="line">M: 853f3a570a0f81b4c659c97d9ec11bfd282aa47e 192.168.40.130:7001</span><br><span class="line">   slots:[0-5460] (5461 slots) master</span><br><span class="line">M: a3c3f78772c2fa3ade2ca540756158ad5ca06abc 192.168.40.130:7002</span><br><span class="line">   slots:[5461-10922] (5462 slots) master</span><br><span class="line">M: c6aedb288d15bc2279c0237295badd5a5c96c6d8 192.168.40.130:7003</span><br><span class="line">   slots:[10923-16383] (5461 slots) master</span><br><span class="line">S: 5181e61352acf08c9b08a8c507348a44c1f75e5d 192.168.40.130:8001</span><br><span class="line">   replicates c6aedb288d15bc2279c0237295badd5a5c96c6d8</span><br><span class="line">S: a70a498f36b4dfb37607b3af90c1d4ed8bd04f56 192.168.40.130:8002</span><br><span class="line">   replicates 853f3a570a0f81b4c659c97d9ec11bfd282aa47e</span><br><span class="line">S: 38ae3e3ce3cd2133466dabe40e2818885ed9f8d4 192.168.40.130:8003</span><br><span class="line">   replicates a3c3f78772c2fa3ade2ca540756158ad5ca06abc</span><br><span class="line">Can I set the above configuration? (type &#39;yes&#39; to accept): yes</span><br><span class="line">&gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">Waiting for the cluster to join</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 192.168.40.130:7001)</span><br><span class="line">M: 853f3a570a0f81b4c659c97d9ec11bfd282aa47e 192.168.40.130:7001</span><br><span class="line">   slots:[0-5460] (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 38ae3e3ce3cd2133466dabe40e2818885ed9f8d4 192.168.40.130:8003</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates a3c3f78772c2fa3ade2ca540756158ad5ca06abc</span><br><span class="line">M: c6aedb288d15bc2279c0237295badd5a5c96c6d8 192.168.40.130:7003</span><br><span class="line">   slots:[10923-16383] (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: a70a498f36b4dfb37607b3af90c1d4ed8bd04f56 192.168.40.130:8002</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 853f3a570a0f81b4c659c97d9ec11bfd282aa47e</span><br><span class="line">S: 5181e61352acf08c9b08a8c507348a44c1f75e5d 192.168.40.130:8001</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates c6aedb288d15bc2279c0237295badd5a5c96c6d8</span><br><span class="line">M: a3c3f78772c2fa3ade2ca540756158ad5ca06abc 192.168.40.130:7002</span><br><span class="line">   slots:[5461-10922] (5462 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check for open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619150132397.png" alt="image-20200619150132397"></p>
+<h2 id="1-数组"><a href="#1-数组" class="headerlink" title="1.数组"></a>1.数组</h2><p>​    数组可以说是最基本最常见的数据结构。数组一般用来存储相同类型的数据，可通过数组名和下标进行数据的访问和更新。数组中元素的存储是按照先后顺序进行的，同时在内存中也是按照这个顺序进行连续存放。数组相邻元素之间的内存地址的间隔一般就是数组数据类型的大小。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619095853302.png" alt="image-20200619095853302"></p>
+<h2 id="2-链表"><a href="#2-链表" class="headerlink" title="2.链表"></a>2.链表</h2><p>链表相较于数组，除了数据域，还增加了指针域用于构建链式的存储数据。链表中每一个节点都包含此节点的数据和指向下一节点地址的指针。由于是通过指针进行下一个数据元素的查找和访问，使得链表的自由度更高。</p>
+<p>这表现在对节点进行增加和删除时，只需要对上一节点的指针地址进行修改，而无需变动其它的节点。不过事物皆有两极，指针带来高自由度的同时，自然会牺牲数据查找的效率和多余空间的使用。</p>
+<p>一般常见的是有头有尾的单链表，对指针域进行反向链接，还可以形成双向链表或者循环链表。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619100057728.png" alt="image-20200619100057728"></p>
+<h4 id="链表和数组对比"><a href="#链表和数组对比" class="headerlink" title="链表和数组对比"></a>链表和数组对比</h4><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619100227440.png" alt="image-20200619100227440"></p>
+<h2 id="3-跳表"><a href="#3-跳表" class="headerlink" title="3.跳表"></a>3.跳表</h2><p>​      跳表全称为跳跃列表，它允许快速查询，插入和删除一个有序连续元素的数据链表。跳跃列表的平均查找和插入时间复杂度都是O(logn)。</p>
+<p>​    一开始时，算法在最稀疏的层次进行搜索，直至需要查找的元素在该层两个相邻的元素中间。这时，算法将跳转到下一个层次，重复刚才的搜索，直到找到需要查找的元素为止。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/7509658-1db5fac5ed4e8c6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1066/format/webp" alt="img"></p>
+<h2 id="4-栈"><a href="#4-栈" class="headerlink" title="4.栈"></a>4.栈</h2><p>栈本身是一种线性结构，它的特点是先进后出。</p>
+<p>栈的常用操作包括入栈push和出栈pop，对应于数据的压入和压出。还有访问栈顶数据、判断栈是否为空和判断栈的大小等。由于栈后进先出的特性，常可以作为数据操作的临时容器，对数据的顺序进行调控，与其它数据结构相结合可获得许多灵活的处理。</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619142821.gif" alt="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619142821.gif"></p>
+<h2 id="5-队列"><a href="#5-队列" class="headerlink" title="5.队列"></a>5.队列</h2><p>队列是一种先进先出的数据结构。</p>
+<p>队列的数据存储是如同排队一般，先存入的数据先被压出。</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619143420.gif" alt="img"></p>
+<h2 id="6-树"><a href="#6-树" class="headerlink" title="6.树"></a>6.树</h2><p>树作为一种树状的数据结构，其数据节点之间的关系也如大树一样，将有限个节点根据不同层次关系进行排列，从而形成数据与数据之间的父子关系。常见的数的表示形式更接近“倒挂的树”，因为它将根朝上，叶朝下。</p>
+<p>树的数据存储在结点中，每个结点有零个或者多个子结点。没有父结点的结点在最顶端，成为根节点；没有非根结点有且只有一个父节点；每个非根节点又可以分为多个不相交的子树。</p>
+<p>这意味着树是具备层次关系的，父子关系清晰，家庭血缘关系明朗；这也是树与图之间最主要的区别。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145020868.png" alt="image-20200619145020868"></p>
+<p>树的实现就是对链表的指针域进行了扩充，增加了多个地址指向子结点。同时将“链表”竖起来，从而凸显了结点之间的层次关系，更便于分析和理解。</p>
+<p>树可以衍生出许多的结构，若将指针域设置为双指针，那么即可形成最常见的二叉树，即每个结点最多有两个子树的树结构。二叉树根据结点的排列和数量还可进一度划分为完全二叉树、满二叉树、平衡二叉树、红黑树等。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145106808.png" alt="image-20200619145106808"></p>
+<blockquote>
+<p><strong>完全二叉树</strong>：除了最后一层结点，其它层的结点数都达到了最大值；同时最后一层的结点都是按照从左到右依次排布。</p>
+</blockquote>
+<blockquote>
+<p><strong>满二叉树</strong>：除了最后一层，其它层的结点都有两个子结点。</p>
+</blockquote>
+<h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><p>平衡二叉树又被称为AVL树，它是一棵二叉排序树，且具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。</p>
+<blockquote>
+<p><strong>二叉排序树</strong>：是一棵空树，或者：若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；它的左、右子树也分别为二叉排序树。</p>
+</blockquote>
+<blockquote>
+<p><strong>树的高度</strong>：结点层次的最大值</p>
+</blockquote>
+<blockquote>
+<p><strong>平衡因子</strong>：左子树高度 - 右子树高度</p>
+</blockquote>
+<p>二叉排序树意味着二叉树中的数据是排好序的，顺序为左结点&lt;根节点&lt;右结点，这表明二叉排序树的中序遍历结果是有序的。（还不懂二叉树四种遍历方式[前序遍历、中序遍历、后序遍历、层序遍历]的同学赶紧补习！）</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145217687.png" alt="image-20200619145217687"></p>
+<p>平衡二叉树的产生是为了解决二叉排序树在插入时发生线性排列的现象。由于二叉排序树本身为有序，当插入一个有序程度十分高的序列时，生成的二叉排序树会持续在某个方向的字数上插入数据，导致最终的二叉排序树会退化为链表，从而使得二叉树的查询和插入效率恶化。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145258224.png" alt="image-20200619145258224"></p>
+<p>平衡二叉树的出现能够解决上述问题，但是在构造平衡二叉树时，却需要采用不同的调整方式，使得二叉树在插入数据后保持平衡。主要的四种调整方式有LL（左旋）、RR（右旋）、LR（先左旋再右旋）、RL（先右旋再左旋）。这里先给大家介绍下简单的单旋转操作，左旋和右旋。LR和RL本质上只是LL和RR的组合。</p>
+<blockquote>
+<p>在插入一个结点后应该沿搜索路径将路径上的结点平衡因子进行修改，当平衡因子大于1时，就需要进行平衡化处理。从发生不平衡的结点起，沿刚才回溯的路径取直接下两层的结点，如果这三个结点在一条直线上，则采用<strong>单旋转</strong>进行平衡化，如果这三个结点位于一条折线上，则采用<strong>双旋转</strong>进行平衡化。</p>
+</blockquote>
+<p>左旋：S为当前需要左旋的结点，E为当前结点的父节点。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145418234.png" alt="image-20200619145418234"></p>
+<p>左旋的操作可以用一句话简单表示：将当前结点S的左孩子旋转为当前结点父结点E的右孩子，同时将父结点E旋转为当前结点S的左孩子。可用动画表示：</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619145442.gif" alt="img"></p>
+<p>右旋：S为当前需要左旋的结点，E为当前结点的父节点。右单旋是左单旋的镜像旋转。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145600218.png" alt="image-20200619145600218"></p>
+<p>左旋的操作同样可以用一句话简单表示：将当前结点S的左孩子E的右孩子旋转为当前结点S的左孩子，同时将当前结点S旋转为左孩子E的右孩子。可用动画表示：</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619145654.gif" alt="img"></p>
+<h4 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h4><p>平衡二叉树（AVL）为了追求高度平衡，需要通过平衡处理使得左右子树的高度差必须小于等于1。高度平衡带来的好处是能够提供更高的搜索效率，其最坏的查找时间复杂度都是O(logN)。但是由于需要维持这份高度平衡，所付出的代价就是当对树种结点进行插入和删除时，需要经过多次旋转实现复衡。这导致AVL的插入和删除效率并不高。</p>
+<p>为了解决这样的问题，能不能找一种结构能够兼顾搜索和插入删除的效率呢？这时候红黑树便申请出战了。</p>
+<p>红黑树具有五个特性：</p>
+<blockquote>
+<ol>
+<li>每个结点要么是红的要么是黑的。</li>
+<li>根结点是黑的。</li>
+<li>每个叶结点（叶结点即指树尾端NIL指针或NULL结点）都是黑的。</li>
+<li>如果一个结点是红的，那么它的两个儿子都是黑的。</li>
+<li>对于任意结点而言，其到叶结点树尾端NIL指针的每条路径都包含相同数目的黑结点。</li>
+</ol>
+</blockquote>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145834193.png" alt="image-20200619145834193"></p>
+<p>红黑树通过将结点进行红黑着色，使得原本高度平衡的树结构被稍微打乱，平衡程度降低。红黑树不追求完全平衡，只要求达到部分平衡。这是一种折中的方案，大大提高了结点删除和插入的效率。C++中的STL就常用到红黑树作为底层的数据结构。</p>
+<h4 id="红黑树VS平衡二叉树"><a href="#红黑树VS平衡二叉树" class="headerlink" title="红黑树VS平衡二叉树"></a>红黑树VS平衡二叉树</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/TdGLaSU675gwBawZm4AtKbyUUqEHRqCK5hPCbpd8CzpmiaUWFT6F8ZLfClgnpEpz3TgnHhgc1nKh3TIaK5fK71Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>除了上面所提及的树结构，还有许多广泛应用在数据库、磁盘存储等场景下的树结构。比如B树、B+树等。这里就先不介绍了诶，下次在讲述相关存储原理的时候将会着重介绍。（其实是因为懒）</p>
+<h2 id="7-堆"><a href="#7-堆" class="headerlink" title="7.堆"></a>7.堆</h2><p>堆通常是一个可以被看做一棵树的数组对象。堆的具体实现一般不通过指针域，而是通过构建一个一维数组与二叉树的父子结点进行对应，因此堆总是一颗完全二叉树。</p>
+<p>对于任意一个父节点的序号n来说（这里n从0算），它的子节点的序号一定是2n+1，2n+2，因此可以直接用数组来表示一个堆。</p>
+<p>不仅如此，堆还有一个性质：堆中某个节点的值总是不大于或不小于其父节点的值。将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKPFK7qibDibUPQE1hmoXf3J2uhibD0IVqvOolw3XgtiaorEsyJDYpBby3jg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>堆常用来实现优先队列，在面试中经常考的问题都是与排序有关，比如堆排序、topK问题等。由于堆的根节点是序列中最大或者最小值，因而可以在建堆以及重建堆的过程中，筛选出数据序列中的极值，从而达到排序或者挑选topK值的目的。</p>
+<h2 id="8-散列表"><a href="#8-散列表" class="headerlink" title="8.散列表"></a>8.散列表</h2><p>散列表也叫哈希表，是一种通过键值对直接访问数据的机构。在初中，我们就学过一种能够将一个x值通过一个函数获得对应的一个y值的操作，叫做映射。散列表的实现原理正是映射的原理，通过设定的一个关键字和一个映射函数，就可以直接获得访问数据的地址，实现O(1)的数据访问效率。在映射的过程中，事先设定的函数就是一个映射表，也可以称作散列函数或者哈希函数。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKs2VE1D9tRL8XrqJCwiaLGY66PiagrRy2M6oLnB22pBtU5qZ6XricqnXeA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>散列表的实现最关键的就是散列函数的定义和选择。一般常用的有以下几种散列函数：</p>
+<blockquote>
+<p><strong>直接寻址法</strong>：取关键字或关键字的某个线性函数值为散列地址。</p>
+<p><strong>数字分析法</strong>：通过对数据的分析，发现数据中冲突较少的部分，并构造散列地址。例如同学们的学号，通常同一届学生的学号，其中前面的部分差别不太大，所以用后面的部分来构造散列地址。</p>
+<p><strong>平方取中**</strong>法**：当无法确定关键字里哪几位的分布相对比较均匀时，可以先求出关键字的平方值，然后按需要取平方值的中间几位作为散列地址。这是因为：计算平方之后的中间几位和关键字中的每一位都相关，所以不同的关键字会以较高的概率产生不同的散列地址。</p>
+<p><strong>取随机数法</strong>：使用一个随机函数，取关键字的随机值作为散列地址，这种方式通常用于关键字长度不同的场合。</p>
+<p><strong>除留取余法</strong>：取关键字被某个不大于散列表的表长 n 的数 m 除后所得的余数 p 为散列地址。这种方式也可以在用过其他方法后再使用。该函数对 m 的选择很重要，一般取素数或者直接用 n。</p>
+</blockquote>
+<p>确定好散列函数之后，通过某个<code>key</code>值的确会得到一个唯一的<code>value</code>地址。但是却会出现一些特殊情况。即通过不同的<code>key</code>值可能会访问到同一个地址，这个现象称之为冲突。</p>
+<p>冲突在发生之后，当在对不同的<code>key</code>值进行操作时会使得造成相同地址的数据发生覆盖或者丢失，是非常危险的。所以在设计散列表往往还需要采用冲突解决的办法。</p>
+<p>常用的冲突处理方式有很多，常用的包括以下几种：</p>
+<blockquote>
+<p><strong>开放地址法</strong>（也叫开放寻址法）：实际上就是当需要存储值时，对Key哈希之后，发现这个地址已经有值了，这时该怎么办？不能放在这个地址，不然之前的映射会被覆盖。这时对计算出来的地址进行一个探测再哈希，比如往后移动一个地址，如果没人占用，就用这个地址。如果超过最大长度，则可以对总长度取余。这里移动的地址是产生冲突时的增列序量。</p>
+<p><strong>再哈希法</strong>：在产生冲突之后，使用关键字的其他部分继续计算地址，如果还是有冲突，则继续使用其他部分再计算地址。这种方式的缺点是时间增加了。</p>
+<p><strong>链地址法</strong>：链地址法其实就是对Key通过哈希之后落在同一个地址上的值，做一个链表。其实在很多高级语言的实现当中，也是使用这种方式处理冲突的。</p>
+<p><strong>公共溢出区</strong>：这种方式是建立一个公共溢出区，当地址存在冲突时，把新的地址放在公共溢出区里。</p>
+</blockquote>
+<p>目前比较常用的冲突解决方法是链地址法，一般可以通过数组和链表的结合达到冲突数据缓存的目的。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKtm3chgpF29leIl4TcNQhLR9JariaUuhicgDgBI6rB3WcIdhJ2Xf2ib90g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>左侧数组的每个成员包括一个指针，指向一个链表的头。每发生一个冲突的数据，就将该数据作为链表的节点链接到链表尾部。这样一来，就可以保证冲突的数据能够区分并顺利访问。</p>
+<p>考虑到链表过长造成的问题，还可以使用红黑树替换链表进行冲突数据的处理操作，来提高散列表的查询稳定性。</p>
+<h2 id="9-图"><a href="#9-图" class="headerlink" title="9.图"></a>9.图</h2><p>图相较于上文的几个结构可能接触的不多，但是在实际的应用场景中却经常出现。比方说交通中的线路图，常见的思维导图都可以看作是图的具体表现形式。</p>
+<p>图结构一般包括顶点和边，顶点通常用圆圈来表示，边就是这些圆圈之间的连线。边还可以根据顶点之间的关系设置不同的权重，默认权重相同皆为1。此外根据边的方向性，还可将图分为有向图和无向图。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKo1hPoa84A4tFXEP5dU99GHibHN5XwLsFp1wPMf3QZoZqXR5IF8PRibVw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>图结构用抽象的图线来表示十分简单，顶点和边之间的关系非常清晰明了。但是在具体的代码实现中，为了将各个顶点和边的关系存储下来，却不是一件易事。</p>
+<h4 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h4><p>目前常用的图存储方式为邻接矩阵，通过所有顶点的二维矩阵来存储两个顶点之间是否相连，或者存储两顶点间的边权重。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKgbQHiaeI0ibicpTrzIXwvKOzwwUfxoJJ1ytFHWaQI6tGsEL3JiavurKUjw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>无向图的邻接矩阵是一个对称矩阵，是因为边不具有方向性，若能从此顶点能够到达彼顶点，那么彼顶点自然也能够达到此顶点。此外，由于顶点本身与本身相连没有意义，所以在邻接矩阵中对角线上皆为0。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKPEKEAhpnQfzsYXOhCtPbXiaF4x1kXoicexOVic8BXSC8Ex9CZBHnClaxw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>有向图由于边具有方向性，因此彼此顶点之间并不能相互达到，所以其邻接矩阵的对称性不再。</p>
+<p>用邻接矩阵可以直接从二维关系中获得任意两个顶点的关系，可直接判断是否相连。但是在对矩阵进行存储时，却需要完整的一个二维数组。若图中顶点数过多，会导致二维数组的大小剧增，从而占用大量的内存空间。</p>
+<p>而根据实际情况可以分析得出，图中的顶点并不是任意两个顶点间都会相连，不是都需要对其边上权重进行存储。那么存储的邻接矩阵实际上会存在大量的0。虽然可以通过稀疏表示等方式对稀疏性高的矩阵进行关键信息的存储，但是却增加了图存储的复杂性。</p>
+<p>因此，为了解决上述问题，一种可以只存储相连顶点关系的邻接表应运而生。</p>
+<h4 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h4><p>在邻接表中，图的每一个顶点都是一个链表的头节点，其后连接着该顶点能够直接达到的相邻顶点。相较于无向图，有向图的情况更为复杂，因此这里采用有向图进行实例分析。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKGjr7y7PpruuiaBuo6R6Q2JRYwKPVSLQ3R8wx8fj9YDZnJJb52TMZO7A/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img">在邻接表中，每一个顶点都对应着一条链表，链表中存储的是顶点能够达到的相邻顶点。存储的顺序可以按照顶点的编号顺序进行。比如上图中对于顶点B来说，其通过有向边可以到达顶点A和顶点E，那么其对应的邻接表中的顺序即B-&gt;A-&gt;E，其它顶点亦如此。</p>
+<p>通过邻接表可以获得从某个顶点出发能够到达的顶点，从而省去了对不相连顶点的存储空间。然而，这还不够。对于有向图而言，图中有效信息除了从顶点“指出去”的信息，还包括从别的顶点“指进来”的信息。这里的“指出去”和“指进来”可以用出度和入度来表示。</p>
+<blockquote>
+<p>入度：有向图的某个顶点作为终点的次数和。</p>
+<p>出度：有向图的某个顶点作为起点的次数和。</p>
+</blockquote>
+<p>由此看出，在对有向图进行表示时，邻接表只能求出图的出度，而无法求出入度。这个问题很好解决，那就是增加一个表用来存储能够到达某个顶点的相邻顶点。这个表称作逆邻接表。</p>
+<h4 id="逆邻接表"><a href="#逆邻接表" class="headerlink" title="逆邻接表"></a>逆邻接表</h4><p>逆邻接表与邻接表结构类似，只不过图的顶点链接着能够到达该顶点的相邻顶点。也就是说，邻接表时顺着图中的箭头寻找相邻顶点，而逆邻接表时逆着图中的箭头寻找相邻顶点。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKqLv4dnM8ibblfCzdabl2RV52ZCiaZlHGobcxp6ydoOzXxalor9mDN8dA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>邻接表和逆邻接表的共同使用下，就能够把一个完整的有向图结构进行表示。可以发现，邻接表和逆邻接表实际上有一部分数据是重合的，因此可以将两个表合二为一，从而得到了所谓的十字链表。</p>
+<h4 id="十字链表"><a href="#十字链表" class="headerlink" title="十字链表"></a>十字链表</h4><p>十字链表似乎很简单，只需要通过相同的顶点分别链向以该顶点为终点和起点的相邻顶点即可。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKORBfPSQiblo2CLzrahdcNeqMvzm93kKiaybG4iaCD2TKH4vs8IkxRmppw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>但这并不是最优的表示方式。虽然这样的方式共用了中间的顶点存储空间，但是邻接表和逆邻接表的链表节点中重复出现的顶点并没有得到重复利用，反而是进行了再次存储。因此，上图的表示方式还可以进行进一步优化。</p>
+<p>十字链表优化后，可通过扩展的顶点结构和边结构来进行正逆邻接表的存储：（下面的弧头可看作是边的箭头那端，弧尾可看作是边的圆点那端）</p>
+<blockquote>
+<p><strong>data</strong>：用于存储该顶点中的数据；</p>
+<p><strong>firstin指针</strong>：用于连接以当前顶点为弧头的其他顶点构成的链表，即从别的顶点指进来的顶点；</p>
+<p><strong>firstout指针</strong>：用于连接以当前顶点为弧尾的其他顶点构成的链表，即从该顶点指出去的顶点；</p>
+</blockquote>
+<p>边结构通过存储两个顶点来确定一条边，同时通过分别代表这两个顶点的指针来与相邻顶点进行链接：</p>
+<blockquote>
+<p><strong>tailvex</strong>：用于存储作为弧尾的顶点的编号；</p>
+<p><strong>headvex</strong>：用于存储作为弧头的顶点的编号；</p>
+<p><strong>headlink</strong> <strong>指针</strong>：用于链接下一个存储作为弧头的顶点的节点；</p>
+<p><strong>taillink</strong> <strong>指针</strong>：用于链接下一个存储作为弧尾的顶点的节点；</p>
+</blockquote>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKsPXqiaIeicYpPEBPrs3jVRs795hLAUQ44748sjFLWhnsZ7fGL2OkicJ6g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>以上图为例子，对于顶点A而言，其作为起点能够到达顶点E。因此在邻接表中顶点A要通过边<code>AE</code>（即边04）指向顶点E，顶点A的<code>firstout</code>指针需要指向边04的<code>tailvex</code>。同时，从B出发能够到达A，所以在逆邻接表中顶点A要通过边<code>AB</code>（即边10）指向B，顶点A的<code>firstin</code>指针需要指向边10的弧头，即<code>headlink</code>指针。依次类推。</p>
+<p>十字链表采用了一种看起来比较繁乱的方式对边的方向性进行了表示，能够在尽可能降低存储空间的情况下增加指针保留顶点之间的方向性。具体的操作可能一时间不好弄懂，建议多看几次上图，弄清指针指向的意义，明白正向和逆向邻接表的表示。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-zookeeper集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -782,264 +1537,10 @@
 
 
   
-    <article id="post-hadoop集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>hadoop集群搭建</p>
-<p>1.VMware安装</p>
-<p>运行.exe安装文件</p>
-<p><img src="https://i.loli.net/2020/10/15/OJUMcF6tinK8oLp.png" alt="image-20201015192915398"></p>
-<p><img src="https://i.loli.net/2020/10/15/oVpUdQF7zMZ4Cfi.jpg" alt="VMware 10å®è£æç¨"></p>
-<p><img src="https://i.loli.net/2020/10/15/5eWlxPwSV62gJkb.jpg" alt="VMware 10å®è£æç¨"></p>
-<p><img src="https://i.loli.net/2020/10/15/YvHnhBSET7IMGty.jpg" alt="VMware 10å®è£æç¨"></p>
-<p><img src="https://i.loli.net/2020/10/15/123ARleSXb65zdJ.jpg" alt="VMware 10å®è£æç¨"></p>
-<p><img src="https://i.loli.net/2020/10/15/JXtiCapLVoxhy2K.jpg" alt="VMware 10å®è£æç¨"></p>
-<p><img src="https://i.loli.net/2020/10/15/J2lDGuaZ51bejMH.jpg" alt="img"></p>
-<p>安装完成后弹出注册界面，运行VMware10注册机，将生成的序列号复制入内即可完成破解</p>
-<p><img src="https://i.loli.net/2020/10/15/bPhXeomcyMrQqTL.jpg" alt="img"></p>
-<p><img src="https://i.loli.net/2020/10/15/1RgPALzCeudtxav.png" alt="image-20201015194437439"></p>
-<p><img src="https://i.loli.net/2020/10/15/qruv8PkZld7NjIE.png" alt="image-20201015194506242"></p>
-<p><img src="https://i.loli.net/2020/10/15/zCaLHblBZPtSiFd.png" alt="image-20201015194546120"></p>
-<p><img src="https://i.loli.net/2020/10/15/O1L8ZjwiPeaVfzm.png" alt="image-20201015194617383"></p>
-<p><img src="https://i.loli.net/2020/10/15/rVKXaiwRMJ6IL31.png" alt="image-20201015194647068"></p>
-<p><img src="https://i.loli.net/2020/10/15/ocbDZgIfCsXlT5u.png" alt="image-20201015194716642"></p>
-<p><img src="https://i.loli.net/2020/10/15/c8Q57SFpiqhtHkY.png" alt="image-20201015195036391"></p>
-<p><img src="https://i.loli.net/2020/10/15/KGs42zcaRB5Hriu.png" alt="image-20201015195107671"></p>
-<p><img src="https://i.loli.net/2020/10/15/EARTaZvJtP9CU2g.png" alt="image-20201015195133032"></p>
-<p><img src="https://i.loli.net/2020/10/15/pkFLZHgOIu8x1et.png" alt="image-20201015195155520"></p>
-<p><img src="https://i.loli.net/2020/10/15/UsFB78IN9muznAV.png" alt="image-20201015195219649"></p>
-<p><img src="https://i.loli.net/2020/10/15/GhIQkm2O15rnxBi.png" alt="image-20201015195250657"></p>
-<p><img src="https://i.loli.net/2021/02/03/xMoJS8XzUWIl4CF.png" alt="image-20201015195339434"></p>
-<p><img src="https://i.loli.net/2021/02/03/swFzDEVaOTQhgKx.png" alt="image-20201015195657572"></p>
-<p><img src="https://i.loli.net/2021/02/03/Uzf9xauAwXZBnlq.png" alt="image-20201015195903813"></p>
-<p><img src="https://i.loli.net/2021/02/03/75vMDS8kTLEQzxI.png" alt="image-20201015200017658"></p>
-<p>编辑虚拟网络设置，选择NAT模式</p>
-<p><img src="https://i.loli.net/2021/02/03/yB9caxdEnCmfIU3.png" alt="img"></p>
-<p>点击NAT设置，查看网络信息（后面设置ip会用到）<img src="https://i.loli.net/2021/02/03/gALGPKETURBuq8n.png" alt="image-20201015200206488"></p>
-<p>2.配置集群ip</p>
-<p>查看虚拟机IP地址(第一个是实际ip)</p>
-<p><img src="https://i.loli.net/2021/02/03/XejvqluhQioMBVJ.png" alt="image-20201015200350330"></p>
-<p><code>cd   /etc/sysconfig/network-scripts</code></p>
-<p>修改第一个ip为  eth0 </p>
-<p><code>mv 第一个IP名  ifcfg-eth0</code></p>
-<p>修改网络配置文件 eth0 </p>
-<p><code>vim ifcfg-eth0</code></p>
-<p>在配置文件后添加IP地址配置</p>
-<p><code>HWADDR=00:0c:29:f9:93:8e IPADDR=192.168.40.130: NETMASK=255.255.255.0 GATEWAY=192.168.40.2 DNS1=192.168.40.2</code></p>
-<p>修改 DEVICE的IP地址名称–保存退出</p>
-<p><img src="https://i.loli.net/2021/02/03/KuUrymnlfNIkMZY.png" alt="image-20201015202009434"></p>
-<p>重启网络服务network—-显示ok即重启成功</p>
-<p><code>service  network restart</code></p>
-<p>再次查看主机ip是否修改成功</p>
-<p>修改主机名     <code>vim  /etc/sysconfig/network</code></p>
-<p><img src="https://i.loli.net/2021/02/03/kJC8O1izATmVWZI.png" alt="image-20201015202438779"></p>
-<p>查看主机名是否生效</p>
-<p><img src="https://i.loli.net/2021/02/03/quSCV4FKH5pj21k.png" alt="image-20201015202602829"></p>
-<p>建立主机名和ip的映射</p>
-<p><code>vim  /etc/hosts</code></p>
-<p>在文件末尾添加</p>
-<p><code>192.168.40.130   master master.centos.com 192.168.40.131   slave1 slave1.centos.com 192.168.40.132   slave2 slave2.centos.com 192.168.40.133   slave3 slave3.centos.com</code></p>
-<p><img src="https://i.loli.net/2021/02/03/4cCO1sfJKaUYyuk.png" alt="image-20201015203018649"></p>
-<p>查看是否能ping通</p>
-<p><img src="https://i.loli.net/2021/02/03/jYICyuSE5iPDxrk.png" alt="image-20201015203131618"></p>
-<p>查看防火墙状态： systemctl status firewalld.service         </p>
-<p><img src="https://i.loli.net/2021/02/03/gcuqmjw8HsfeK9k.png" alt="image-20201015203508171"></p>
-<p>执行关闭命令： systemctl stop firewalld.service</p>
-<p>再次执行查看防火墙命令：systemctl status firewalld.service</p>
-<p><img src="https://i.loli.net/2021/02/03/7jIq1AvcmTQUKwP.png" alt="image-20201015203617180"></p>
-<p>执行开机禁用防火墙自启命令  ： systemctl disable firewalld.service</p>
-<p>3.安装JDK</p>
-<p>将准备好的jdk包放入虚拟机 /usr/java  目录下</p>
-<p>解压  tar  -zxvf /usr/java/ jdk1.8.0_121.tar.gz</p>
-<p>查看是否安装成功</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015204538452.png" alt="image-20201015204538452"></p>
-<p>4.安装hadoop</p>
-<p>将准备好的hadoop压缩包上传到虚拟机  /usr/local  目录下</p>
-<p>解压  tar  -zxvf /usr/java/ hadoop-2.7.3.tar.gz</p>
-<p>接下来配置/usr/hadoop-2.7.3/etc/hadoop/目录下的七个文件</p>
-<p>slaves  core-site.xml  hdfs-site.xml   mapred-site.xml   yarn-site.xml   hadoop-env.sh  yarn-env.sh</p>
-<ul>
-<li>修改 core-site.xml 文件</li>
-</ul>
-<p>添加内容</p>
-<p><code> &lt;!-- 指定HADOOP所使用的文件系统schema（URI），HDFS的老大（NameNode）的&gt;地址 --&gt;         &lt;property&gt;           &lt;name&gt;fs.defaultFS&lt;/name&gt;           &lt;value&gt;hdfs://master:8020&lt;/value&gt;         &lt;/property&gt;         &lt;!--datanode.data.dir 存储文件目录, namenode.name.dir 元数据,namenode.edits.dir 日志目录 三者都依赖于此目录--&gt;         &lt;property&gt;           &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;           &lt;value&gt;/var/log/hadoop/tmp&lt;/value&gt;         &lt;/property&gt;</code></p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205302979.png" alt="image-20201015205302979"></p>
-<ul>
-<li><p>修改hadoop-env.sh 文件</p>
-<p>修改jdk的实际位置</p>
-</li>
-</ul>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205501418.png" alt="image-20201015205501418"></p>
-<ul>
-<li>修改  yarn-env.sh 文件</li>
-</ul>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205704795.png" alt="image-20201015205704795"></p>
-<ul>
-<li>修改 mapred-site.xml  文件</li>
-</ul>
-<p><code>    &lt;property&gt;         &lt;name&gt;mapreduce.framework.name&lt;/name&gt;         &lt;value&gt;yarn&lt;/value&gt;     &lt;/property&gt;     &lt;!--日志页面的显示 ip:port--&gt;     &lt;property&gt;         &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;         &lt;value&gt;master:10020&lt;/value&gt;     &lt;/property&gt;     &lt;!--运行 yarn 任务跳转的页面--&gt;     &lt;property&gt;         &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;         &lt;value&gt;master:19888&lt;/value&gt;     &lt;/property&gt;</code></p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205829318.png" alt="image-20201015205829318"></p>
-<ul>
-<li>修改   yarn-site.xml  文件</li>
-</ul>
-<p><configuration> </configuration>之间添加</p>
-<p><code>&lt;property&gt;             &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;                &lt;value&gt;master&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;                 &lt;value&gt;mapreduce_shuffle&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8032&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8030&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8031&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8033&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8088&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.webapp.https.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8090&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;                 &lt;value&gt;/data/hadoop/yarn/local&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;                 &lt;value&gt;true&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;                 &lt;value&gt;/data/tmp/logs&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.log.server.url&lt;/name&gt;                 &lt;value&gt;http://master:19888/jobhistory/logs/&lt;/value&gt;                 &lt;description&gt;URL for job history server&lt;/description&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;                 &lt;value&gt;false&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;                 &lt;value&gt;mapreduce_shuffle&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.aux-services.mapreduce_shuffle.class&lt;/name&gt;                 &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;                 &lt;value&gt;2048&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;                 &lt;value&gt;512&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;                 &lt;value&gt;4096&lt;/value&gt;         &lt;/property&gt;          &lt;property&gt;                 &lt;name&gt;mapreduce.map.memory.mb&lt;/name&gt;                 &lt;value&gt;2048&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;mapreduce.reduce.memory.mb&lt;/name&gt;                 &lt;value&gt;2048&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;                 &lt;value&gt;1&lt;/value&gt;         &lt;/property&gt;</code></p>
-<ul>
-<li><p>修改slave文件  </p>
-<p>–添加</p>
-</li>
-</ul>
-<p><code>slave1 slave2 slave3</code></p>
-<ul>
-<li>修改  hdfs-site.xml  文件</li>
-</ul>
-<p><code>    &lt;!-- NameNode永久存储名称空间和事务日志的本地文件系统上的路径 --&gt;         &lt;property&gt;                 &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;                 &lt;value&gt;file:///data/hadoop/hdfs/name&lt;/value&gt;         &lt;/property&gt;         &lt;!-- DataNode本地文件系统上应存储其块的路径列表--&gt;         &lt;property&gt;                 &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;                 &lt;value&gt;file:///data/hadoop/hdfs/data&lt;/value&gt;         &lt;/property&gt;         &lt;!-- 指定HDFS副本的数量，默认为3 ,这里我们由于只建了两个子节点，所以选择2--&gt;         &lt;property&gt;                 &lt;name&gt;dfs.replication&lt;/name&gt;                 &lt;value&gt;3&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;             &lt;name&gt;dfs.http.address&lt;/name&gt;             &lt;value&gt;192.168.40.130:50070&lt;/value&gt;         &lt;/property&gt;          &lt;!--指定可以通过web访问hdfs目录--&gt;         &lt;property&gt;                 &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;                 &lt;value&gt;master:50090&lt;/value&gt;         &lt;/property&gt;          &lt;property&gt;                 &lt;name&gt;dfs.http.address&lt;/name&gt;                 &lt;value&gt;master:50070&lt;/value&gt;         &lt;/property&gt;</code></p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015210619354.png" alt="image-20201015210619354"></p>
-<p>复制master文件三次，重命名为slave1和slave2和slave3，打开虚拟机文件，然后按照同样的方法设置两个节点的ip和主机名</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015202715638.png" alt="image-20201015202715638"></p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015202814679.png" alt="image-20201015202814679"></p>
-<p>配置ssh免密码登录</p>
-<p>在root用户下输入ssh-keygen -t rsa 一路回车</p>
-<p><img src="https://img-blog.csdn.net/20180503114111538" alt="img"></p>
-<p>ssh  master    即可切换</p>
-<p>6.设置及时间同步</p>
-<p>​     安装NTP服务      yum install -y ntp</p>
-<p>​    编辑NTP配置文件   vim /etc/ntp.conf</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015211207233.png" alt="image-20201015211207233"></p>
-<p>修改/etc/sysconfig/ntpd 文件</p>
-<p><code>SYNC_HWCLOCK=yes</code></p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015211334228.png" alt="image-20201015211334228"></p>
-<p>关闭防火墙—如果已关闭则跳过</p>
-<p>启动 ntpd服务          service ntpd start</p>
-<p>设置ntpd服务开机启动   chkconfig ntpd on</p>
-<p>在slave1  slave2  slave3  执行相同操作</p>
-<p>配置完毕后在slave1  slave2  slave3  执行命令    ntpdate  master (主机名)</p>
-<p>7.配置环境变量</p>
-<p>   vim /etc/profile</p>
-<p><code>#java environment export JAVA_HOME=/usr/java/jdk1.8.0_121 export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar export HADOOP_HOME=/usr/local/hadoop-2.7.3 export PATH=$JAVA_HOME/bin:$PATH export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</code></p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015212223940.png" alt="image-20201015212223940"></p>
-<p>8.启动Hadoop</p>
-<p>初始化   命令       hadoop namenode -format</p>
-<p><img src="https://images2018.cnblogs.com/blog/886183/201803/886183-20180322093719604-1933425004.jpg" alt="img"></p>
-<p>进入sbin    执行命令  ./start-all.sh </p>
-<p>然后输入    jps     查看已成功启动的进程</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015212517089.png" alt="image-20201015212517089"></p>
-<p>8.监控集群</p>
-<p>配置电脑主机地址</p>
-<p>修改本地host文件(C:/Windows/System32/drivers/etc/host)</p>
-<p>在文档末尾加上如下代码</p>
-<p><code>192.168.40.130   master master.centos.com 192.168.40.131   slave1 slave1.centos.com 192.168.40.132   slave2 slave2.centos.com 192.168.40.133   slave3 slave3.centos.com</code></p>
-<p>在浏览器输入网址:  <a target="_blank" rel="noopener" href="http://master:50070/">http://master:50070</a></p>
-<p><img src="https://i.loli.net/2020/10/14/f4JRM96wdBgIVyS.png" alt="image-20201014210857877"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/15/hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2020-09-12T08:12:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="我的第一篇博客编写"><a href="#我的第一篇博客编写" class="headerlink" title="我的第一篇博客编写"></a>我的第一篇博客编写</h1>
-        
-          <a class="article-more-a" href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 

@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Nacos官方文档:https:&#x2F;&#x2F;nacos.io&#x2F;zh-cn&#x2F;docs&#x2F;architecture.html Nacos是一个服务发现、配置管理和服务管理的组件。 说到服务注册与发现，我想到Eureka、Zookeeper 说到服务治理，我想到Dubbo 说到配置管理，我想到Apollo 1.什么是NacosNacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。  Nacos 支">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/index.html">
+<meta property="og:url" content="http://example.com/2021/04/26/Nacos/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Nacos官方文档:https:&#x2F;&#x2F;nacos.io&#x2F;zh-cn&#x2F;docs&#x2F;architecture.html Nacos是一个服务发现、配置管理和服务管理的组件。 说到服务注册与发现，我想到Eureka、Zookeeper 说到服务治理，我想到Dubbo 说到配置管理，我想到Apollo 1.什么是NacosNacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。  Nacos 支">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/GkafSoXjIgeyrLz.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/wXBznRJ1hU4Y89H.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/k1PpSMQlhBmWIg7.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/OldgjmJQk1YDyo2.png">
+<meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20210218144519631.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/hug3FVzpjZXM2d6.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/LEMYpo7vBWTKDXN.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/cNRk15uxOJAaV9z.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/d8VXD9ZPnUBeJ5p.png">
+<meta property="article:published_time" content="2021-04-26T02:12:51.948Z">
+<meta property="article:modified_time" content="2021-03-09T07:04:46.041Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -164,210 +179,212 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-Nacos" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h1><p>官方文档:<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/architecture.html">https://nacos.io/zh-cn/docs/architecture.html</a></p>
+<p>Nacos是一个<strong>服务发现</strong>、<strong>配置管理</strong>和<strong>服务管理</strong>的组件。</p>
+<p>说到服务注册与发现，我想到Eureka、Zookeeper</p>
+<p>说到服务治理，我想到Dubbo</p>
+<p>说到配置管理，我想到Apollo</p>
+<h2 id="1-什么是Nacos"><a href="#1-什么是Nacos" class="headerlink" title="1.什么是Nacos"></a>1.什么是Nacos</h2><p>Nacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。 </p>
+<p>Nacos 支持几乎所有主流类型的“服务”的发现、配置和管理。</p>
+<p>特性：</p>
+<ul>
+<li><strong>服务发现和服务健康监测</strong></li>
+</ul>
+<p>Nacos 支持基于 DNS 和 基于 RPC 的服务发现。服务提供者使用 原生SDK、OpenAPI、或一个独立的Agent TODO注册 Service 后，服务消费者可以使用DNS TODO 或HTTP&amp;API查找和发现服务。</p>
+<p>Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。 对于复杂的云环境和网络拓扑环境中（如 VPC、边缘网络等）服务的健康检查，Nacos 提供了 agent 上报模式和服务端主动检测2种健康检查模式。Nacos 还提供了统一的健康检查仪表盘，帮助您根据健康状态管理服务的可用性及流量。</p>
+<p><img src="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png" alt="image-20210218143247759"></p>
+<ul>
+<li><strong>动态配置服务</strong> </li>
+</ul>
+<p>更新配置后无需重新部署或重启服务，立即生效； </p>
+<p>Nacos 提供了一个简洁易用的UI（控制台）帮助您管理所有的服务和应用的配置；</p>
+<p>Nacos 提供包括配置版本跟踪、金丝雀发布、一键回滚配置以及客户端配置更新状态跟踪等功能</p>
+<p><img src="https://i.loli.net/2021/02/18/GkafSoXjIgeyrLz.png" alt="image-20210218143220497"></p>
+<ul>
+<li><strong>动态 DNS 服务</strong> </li>
+</ul>
+<p>动态 DNS 服务支持权重路由，你可以更容易地实现中间层负载均衡、更灵活的路由策略、流量控制以及数据中心内网的简单DNS解析服务。</p>
+<ul>
+<li><strong>服务及其元数据管理</strong></li>
+</ul>
+<p>Nacos 能让你从微服务平台建设的视角管理数据中心的所有服务及元数据，包括管理服务的描述、生命周期、服务的静态依赖分析、服务的健康状态、服务的流量管理、路由及安全策略、服务的 SLA 以及最首要的 metrics 统计数据。</p>
+<h2 id="2-为什么用Nacos"><a href="#2-为什么用Nacos" class="headerlink" title="2.为什么用Nacos"></a>2.为什么用Nacos</h2><p>用不用主要取决于：</p>
+<ol>
+<li>是否能够更好为业务发展做支撑；</li>
+<li>功能是否满足需求；</li>
+<li>是否稳定，是否经过大规模的生成环境验证；</li>
+<li>是否有完善的文档和活跃的社区；</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/18/wXBznRJ1hU4Y89H.png" alt="image-20210218143611698"></p>
+<p>架构图</p>
+<p><img src="https://i.loli.net/2021/02/18/k1PpSMQlhBmWIg7.png" alt="image-20210218144250142"></p>
+<p><img src="https://i.loli.net/2021/02/18/OldgjmJQk1YDyo2.png" alt="image-20210218144409899"></p>
+<p>这张图很眼熟，如果去掉蓝色的块儿，就跟Dubbo的那个结构图很像了（提供方、消费方、注册中心、监控、控制台）</p>
+<p>逻辑架构及其组件介绍</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210218144519631.png" alt="image-20210218144519631"></p>
+<p>3.Nacos下载安装</p>
+<p>从 <a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases">最新稳定版本</a> 下载 nacos-server-$version.zip 包 </p>
+<p><img src="https://i.loli.net/2021/02/18/hug3FVzpjZXM2d6.png" alt="image-20210218152232512"></p>
+<h3 id="nacos-安装"><a href="#nacos-安装" class="headerlink" title="nacos 安装"></a>nacos 安装</h3><p>下载后上传到服务器的/usr/local  目录下</p>
+<p>解压文件        </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nacos-server-1.4.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/18/LEMYpo7vBWTKDXN.png" alt="image-20210218152442108"></p>
+<p>进入解压文件的bin目录下    nacos/bin</p>
+<p>启动nacos</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh startup.sh -m standalone</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/18/cNRk15uxOJAaV9z.png" alt="image-20210218152705804"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nacos       查看nacos状态</span><br></pre></td></tr></table></figure>
+
+<p>访问   <a target="_blank" rel="noopener" href="http://master:8848/nacos/">http://master:8848/nacos/</a></p>
+<p>用户名：nacos</p>
+<p>密码;nacos</p>
+<p><img src="https://i.loli.net/2021/02/18/d8VXD9ZPnUBeJ5p.png" alt="image-20210218153802457"></p>
+<p>nacos配置外部mysql 数据支持</p>
+<p>单机模式时nacos默认使用嵌入式数据库实现数据的存储，若想使用外部mysql存储nacos数据，需要进行以下步 </p>
+<p>骤： </p>
+<p>1.安装数据库，版本要求：5.6.5+ ，mysql 8 以下 </p>
+<p>2.初始化mysql数据库，新建数据库nacos_confifig，导入数据库初始化文件：/usr/local/nacos/conf/nacos- </p>
+<p>mysql.sql </p>
+<p>3.修改/usr/local/nacos/conf/application.properties文件，增加支持mysql数据源配置（目前只支持 </p>
+<p>mysql），添加mysql数据源的url、用户名和密码。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">### If use MySQL as datasource:</span><br><span class="line">spring.datasource.platform&#x3D;mysql</span><br><span class="line"></span><br><span class="line">### Count of DB:</span><br><span class="line">db.num&#x3D;1</span><br><span class="line"></span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url.0&#x3D;jdbc:mysql:&#x2F;&#x2F;192.168.40.130:3306&#x2F;nacos_config?characterEncoding&#x3D;utf8&amp;connectTimeout&#x3D;1000&amp;socketTimeout&#x3D;3000&amp;autoReconnect&#x3D;true&amp;useUnicode&#x3D;true&amp;useSSL&#x3D;false&amp;serverTimezone&#x3D;UTC</span><br><span class="line">db.user.0&#x3D;root</span><br><span class="line">db.password.0&#x3D;root</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nacos/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:51.948Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://britney888.github.io/021/04/26/Nacos/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:49.366Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nginx/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:27.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+  
+    <a href="/2021/04/26/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/RabbitMq/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:14.835Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:11.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:11:58.555Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-02-03T01:44:44.474Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/mysql%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-02-03T01:44:38.476Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/java%20NIO/" class="archive-article-date">
-  	<time datetime="2021-02-03T01:44:24.102Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -393,8 +410,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

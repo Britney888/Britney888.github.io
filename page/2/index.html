@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/index.html">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
@@ -165,209 +165,269 @@
           <div id="js-content" class="content-ll">
             
   
-  
+    <article id="post-hadoop集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hadoop集群搭建</p>
+<p>1.VMware安装</p>
+<p>运行.exe安装文件</p>
+<p><img src="https://i.loli.net/2020/10/15/OJUMcF6tinK8oLp.png" alt="image-20201015192915398"></p>
+<p><img src="https://i.loli.net/2020/10/15/oVpUdQF7zMZ4Cfi.jpg" alt="VMware 10å®è£æç¨"></p>
+<p><img src="https://i.loli.net/2020/10/15/5eWlxPwSV62gJkb.jpg" alt="VMware 10å®è£æç¨"></p>
+<p><img src="https://i.loli.net/2020/10/15/YvHnhBSET7IMGty.jpg" alt="VMware 10å®è£æç¨"></p>
+<p><img src="https://i.loli.net/2020/10/15/123ARleSXb65zdJ.jpg" alt="VMware 10å®è£æç¨"></p>
+<p><img src="https://i.loli.net/2020/10/15/JXtiCapLVoxhy2K.jpg" alt="VMware 10å®è£æç¨"></p>
+<p><img src="https://i.loli.net/2020/10/15/J2lDGuaZ51bejMH.jpg" alt="img"></p>
+<p>安装完成后弹出注册界面，运行VMware10注册机，将生成的序列号复制入内即可完成破解</p>
+<p><img src="https://i.loli.net/2020/10/15/bPhXeomcyMrQqTL.jpg" alt="img"></p>
+<p><img src="https://i.loli.net/2020/10/15/1RgPALzCeudtxav.png" alt="image-20201015194437439"></p>
+<p><img src="https://i.loli.net/2020/10/15/qruv8PkZld7NjIE.png" alt="image-20201015194506242"></p>
+<p><img src="https://i.loli.net/2020/10/15/zCaLHblBZPtSiFd.png" alt="image-20201015194546120"></p>
+<p><img src="https://i.loli.net/2020/10/15/O1L8ZjwiPeaVfzm.png" alt="image-20201015194617383"></p>
+<p><img src="https://i.loli.net/2020/10/15/rVKXaiwRMJ6IL31.png" alt="image-20201015194647068"></p>
+<p><img src="https://i.loli.net/2020/10/15/ocbDZgIfCsXlT5u.png" alt="image-20201015194716642"></p>
+<p><img src="https://i.loli.net/2020/10/15/c8Q57SFpiqhtHkY.png" alt="image-20201015195036391"></p>
+<p><img src="https://i.loli.net/2020/10/15/KGs42zcaRB5Hriu.png" alt="image-20201015195107671"></p>
+<p><img src="https://i.loli.net/2020/10/15/EARTaZvJtP9CU2g.png" alt="image-20201015195133032"></p>
+<p><img src="https://i.loli.net/2020/10/15/pkFLZHgOIu8x1et.png" alt="image-20201015195155520"></p>
+<p><img src="https://i.loli.net/2020/10/15/UsFB78IN9muznAV.png" alt="image-20201015195219649"></p>
+<p><img src="https://i.loli.net/2020/10/15/GhIQkm2O15rnxBi.png" alt="image-20201015195250657"></p>
+<p><img src="https://i.loli.net/2021/02/03/xMoJS8XzUWIl4CF.png" alt="image-20201015195339434"></p>
+<p><img src="https://i.loli.net/2021/02/03/swFzDEVaOTQhgKx.png" alt="image-20201015195657572"></p>
+<p><img src="https://i.loli.net/2021/02/03/Uzf9xauAwXZBnlq.png" alt="image-20201015195903813"></p>
+<p><img src="https://i.loli.net/2021/02/03/75vMDS8kTLEQzxI.png" alt="image-20201015200017658"></p>
+<p>编辑虚拟网络设置，选择NAT模式</p>
+<p><img src="https://i.loli.net/2021/02/03/yB9caxdEnCmfIU3.png" alt="img"></p>
+<p>点击NAT设置，查看网络信息（后面设置ip会用到）<img src="https://i.loli.net/2021/02/03/gALGPKETURBuq8n.png" alt="image-20201015200206488"></p>
+<p>2.配置集群ip</p>
+<p>查看虚拟机IP地址(第一个是实际ip)</p>
+<p><img src="https://i.loli.net/2021/02/03/XejvqluhQioMBVJ.png" alt="image-20201015200350330"></p>
+<p><code>cd   /etc/sysconfig/network-scripts</code></p>
+<p>修改第一个ip为  eth0 </p>
+<p><code>mv 第一个IP名  ifcfg-eth0</code></p>
+<p>修改网络配置文件 eth0 </p>
+<p><code>vim ifcfg-eth0</code></p>
+<p>在配置文件后添加IP地址配置</p>
+<p><code>HWADDR=00:0c:29:f9:93:8e IPADDR=192.168.40.130: NETMASK=255.255.255.0 GATEWAY=192.168.40.2 DNS1=192.168.40.2</code></p>
+<p>修改 DEVICE的IP地址名称–保存退出</p>
+<p><img src="https://i.loli.net/2021/02/03/KuUrymnlfNIkMZY.png" alt="image-20201015202009434"></p>
+<p>重启网络服务network—-显示ok即重启成功</p>
+<p><code>service  network restart</code></p>
+<p>再次查看主机ip是否修改成功</p>
+<p>修改主机名     <code>vim  /etc/sysconfig/network</code></p>
+<p><img src="https://i.loli.net/2021/02/03/kJC8O1izATmVWZI.png" alt="image-20201015202438779"></p>
+<p>查看主机名是否生效</p>
+<p><img src="https://i.loli.net/2021/02/03/quSCV4FKH5pj21k.png" alt="image-20201015202602829"></p>
+<p>建立主机名和ip的映射</p>
+<p><code>vim  /etc/hosts</code></p>
+<p>在文件末尾添加</p>
+<p><code>192.168.40.130   master master.centos.com 192.168.40.131   slave1 slave1.centos.com 192.168.40.132   slave2 slave2.centos.com 192.168.40.133   slave3 slave3.centos.com</code></p>
+<p><img src="https://i.loli.net/2021/02/03/4cCO1sfJKaUYyuk.png" alt="image-20201015203018649"></p>
+<p>查看是否能ping通</p>
+<p><img src="https://i.loli.net/2021/02/03/jYICyuSE5iPDxrk.png" alt="image-20201015203131618"></p>
+<p>查看防火墙状态： systemctl status firewalld.service         </p>
+<p><img src="https://i.loli.net/2021/02/03/gcuqmjw8HsfeK9k.png" alt="image-20201015203508171"></p>
+<p>执行关闭命令： systemctl stop firewalld.service</p>
+<p>再次执行查看防火墙命令：systemctl status firewalld.service</p>
+<p><img src="https://i.loli.net/2021/02/03/7jIq1AvcmTQUKwP.png" alt="image-20201015203617180"></p>
+<p>执行开机禁用防火墙自启命令  ： systemctl disable firewalld.service</p>
+<p>3.安装JDK</p>
+<p>将准备好的jdk包放入虚拟机 /usr/java  目录下</p>
+<p>解压  tar  -zxvf /usr/java/ jdk1.8.0_121.tar.gz</p>
+<p>查看是否安装成功</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015204538452.png" alt="image-20201015204538452"></p>
+<p>4.安装hadoop</p>
+<p>将准备好的hadoop压缩包上传到虚拟机  /usr/local  目录下</p>
+<p>解压  tar  -zxvf /usr/java/ hadoop-2.7.3.tar.gz</p>
+<p>接下来配置/usr/hadoop-2.7.3/etc/hadoop/目录下的七个文件</p>
+<p>slaves  core-site.xml  hdfs-site.xml   mapred-site.xml   yarn-site.xml   hadoop-env.sh  yarn-env.sh</p>
+<ul>
+<li>修改 core-site.xml 文件</li>
+</ul>
+<p>添加内容</p>
+<p><code> &lt;!-- 指定HADOOP所使用的文件系统schema（URI），HDFS的老大（NameNode）的&gt;地址 --&gt;         &lt;property&gt;           &lt;name&gt;fs.defaultFS&lt;/name&gt;           &lt;value&gt;hdfs://master:8020&lt;/value&gt;         &lt;/property&gt;         &lt;!--datanode.data.dir 存储文件目录, namenode.name.dir 元数据,namenode.edits.dir 日志目录 三者都依赖于此目录--&gt;         &lt;property&gt;           &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;           &lt;value&gt;/var/log/hadoop/tmp&lt;/value&gt;         &lt;/property&gt;</code></p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205302979.png" alt="image-20201015205302979"></p>
+<ul>
+<li><p>修改hadoop-env.sh 文件</p>
+<p>修改jdk的实际位置</p>
+</li>
+</ul>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205501418.png" alt="image-20201015205501418"></p>
+<ul>
+<li>修改  yarn-env.sh 文件</li>
+</ul>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205704795.png" alt="image-20201015205704795"></p>
+<ul>
+<li>修改 mapred-site.xml  文件</li>
+</ul>
+<p><code>    &lt;property&gt;         &lt;name&gt;mapreduce.framework.name&lt;/name&gt;         &lt;value&gt;yarn&lt;/value&gt;     &lt;/property&gt;     &lt;!--日志页面的显示 ip:port--&gt;     &lt;property&gt;         &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;         &lt;value&gt;master:10020&lt;/value&gt;     &lt;/property&gt;     &lt;!--运行 yarn 任务跳转的页面--&gt;     &lt;property&gt;         &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;         &lt;value&gt;master:19888&lt;/value&gt;     &lt;/property&gt;</code></p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205829318.png" alt="image-20201015205829318"></p>
+<ul>
+<li>修改   yarn-site.xml  文件</li>
+</ul>
+<p><configuration> </configuration>之间添加</p>
+<p><code>&lt;property&gt;             &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;                &lt;value&gt;master&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;                 &lt;value&gt;mapreduce_shuffle&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8032&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8030&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8031&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8033&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8088&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.resourcemanager.webapp.https.address&lt;/name&gt;                 &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8090&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;                 &lt;value&gt;/data/hadoop/yarn/local&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;                 &lt;value&gt;true&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;                 &lt;value&gt;/data/tmp/logs&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.log.server.url&lt;/name&gt;                 &lt;value&gt;http://master:19888/jobhistory/logs/&lt;/value&gt;                 &lt;description&gt;URL for job history server&lt;/description&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;                 &lt;value&gt;false&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;                 &lt;value&gt;mapreduce_shuffle&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.aux-services.mapreduce_shuffle.class&lt;/name&gt;                 &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;                 &lt;value&gt;2048&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;                 &lt;value&gt;512&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;                 &lt;value&gt;4096&lt;/value&gt;         &lt;/property&gt;          &lt;property&gt;                 &lt;name&gt;mapreduce.map.memory.mb&lt;/name&gt;                 &lt;value&gt;2048&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;mapreduce.reduce.memory.mb&lt;/name&gt;                 &lt;value&gt;2048&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;                 &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;                 &lt;value&gt;1&lt;/value&gt;         &lt;/property&gt;</code></p>
+<ul>
+<li><p>修改slave文件  </p>
+<p>–添加</p>
+</li>
+</ul>
+<p><code>slave1 slave2 slave3</code></p>
+<ul>
+<li>修改  hdfs-site.xml  文件</li>
+</ul>
+<p><code>    &lt;!-- NameNode永久存储名称空间和事务日志的本地文件系统上的路径 --&gt;         &lt;property&gt;                 &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;                 &lt;value&gt;file:///data/hadoop/hdfs/name&lt;/value&gt;         &lt;/property&gt;         &lt;!-- DataNode本地文件系统上应存储其块的路径列表--&gt;         &lt;property&gt;                 &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;                 &lt;value&gt;file:///data/hadoop/hdfs/data&lt;/value&gt;         &lt;/property&gt;         &lt;!-- 指定HDFS副本的数量，默认为3 ,这里我们由于只建了两个子节点，所以选择2--&gt;         &lt;property&gt;                 &lt;name&gt;dfs.replication&lt;/name&gt;                 &lt;value&gt;3&lt;/value&gt;         &lt;/property&gt;         &lt;property&gt;             &lt;name&gt;dfs.http.address&lt;/name&gt;             &lt;value&gt;192.168.40.130:50070&lt;/value&gt;         &lt;/property&gt;          &lt;!--指定可以通过web访问hdfs目录--&gt;         &lt;property&gt;                 &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;                 &lt;value&gt;master:50090&lt;/value&gt;         &lt;/property&gt;          &lt;property&gt;                 &lt;name&gt;dfs.http.address&lt;/name&gt;                 &lt;value&gt;master:50070&lt;/value&gt;         &lt;/property&gt;</code></p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015210619354.png" alt="image-20201015210619354"></p>
+<p>复制master文件三次，重命名为slave1和slave2和slave3，打开虚拟机文件，然后按照同样的方法设置两个节点的ip和主机名</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015202715638.png" alt="image-20201015202715638"></p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015202814679.png" alt="image-20201015202814679"></p>
+<p>配置ssh免密码登录</p>
+<p>在root用户下输入ssh-keygen -t rsa 一路回车</p>
+<p><img src="https://img-blog.csdn.net/20180503114111538" alt="img"></p>
+<p>ssh  master    即可切换</p>
+<p>6.设置及时间同步</p>
+<p>​     安装NTP服务      yum install -y ntp</p>
+<p>​    编辑NTP配置文件   vim /etc/ntp.conf</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015211207233.png" alt="image-20201015211207233"></p>
+<p>修改/etc/sysconfig/ntpd 文件</p>
+<p><code>SYNC_HWCLOCK=yes</code></p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015211334228.png" alt="image-20201015211334228"></p>
+<p>关闭防火墙—如果已关闭则跳过</p>
+<p>启动 ntpd服务          service ntpd start</p>
+<p>设置ntpd服务开机启动   chkconfig ntpd on</p>
+<p>在slave1  slave2  slave3  执行相同操作</p>
+<p>配置完毕后在slave1  slave2  slave3  执行命令    ntpdate  master (主机名)</p>
+<p>7.配置环境变量</p>
+<p>   vim /etc/profile</p>
+<p><code>#java environment export JAVA_HOME=/usr/java/jdk1.8.0_121 export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar export HADOOP_HOME=/usr/local/hadoop-2.7.3 export PATH=$JAVA_HOME/bin:$PATH export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</code></p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015212223940.png" alt="image-20201015212223940"></p>
+<p>8.启动Hadoop</p>
+<p>初始化   命令       hadoop namenode -format</p>
+<p><img src="https://images2018.cnblogs.com/blog/886183/201803/886183-20180322093719604-1933425004.jpg" alt="img"></p>
+<p>进入sbin    执行命令  ./start-all.sh </p>
+<p>然后输入    jps     查看已成功启动的进程</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015212517089.png" alt="image-20201015212517089"></p>
+<p>8.监控集群</p>
+<p>配置电脑主机地址</p>
+<p>修改本地host文件(C:/Windows/System32/drivers/etc/host)</p>
+<p>在文档末尾加上如下代码</p>
+<p><code>192.168.40.130   master master.centos.com 192.168.40.131   slave1 slave1.centos.com 192.168.40.132   slave2 slave2.centos.com 192.168.40.133   slave3 slave3.centos.com</code></p>
+<p>在浏览器输入网址:  <a target="_blank" rel="noopener" href="http://master:50070/">http://master:50070</a></p>
+<p><img src="https://i.loli.net/2020/10/14/f4JRM96wdBgIVyS.png" alt="image-20201014210857877"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nacos/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:51.948Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/15/hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:49.366Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
+  	<time datetime="2020-09-12T08:12:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="我的第一篇博客编写"><a href="#我的第一篇博客编写" class="headerlink" title="我的第一篇博客编写"></a>我的第一篇博客编写</h1>
+        
+          <a class="article-more-a" href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nginx/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:27.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/RabbitMq/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:14.835Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:11.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:11:58.555Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-02-03T01:44:44.474Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/mysql%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-02-03T01:44:38.476Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/java%20NIO/" class="archive-article-date">
-  	<time datetime="2021-02-03T01:44:24.102Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
   
-
-    
 
 
           </div>
@@ -392,9 +452,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
