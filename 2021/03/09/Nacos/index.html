@@ -6,40 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>Nacos | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java NIO前言 1.1. Java IO读写原理    无论是Socket的读写还是文件的独写,在java层面的应用开发或者Linux系统的底层开发,都属于输入input和输出output的处理,简称为IO读写.在原理上和处理流程上,都是一致的.区别在于参数的不同 ​    用户程序进行读写操作,基本上都会用到read和write两大系统的调用,不同的操作系统名称可能不完全一样,但功能是一样">
+  <meta name="description" content="Nacos官方文档:https:&#x2F;&#x2F;nacos.io&#x2F;zh-cn&#x2F;docs&#x2F;architecture.html Nacos是一个服务发现、配置管理和服务管理的组件。 说到服务注册与发现，我想到Eureka、Zookeeper 说到服务治理，我想到Dubbo 说到配置管理，我想到Apollo 1.什么是NacosNacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。  Nacos 支">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2021/02/03/java%20NIO/index.html">
+<meta property="og:title" content="Nacos">
+<meta property="og:url" content="http://example.com/2021/03/09/Nacos/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="java NIO前言 1.1. Java IO读写原理    无论是Socket的读写还是文件的独写,在java层面的应用开发或者Linux系统的底层开发,都属于输入input和输出output的处理,简称为IO读写.在原理上和处理流程上,都是一致的.区别在于参数的不同 ​    用户程序进行读写操作,基本上都会用到read和write两大系统的调用,不同的操作系统名称可能不完全一样,但功能是一样">
+<meta property="og:description" content="Nacos官方文档:https:&#x2F;&#x2F;nacos.io&#x2F;zh-cn&#x2F;docs&#x2F;architecture.html Nacos是一个服务发现、配置管理和服务管理的组件。 说到服务注册与发现，我想到Eureka、Zookeeper 说到服务治理，我想到Dubbo 说到配置管理，我想到Apollo 1.什么是NacosNacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。  Nacos 支">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2020/11/11/oiuK4LlsCzTvU5Z.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/11/L5KU3Pb7EnV4c68.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/11/SndohFwjkcNqx1J.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/11/PMTCBmV3g4jpkI5.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/11/74Oeo6qracAxTsd.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/12/XRF2B3pk1qrOPWt.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/12/e8nlXwpxJhBfV9W.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/12/9GVmsJf7RbilegS.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/12/EyrUgtB4VZHT3oP.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/12/3uyS9LJ68AHQGmg.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/12/Bl57o8N24cFZuSx.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/12/DlZFrJMjkTSHVyE.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/16/8XHEuDwnhqFGKBi.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/16/HpPL3aEKFykXJMf.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/16/TJfpyEmR7I1WzYV.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/16/BzMQHfiRCA7YGPK.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/16/nvU47kaDBS9ZMAW.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/16/Q2cqtHARdIu5C8V.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/16/tKTsBYqvmgpkL1N.png">
-<meta property="og:image" content="https://i.loli.net/2020/11/17/nFmi9sL2wGkTZPO.png">
-<meta property="article:published_time" content="2021-02-03T01:44:24.102Z">
-<meta property="article:modified_time" content="2020-11-17T01:35:47.336Z">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/GkafSoXjIgeyrLz.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/wXBznRJ1hU4Y89H.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/k1PpSMQlhBmWIg7.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/OldgjmJQk1YDyo2.png">
+<meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20210218144519631.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/hug3FVzpjZXM2d6.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/LEMYpo7vBWTKDXN.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/cNRk15uxOJAaV9z.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/d8VXD9ZPnUBeJ5p.png">
+<meta property="article:published_time" content="2021-03-09T06:13:57.000Z">
+<meta property="article:modified_time" content="2021-04-26T06:14:39.348Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2020/11/11/oiuK4LlsCzTvU5Z.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -189,225 +179,99 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-java NIO" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-Nacos" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nacos
+    </h1>
+  
+
+        
+        <a href="/2021/03/09/Nacos/" class="archive-article-date">
+  	<time datetime="2021-03-09T06:13:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="java-NIO"><a href="#java-NIO" class="headerlink" title="java NIO"></a>java NIO</h1><p>前言</p>
-<p>1.1. Java IO读写原理</p>
-<p>   无论是Socket的读写还是文件的独写,在java层面的应用开发或者Linux系统的底层开发,都属于输入input和输出output的处理,简称为IO读写.在原理上和处理流程上,都是一致的.区别在于参数的不同</p>
-<p>​    用户程序进行读写操作,基本上都会用到read和write两大系统的调用,不同的操作系统名称可能不完全一样,但功能是一样的.</p>
-<p>   read系统调用，并不是把数据直接从物理设备，读数据到内存。write系统调用，也不是直接把数据，写入到物理设备。</p>
-<p>   read系统调用，是把数据从内核缓冲区复制到进程缓冲区；而write系统调用，是把数据从进程缓冲区复制到内核缓冲区。这个两个系统调用，都不负责数据在内核缓冲区和磁盘之间的交换。底层的读写交换，是由操作系统kernel内核完成的。</p>
-<p>1.1.1. 内核缓冲与进程缓冲区</p>
-<p>​    缓冲区的目的,是为了减少频繁的操作系统IO的调用.通常系统调用需要保存之前的进程数据和状态等信息,而调用结束之后回来还要恢复之前的信息,为了减少这种损耗时间,也损耗性能的系统调用,就出现了缓冲区.</p>
-<p>​    有了缓冲区,操作系统使用read函数把数据从内核缓冲区复制到进程缓冲区,write函数吧进程缓冲区复制到内核缓冲区中,等待缓冲区大大一定数量时,再进行IO的调用,提升性能.至于什么时候读取和村塾则由内核决定,用户程序不需要关心.</p>
-<p>​    在Linux系统中,系统内核也有个缓冲区叫做内核缓冲区.每个进程有自己独立的缓冲区,叫做进程缓冲区.</p>
-<p>​    所以用户程序的IO独写程序,大多数情况下,并没有进行实际的IO操作,而是独写自己的进程缓冲区.</p>
-<p>1.1.2. java IO读写的底层流程</p>
-<p>​    用户程序进行IO的读写，基本上会用到系统调用read&amp;write，read把数据从内核缓冲区复制到进程缓冲区，write把数据从进程缓冲区复制到内核缓冲区，它们不等价于数据在内核缓冲区和磁盘之间的交换。</p>
-<p><img src="https://i.loli.net/2020/11/11/oiuK4LlsCzTvU5Z.png" alt="image-20201111172329870"></p>
-<p>首先看看一个典型Java 服务端处理网络请求的典型过程：</p>
-<p>（1）客户端请求</p>
-<p>Linux通过网卡，读取客户断的请求数据，将数据读取到内核缓冲区。</p>
-<p>（2）获取请求数据</p>
-<p>服务器从内核缓冲区读取数据到Java进程缓冲区。</p>
-<p>​      （1）服务器端业务处理</p>
-<p>​                 Java服务端在自己的用户空间中，处理客户端的请求。</p>
-<p>​      （2）服务器端返回数据</p>
-<p>​                Java服务端已构建好的响应，从用户缓冲区写入系统缓冲区。</p>
-<p>（3）发送给客户端</p>
-<p>Linux内核通过网络 I/O ，将内核缓冲区中的数据，写入网卡，网卡通过底层的通讯协议，会将数据发送给目标客户端。</p>
-<p>1.2. 四种主要的IO模型</p>
-<p>服务器端编程经常需要构造高性能的IO模型，常见的IO模型有四种：</p>
-<p>（1）同步阻塞IO（Blocking IO）</p>
-<p>首先，解释一下这里的阻塞与非阻塞：</p>
-<p>​    阻塞IO，指的是需要内核IO操作彻底完成后，才返回到用户空间，执行用户的操作。阻塞指的是用户空间程序的执行状态，用户空间程序需等到IO操作彻底完成。传统的IO模型都是同步阻塞IO。在java中，默认创建的socket都是阻塞的。</p>
-<p>其次，解释一下同步与异步：</p>
-<p>   同步IO，是一种用户空间与内核空间的调用发起方式。同步IO是指用户空间线程是主动发起IO请求的一方，内核空间是被动接受方。异步IO则反过来，是指内核kernel是主动发起IO请求的一方，用户线程是被动接受方。</p>
-<p>（2）同步非阻塞IO（Non-blocking IO）</p>
-<p>  非阻塞IO，指的是用户程序不需要等待内核IO操作完成后，内核立即返回给用户一个状态值，用户空间无需等到内核的IO操作彻底完成，可以立即返回用户空间，执行用户的操作，处于非阻塞的状态。</p>
-<p>简单的说：阻塞是指用户空间（调用线程）一直在等待，而且别的事情什么都不做；非阻塞是指用户空间（调用线程）拿到状态就返回，IO操作可以干就干，不可以干，就去干的事情。</p>
-<p>非阻塞IO要求socket被设置为NONBLOCK。</p>
-<p>强调一下，这里所说的NIO（同步非阻塞IO）模型，并非Java的NIO（New IO）库。</p>
-<p>（3）IO多路复用（IO Multiplexing）</p>
-<p>即经典的Reactor设计模式，有时也称为异步阻塞IO，Java中的Selector和Linux中的epoll都是这种模型。</p>
-<p>（4）异步IO（Asynchronous IO）</p>
-<p>异步IO，指的是用户空间与内核空间的调用方式反过来。用户空间线程是变成被动接受的，内核空间是主动调用者。</p>
-<p>这一点，有点类似于Java中比较典型的模式是回调模式，用户空间线程向内核空间注册各种IO事件的回调函数，由内核去主动调用。</p>
-<h2 id="1-3-同步阻塞IO（Blocking-IO）"><a href="#1-3-同步阻塞IO（Blocking-IO）" class="headerlink" title="1.3. 同步阻塞IO（Blocking IO）"></a>1.3. <strong>同步阻塞IO（Blocking IO）</strong></h2><p>在linux中的Java进程中，默认情况下所有的socket都是blocking IO。在阻塞式 I/O 模型中，应用程序在从IO系统调用开始，一直到到系统调用返回，这段时间是阻塞的。返回成功后，应用进程开始处理用户空间的缓存数据。</p>
-<p><img src="https://i.loli.net/2020/11/11/L5KU3Pb7EnV4c68.png" alt="image-20201111174100730"></p>
-<p>举个栗子，发起一个blocking socket的read读操作系统调用，流程大概是这样：</p>
-<p>（1）当用户线程调用了read系统调用，内核（kernel）就开始了IO的第一个阶段：准备数据。很多时候，数据在一开始还没有到达（比如，还没有收到一个完整的Socket数据包），这个时候kernel就要等待足够的数据到来。</p>
-<p>（2）当kernel一直等到数据准备好了，它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
-<p>（3）从开始IO读的read系统调用开始，用户线程就进入阻塞状态。一直到kernel返回结果后，用户线程才解除block的状态，重新运行起来。</p>
-<p>所以，blocking IO的特点就是在内核进行IO执行的两个阶段，用户线程都被block了。</p>
-<p>BIO的优点：</p>
-<p>程序简单，在阻塞等待数据期间，用户线程挂起。用户线程基本不会占用 CPU 资源。</p>
-<p>BIO的缺点：</p>
-<p>一般情况下，会为每个连接配套一条独立的线程，或者说一条线程维护一个连接成功的IO流的读写。在并发量小的情况下，这个没有什么问题。但是，当在高并发的场景下，需要大量的线程来维护大量的网络连接，内存、线程切换开销会非常巨大。因此，基本上，BIO模型在高并发场景下是不可用的。</p>
-<h2 id="1-4-同步非阻塞NIO（None-Blocking-IO）"><a href="#1-4-同步非阻塞NIO（None-Blocking-IO）" class="headerlink" title="1.4. 同步非阻塞NIO（None Blocking IO）"></a>1.4. <strong>同步非阻塞NIO（None Blocking IO）</strong></h2><p>在linux系统下，可以通过设置socket使其变为non-blocking。NIO 模型中应用程序在一旦开始IO系统调用，会出现以下两种情况：</p>
-<p>（1）在内核缓冲区没有数据的情况下，系统调用会立即返回，返回一个调用失败的信息。</p>
-<p>（2）在内核缓冲区有数据的情况下，是阻塞的，直到数据从内核缓冲复制到用户进程缓冲。复制完成后，系统调用返回成功，应用进程开始处理用户空间的缓存数据。</p>
-<p><img src="https://i.loli.net/2020/11/11/SndohFwjkcNqx1J.png" alt="image-20201111174658790"></p>
-<p>举个栗子。发起一个non-blocking socket的read读操作系统调用，流程是这个样子：</p>
-<p>（1）在内核数据没有准备好的阶段，用户线程发起IO请求时，立即返回。用户线程需要不断地发起IO系统调用。</p>
-<p>（2）内核数据到达后，用户线程发起系统调用，用户线程阻塞。内核开始复制数据。它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
-<p>（3）用户线程才解除block的状态，重新运行起来。经过多次的尝试，用户线程终于真正读取到数据，继续执行。</p>
-<p>NIO的特点：</p>
-<p>应用程序的线程需要不断的进行 I/O 系统调用，轮询数据是否已经准备好，如果没有准备好，继续轮询，直到完成系统调用为止。</p>
-<p>NIO的优点：每次发起的 IO 系统调用，在内核的等待数据过程中可以立即返回。用户线程不会阻塞，实时性较好。</p>
-<p>NIO的缺点：需要不断的重复发起IO系统调用，这种不断的轮询，将会不断地询问内核，这将占用大量的 CPU 时间，系统资源利用率较低。</p>
-<p>总之，NIO模型在高并发场景下，也是不可用的。一般 Web 服务器不使用这种 IO 模型。一般很少直接使用这种模型，而是在其他IO模型中使用非阻塞IO这一特性。java的实际开发中，也不会涉及这种IO模型。</p>
-<p>再次说明，Java NIO（New IO） 不是IO模型中的NIO模型，而是另外的一种模型，叫做IO多路复用模型（ IO multiplexing ）。</p>
-<h2 id="1-5-IO多路复用模型-I-O-multiplexing）"><a href="#1-5-IO多路复用模型-I-O-multiplexing）" class="headerlink" title="1.5. IO多路复用模型(I/O multiplexing）"></a>1.5. <strong>IO多路复用模型(I/O multiplexing）</strong></h2><p>如何避免同步非阻塞NIO模型中轮询等待的问题呢？这就是IO多路复用模型。</p>
-<p>IO多路复用模型，就是通过一种新的系统调用，一个进程可以监视多个文件描述符，一旦某个描述符就绪（一般是内核缓冲区可读/可写），内核kernel能够通知程序进行相应的IO系统调用。</p>
-<p>目前支持IO多路复用的系统调用，有 select，epoll等等。select系统调用，是目前几乎在所有的操作系统上都有支持，具有良好跨平台特性。epoll是在linux 2.6内核中提出的，是select系统调用的linux增强版本。</p>
-<p>IO多路复用模型的基本原理就是select/epoll系统调用，单个线程不断的轮询select/epoll系统调用所负责的成百上千的socket连接，当某个或者某些socket网络连接有数据到达了，就返回这些可以读写的连接。因此，好处也就显而易见了——通过一次select/epoll系统调用，就查询到到可以读写的一个甚至是成百上千的网络连接。</p>
-<p>举个栗子。发起一个多路复用IO的的read读操作系统调用，流程是这个样子：</p>
-<p><img src="https://i.loli.net/2020/11/11/PMTCBmV3g4jpkI5.png" alt="image-20201111175156864"></p>
-<p>在这种模式中，首先不是进行read系统调动，而是进行select/epoll系统调用。当然，这里有一个前提，需要将目标网络连接，提前注册到select/epoll的可查询socket列表中。然后，才可以开启整个的IO多路复用模型的读流程。</p>
-<p>（1）进行select/epoll系统调用，查询可以读的连接。kernel会查询所有select的可查询socket列表，当任何一个socket中的数据准备好了，select就会返回。</p>
-<p>当用户进程调用了select，那么整个线程会被block（阻塞掉）。</p>
-<p>（2）用户线程获得了目标连接后，发起read系统调用，用户线程阻塞。内核开始复制数据。它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
-<p>（3）用户线程才解除block的状态，用户线程终于真正读取到数据，继续执行。</p>
-<p>多路复用IO的特点：</p>
-<p>IO多路复用模型，建立在操作系统kernel内核能够提供的多路分离系统调用select/epoll基础之上的。多路复用IO需要用到两个系统调用（system call）， 一个select/epoll查询调用，一个是IO的读取调用。</p>
-<p>和NIO模型相似，多路复用IO需要轮询。负责select/epoll查询调用的线程，需要不断的进行select/epoll轮询，查找出可以进行IO操作的连接。</p>
-<p>另外，多路复用IO模型与前面的NIO模型，是有关系的。对于每一个可以查询的socket，一般都设置成为non-blocking模型。只是这一点，对于用户程序是透明的（不感知）。</p>
-<p>多路复用IO的优点：</p>
-<p>用select/epoll的优势在于，它可以同时处理成千上万个连接（connection）。与一条线程维护一个连接相比，I/O多路复用技术的最大优势是：系统不必创建线程，也不必维护这些线程，从而大大减小了系统的开销。</p>
-<p>Java的NIO（new IO）技术，使用的就是IO多路复用模型。在linux系统上，使用的是epoll系统调用。</p>
-<p>多路复用IO的缺点：</p>
-<p>本质上，select/epoll系统调用，属于同步IO，也是阻塞IO。都需要在读写事件就绪后，自己负责进行读写，也就是说这个读写过程是阻塞的。</p>
-<p>如何充分的解除线程的阻塞呢？那就是异步IO模型。</p>
-<h2 id="1-6-异步IO模型（asynchronous-IO）"><a href="#1-6-异步IO模型（asynchronous-IO）" class="headerlink" title="1.6. 异步IO模型（asynchronous IO）"></a>1.6. <strong>异步IO模型（asynchronous IO）</strong></h2><p>如何进一步提升效率，解除最后一点阻塞呢？这就是异步IO模型，全称asynchronous I/O，简称为AIO。</p>
-<p>AIO的基本流程是：用户线程通过系统调用，告知kernel内核启动某个IO操作，用户线程返回。kernel内核在整个IO操作（包括数据准备、数据复制）完成后，通知用户程序，用户执行后续的业务操作。</p>
-<p>kernel的数据准备是将数据从网络物理设备（网卡）读取到内核缓冲区；kernel的数据复制是将数据从内核缓冲区拷贝到用户程序空间的缓冲区。</p>
-<p><img src="https://i.loli.net/2020/11/11/74Oeo6qracAxTsd.png" alt="image-20201111180018167"></p>
-<p>（1）当用户线程调用了read系统调用，立刻就可以开始去做其它的事，用户线程不阻塞。</p>
-<p>（2）内核（kernel）就开始了IO的第一个阶段：准备数据。当kernel一直等到数据准备好了，它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存）。</p>
-<p>（3）kernel会给用户线程发送一个信号（signal），或者回调用户线程注册的回调接口，告诉用户线程read操作完成了。</p>
-<p>（4）用户线程读取用户缓冲区的数据，完成后续的业务操作。</p>
-<p>异步IO模型的特点：</p>
-<p>在内核kernel的等待数据和复制数据的两个阶段，用户线程都不是block(阻塞)的。用户线程需要接受kernel的IO操作完成的事件，或者说注册IO操作完成的回调函数，到操作系统的内核。所以说，异步IO有的时候，也叫做信号驱动 IO 。</p>
-<p>异步IO模型缺点：</p>
-<p>需要完成事件的注册与传递，这里边需要底层操作系统提供大量的支持，去做大量的工作。</p>
-<p>目前来说， Windows 系统下通过 IOCP 实现了真正的异步 I/O。但是，就目前的业界形式来说，Windows 系统，很少作为百万级以上或者说高并发应用的服务器操作系统来使用。</p>
-<p>而在 Linux 系统下，异步IO模型在2.6版本才引入，目前并不完善。所以，这也是在 Linux 下，实现高并发网络编程时都是以 IO 复用模型模式为主。</p>
-<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p>​     NIO 即New IO ,这个库是在JDK1.4中引入的.NIO与IO有着相同的作用和目的,但是实现方式不同,NIO支持面向缓冲区的、基于通道的IO操作,所以NIO的效率比IO的效率高很多.</p>
-<h2 id="2-NIO和IO的主要区别"><a href="#2-NIO和IO的主要区别" class="headerlink" title="2.NIO和IO的主要区别"></a>2.NIO和IO的主要区别</h2><table>
-<thead>
-<tr>
-<th>IO模型</th>
-<th>IO</th>
-<th>NIO</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>方式</td>
-<td>从硬盘到内存</td>
-<td>从内存到硬盘</td>
-</tr>
-<tr>
-<td>通信</td>
-<td>面向流(只能单向传输)</td>
-<td>面向缓存(可双向传输数据,多路复用)</td>
-</tr>
-<tr>
-<td>处理</td>
-<td>阻塞IO(多线程)</td>
-<td>非阻塞IO(反应堆)</td>
-</tr>
-<tr>
-<td>触发</td>
-<td>无</td>
-<td>选择器(采用轮询机 Selectors)</td>
-</tr>
-</tbody></table>
-<p>1)、面向流与面向缓冲</p>
-<p>​      Java IO面向流意味着每次从流中读一个或多个字节，直至读取所有字节，它们没有被缓存在任何地方。此外，它不能前后移动流中的数据。如果需要前后移动从流中读取的数据，需要先将它缓存到一个缓冲区。</p>
-<p>JavaNIO的缓冲导向方法略有不同,当读到一个数据时会把它放在一个它稍后处理的缓冲区,需要时可在缓冲区中前后移动.这样极大的增加了数据的灵活性。但是，还需要检查是否该缓冲区中包含所有您需要处理的数据。而且，需确保当更多的数据读入缓冲区时，不要覆盖缓冲区里尚未处理的数据。</p>
-<p>2)阻塞(Block)和非租塞(NonBlock)</p>
-<p>阻塞与非阻塞是描述进程在访问某个资源时，数据是否准备就绪的的一种处理方式。当数据没有准备就绪时：</p>
-<p>​    阻塞:县城持续等待资源中数据准备完成,才会返回响应结果,否则会一直等待</p>
-<p>​    非阻塞:当进程访问数据缓冲区时,如果数据没有准备就绪直接返回,不会等待.如果数据准备就绪,也直接返回.</p>
-<p>3)同步与异步</p>
-<p>同步与异步是指访问数据的机智</p>
-<p>同步:指主动请求并等待IO操作完成的方式</p>
-<p>异步:是指主动请求数据后可以继续处理其他任务,随后等待IO操作完毕的通知。</p>
-<p>4)选择器（Selectors）</p>
-<p>JavaNIO的选择器允许一个单独的线程监视多个输入通道,我们可以注册多个通道到一个选择器上,然后使用以后个单独的线程选择通道,这些通道里已经有可以处理的输入,或者选择已准备写入的通道.这种机制,使得一个单独的线程很容易来管理多个线程</p>
-<h2 id="3-Java-NIO系统的核心"><a href="#3-Java-NIO系统的核心" class="headerlink" title="3.Java NIO系统的核心"></a>3.Java NIO系统的核心</h2><p>​    Java NIO系统的核心在于：通道(Channel)和缓冲区(Buffer)。</p>
-<p>   Channel 负责传输， Buffer 负责存储</p>
-<h3 id="1-通道Channel"><a href="#1-通道Channel" class="headerlink" title="1) 通道Channel"></a>1) 通道Channel</h3><p>通道表示打开到 IO 设备(例如：文件、套接字)的连接。通过它可以读取和写入数据</p>
-<p>在NIO中，提供了多种通道对象，而所有的通道对象都实现了Channel接口。它们之间的继承关系如下图所示：</p>
-<p><img src="https://i.loli.net/2020/11/12/XRF2B3pk1qrOPWt.png" alt="img"></p>
+        <h1 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h1><p>官方文档:<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/architecture.html">https://nacos.io/zh-cn/docs/architecture.html</a></p>
+<p>Nacos是一个<strong>服务发现</strong>、<strong>配置管理</strong>和<strong>服务管理</strong>的组件。</p>
+<p>说到服务注册与发现，我想到Eureka、Zookeeper</p>
+<p>说到服务治理，我想到Dubbo</p>
+<p>说到配置管理，我想到Apollo</p>
+<h2 id="1-什么是Nacos"><a href="#1-什么是Nacos" class="headerlink" title="1.什么是Nacos"></a>1.什么是Nacos</h2><p>Nacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。 </p>
+<p>Nacos 支持几乎所有主流类型的“服务”的发现、配置和管理。</p>
+<p>特性：</p>
 <ul>
-<li>使用NIO读取数据</li>
+<li><strong>服务发现和服务健康监测</strong></li>
 </ul>
-<p>任何时候读取数据，都不是直接从通道读取，而是从通道读取到缓冲区。所以使用NIO读取数据可以分为下面三个步骤：</p>
-<pre><code>           1.  从FileInputStream获取Channel
-              2.  创建Buffer
-                 3.  将数据从Channel读取到Buffer中</code></pre>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fis &#x3D; new FileInputStream(&quot;1.txt&quot;);</span><br><span class="line">FileChannel inChannel &#x3D; fis.getChannel();</span><br><span class="line">&#x2F;&#x2F;②分配指定大小的缓冲区</span><br><span class="line">ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;③读取缓冲区中的数据</span><br><span class="line">while(inChannel.read(buf) !&#x3D; -1)&#123;</span><br><span class="line">    byte b &#x3D; buf.get();</span><br><span class="line">    System.out.print(((char)b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>Nacos 支持基于 DNS 和 基于 RPC 的服务发现。服务提供者使用 原生SDK、OpenAPI、或一个独立的Agent TODO注册 Service 后，服务消费者可以使用DNS TODO 或HTTP&amp;API查找和发现服务。</p>
+<p>Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。 对于复杂的云环境和网络拓扑环境中（如 VPC、边缘网络等）服务的健康检查，Nacos 提供了 agent 上报模式和服务端主动检测2种健康检查模式。Nacos 还提供了统一的健康检查仪表盘，帮助您根据健康状态管理服务的可用性及流量。</p>
+<p><img src="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png" alt="image-20210218143247759"></p>
 <ul>
-<li>使用NIO写入数据</li>
+<li><strong>动态配置服务</strong> </li>
 </ul>
-<p>使用NIO写入数据与读取数据的过程类似，同样数据不是直接写入通道，而是写入缓冲区，可以分为下面三个步骤：</p>
+<p>更新配置后无需重新部署或重启服务，立即生效； </p>
+<p>Nacos 提供了一个简洁易用的UI（控制台）帮助您管理所有的服务和应用的配置；</p>
+<p>Nacos 提供包括配置版本跟踪、金丝雀发布、一键回滚配置以及客户端配置更新状态跟踪等功能</p>
+<p><img src="https://i.loli.net/2021/02/18/GkafSoXjIgeyrLz.png" alt="image-20210218143220497"></p>
+<ul>
+<li><strong>动态 DNS 服务</strong> </li>
+</ul>
+<p>动态 DNS 服务支持权重路由，你可以更容易地实现中间层负载均衡、更灵活的路由策略、流量控制以及数据中心内网的简单DNS解析服务。</p>
+<ul>
+<li><strong>服务及其元数据管理</strong></li>
+</ul>
+<p>Nacos 能让你从微服务平台建设的视角管理数据中心的所有服务及元数据，包括管理服务的描述、生命周期、服务的静态依赖分析、服务的健康状态、服务的流量管理、路由及安全策略、服务的 SLA 以及最首要的 metrics 统计数据。</p>
+<h2 id="2-为什么用Nacos"><a href="#2-为什么用Nacos" class="headerlink" title="2.为什么用Nacos"></a>2.为什么用Nacos</h2><p>用不用主要取决于：</p>
 <ol>
-<li>从FileInputStream获取Channel</li>
-<li>创建Buffer</li>
-<li>将数据从Channel写入到Buffer中</li>
+<li>是否能够更好为业务发展做支撑；</li>
+<li>功能是否满足需求；</li>
+<li>是否稳定，是否经过大规模的生成环境验证；</li>
+<li>是否有完善的文档和活跃的社区；</li>
 </ol>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream  fis &#x3D; new FileInputStream(&quot;1.txt&quot;);</span><br><span class="line">FileOutputStream fos &#x3D; new FileOutputStream(&quot;2.txt&quot;);</span><br><span class="line"></span><br><span class="line">inChannel &#x3D; fis.getChannel();</span><br><span class="line">outChannel &#x3D; fos.getChannel();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;②分配指定大小的缓冲区</span><br><span class="line">ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;③将通道中的数据存入缓冲区中</span><br><span class="line">while(inChannel.read(buf) !&#x3D; -1)&#123;</span><br><span class="line">    buf.flip(); &#x2F;&#x2F;切换读取数据的模式</span><br><span class="line">    &#x2F;&#x2F;④将缓冲区中的数据写入通道中</span><br><span class="line">    outChannel.write(buf);</span><br><span class="line">    buf.clear(); &#x2F;&#x2F;清空缓冲区</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;关闭通道</span><br><span class="line">outChannel.close();</span><br><span class="line">inChannel.close();</span><br><span class="line">fos.close();</span><br><span class="line">fis.close();</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/02/18/wXBznRJ1hU4Y89H.png" alt="image-20210218143611698"></p>
+<p>架构图</p>
+<p><img src="https://i.loli.net/2021/02/18/k1PpSMQlhBmWIg7.png" alt="image-20210218144250142"></p>
+<p><img src="https://i.loli.net/2021/02/18/OldgjmJQk1YDyo2.png" alt="image-20210218144409899"></p>
+<p>这张图很眼熟，如果去掉蓝色的块儿，就跟Dubbo的那个结构图很像了（提供方、消费方、注册中心、监控、控制台）</p>
+<p>逻辑架构及其组件介绍</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210218144519631.png" alt="image-20210218144519631"></p>
+<p>3.Nacos下载安装</p>
+<p>从 <a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases">最新稳定版本</a> 下载 nacos-server-$version.zip 包 </p>
+<p><img src="https://i.loli.net/2021/02/18/hug3FVzpjZXM2d6.png" alt="image-20210218152232512"></p>
+<h3 id="nacos-安装"><a href="#nacos-安装" class="headerlink" title="nacos 安装"></a>nacos 安装</h3><p>下载后上传到服务器的/usr/local  目录下</p>
+<p>解压文件        </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nacos-server-1.4.1.tar.gz</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-缓冲区Buffer"><a href="#2-缓冲区Buffer" class="headerlink" title="2)缓冲区Buffer"></a>2)缓冲区Buffer</h3><p>​     缓冲区实际上是一个容器对象,相当于一个数组,在NIO库中，所有数据都是用缓冲区处理的。在读取数据时，它是直接读到缓冲区中的； 在写入数据时，它也是写入到缓冲区中的；任何时候访问 NIO 中的数据，都是将它放到缓冲区中。</p>
-<p><img src="https://i.loli.net/2020/11/12/e8nlXwpxJhBfV9W.png" alt="img"></p>
-<p>​     在NIO中，所有的缓冲区类型都继承于抽象类Buffer，最常用的就是ByteBuffer，对于Java中的基本类型，基本都有一个具体Buffer类型与之相对应，它们之间的继承关系如下图所示：</p>
-<p><img src="https://i.loli.net/2020/11/12/9GVmsJf7RbilegS.png" alt="image3.png | center | 650x368"></p>
-<p>   <strong>Buffer 中的四个属性的含义分别如下：</strong></p>
-<p>​            1.容量 (capacity) ：表示 Buffer 最大数据容量，缓冲区容量不能为负，并且创建后不能更改。<br>​            2.限制 (limit)：第一个不能读取或写入的数据的索引，即位于 limit 后的数据不可读写。缓冲区的限制不能为负，并且不能大于其容量。<br>​            3.位置 (position)：下一个要读取或写入的数据的索引。缓冲区的位置不能为负，并且不能大于其限制<br>​            4.标记 (mark)与重置 (reset)：标记是一个索引，通过 Buffer 中的 mark() 方法指定 Buffer 中一个特定的 position，之后可以通过调用 reset() 方法恢复到这个 position,<strong>它是下一个要被读或写的元素的索引。位置会自动由相应的 get( )和 put( )函数更新。</strong></p>
-<p><strong>Buffer 中的常见方法如下：</strong></p>
-<p><img src="https://i.loli.net/2020/11/12/EyrUgtB4VZHT3oP.png" alt="image-20201112145943715"></p>
-<p><strong>Buffer 常见类型：</strong></p>
-<p><img src="https://i.loli.net/2020/11/12/3uyS9LJ68AHQGmg.png" alt="image-20201112150053058"></p>
-<p>基本操作:get() 与 put() 方法</p>
-<p><img src="https://i.loli.net/2020/11/12/Bl57o8N24cFZuSx.png" alt="image-20201112150829870"></p>
-<p><img src="https://i.loli.net/2020/11/12/DlZFrJMjkTSHVyE.png" alt="image-20201112151042265"></p>
-<p>非直接缓冲区:通过allocate()方法分配缓冲区,将缓冲区建立在JVM的内存中</p>
-<p>直接缓冲区:通过allocateDirect()方法分配缓冲区,将缓冲区建立在物理内存中</p>
-<h3 id="3-选择器-Selector"><a href="#3-选择器-Selector" class="headerlink" title="3)选择器(Selector)"></a>3)选择器(Selector)</h3><p>选择器是 SelectableChannle 对象的多路复用器，选择器可以同时监控多个 SelectableChannel 的 IO 状况，也就是说，利用 选择器可使一个单独的线程管理多个 通道。</p>
-<p>SelectableChannel 的结构图如下</p>
-<p><img src="https://i.loli.net/2020/11/16/8XHEuDwnhqFGKBi.png" alt="image-20201116103822634"></p>
-<p>选择器的应用</p>
-<p><img src="https://i.loli.net/2020/11/16/HpPL3aEKFykXJMf.png" alt="image-20201116104336734"></p>
-<p><img src="https://i.loli.net/2020/11/16/TJfpyEmR7I1WzYV.png" alt="image-20201116104556472"></p>
-<p>SelectionKey</p>
-<p>SelectionKey：表示 SelectableChannel 和 Selector 之间的注册关系。每次向选择器注册通道时就会选择一个事件(选择键)。选择键包含两个表示为整数值的操作集。操作集的每一位都表示该键的通道所支持的一类可选择操作</p>
-<p><img src="https://i.loli.net/2020/11/16/BzMQHfiRCA7YGPK.png" alt="image-20201116110830724"></p>
-<p><strong>SocketChannel</strong></p>
-<p><img src="https://i.loli.net/2020/11/16/nvU47kaDBS9ZMAW.png" alt="image-20201116110920112"></p>
-<p><img src="https://i.loli.net/2020/11/16/Q2cqtHARdIu5C8V.png" alt="image-20201116110952400"></p>
-<p>TCP网络传输示例:</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">public class TestNonBlockingNIO &#123;</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;客户端</span><br><span class="line">   @Test</span><br><span class="line">   public void client() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      SocketChannel sChannel &#x3D; SocketChannel.open(new InetSocketAddress(&quot;127.0.0.1&quot;, 9898));</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      sChannel.configureBlocking(false);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;3. 分配指定大小的缓冲区</span><br><span class="line">      ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;4. 发送数据给服务端</span><br><span class="line">      Scanner scan &#x3D; new Scanner(System.in);</span><br><span class="line">      </span><br><span class="line">      while(scan.hasNext())&#123;</span><br><span class="line">         String str &#x3D; scan.next();</span><br><span class="line">         buf.put((new Date().toString() + &quot;\n&quot; + str).getBytes());</span><br><span class="line">         buf.flip();</span><br><span class="line">         sChannel.write(buf);</span><br><span class="line">         buf.clear();</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;5. 关闭通道</span><br><span class="line">      sChannel.close();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   &#x2F;&#x2F;服务端</span><br><span class="line">   @Test</span><br><span class="line">   public void server() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      ServerSocketChannel ssChannel &#x3D; ServerSocketChannel.open();</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      ssChannel.configureBlocking(false);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;3. 绑定连接</span><br><span class="line">      ssChannel.bind(new InetSocketAddress(9898));</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;4. 获取选择器</span><br><span class="line">      Selector selector &#x3D; Selector.open();</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;5. 将通道注册到选择器上, 并且指定“监听接收事件”</span><br><span class="line">      ssChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;6. 轮询式的获取选择器上已经“准备就绪”的事件</span><br><span class="line">      while(selector.select() &gt; 0)&#123;&#x2F;&#x2F;说明至少有一个准备就绪了</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”</span><br><span class="line">         Iterator&lt;SelectionKey&gt; it &#x3D; selector.selectedKeys().iterator();</span><br><span class="line">         </span><br><span class="line">         while(it.hasNext())&#123;</span><br><span class="line">            &#x2F;&#x2F;8. 获取准备“就绪”的是事件</span><br><span class="line">            SelectionKey sk &#x3D; it.next();</span><br><span class="line">            </span><br><span class="line">            &#x2F;&#x2F;9. 判断具体是什么事件准备就绪</span><br><span class="line">            if(sk.isAcceptable())&#123;</span><br><span class="line">               &#x2F;&#x2F;10. 若“接收就绪”，获取客户端连接</span><br><span class="line">               SocketChannel sChannel &#x3D; ssChannel.accept();</span><br><span class="line">               </span><br><span class="line">               &#x2F;&#x2F;11. 切换非阻塞模式</span><br><span class="line">               sChannel.configureBlocking(false);</span><br><span class="line">               </span><br><span class="line">               &#x2F;&#x2F;12. 将该通道注册到选择器上</span><br><span class="line">               sChannel.register(selector, SelectionKey.OP_READ);</span><br><span class="line">            &#125;else if(sk.isReadable())&#123;</span><br><span class="line">               &#x2F;&#x2F;13. 获取当前选择器上“读就绪”状态的通道</span><br><span class="line">               SocketChannel sChannel &#x3D; (SocketChannel) sk.channel();</span><br><span class="line">               </span><br><span class="line">               &#x2F;**14. 读取数据*&#x2F;</span><br><span class="line">               ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">               </span><br><span class="line">               int len &#x3D; 0;</span><br><span class="line">               while((len &#x3D; sChannel.read(buf)) &gt; 0 )&#123;</span><br><span class="line">                  buf.flip();</span><br><span class="line">                  System.out.println(new String(buf.array(), 0, len));</span><br><span class="line">                  buf.clear();</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            &#x2F;&#x2F;15. 取消选择键 SelectionKey</span><br><span class="line">            it.remove();</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/02/18/LEMYpo7vBWTKDXN.png" alt="image-20210218152442108"></p>
+<p>进入解压文件的bin目录下    nacos/bin</p>
+<p>启动nacos</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh startup.sh -m standalone</span><br></pre></td></tr></table></figure>
 
-<p><strong>DatagramChannel</strong></p>
-<p><img src="https://i.loli.net/2020/11/16/tKTsBYqvmgpkL1N.png" alt="image-20201116132937689"></p>
-<p>UDP网络传输示例:</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public class TestNonBlockingNIO2UDP &#123;</span><br><span class="line">   </span><br><span class="line">   @Test</span><br><span class="line">   public void send() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      DatagramChannel dc &#x3D; DatagramChannel.open();</span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      dc.configureBlocking(false);</span><br><span class="line">      &#x2F;&#x2F;3. 分配指定大小的缓冲区</span><br><span class="line">      ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">      </span><br><span class="line">      Scanner scan &#x3D; new Scanner(System.in);</span><br><span class="line">      &#x2F;&#x2F;4. 发送数据给服务端</span><br><span class="line">      while(scan.hasNext())&#123;</span><br><span class="line">         String str &#x3D; scan.next();</span><br><span class="line">         buf.put((new Date().toString() + &quot;:\n&quot; + str).getBytes());</span><br><span class="line">         buf.flip();</span><br><span class="line">         dc.send(buf, new InetSocketAddress(&quot;127.0.0.1&quot;, 9898));</span><br><span class="line">         buf.clear();</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F;5. 关闭通道</span><br><span class="line">      dc.close();</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   @Test</span><br><span class="line">   public void receive() throws IOException&#123;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      DatagramChannel dc &#x3D; DatagramChannel.open();</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      dc.configureBlocking(false);</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;3. 绑定连接</span><br><span class="line">      dc.bind(new InetSocketAddress(9898));</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;4. 获取选择器</span><br><span class="line">      Selector selector &#x3D; Selector.open();</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;5. 将通道注册到选择器上, 并且指定“监听接收事件”</span><br><span class="line">      dc.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;6. 轮询式的获取选择器上已经“准备就绪”的事件</span><br><span class="line">      while(selector.select() &gt; 0)&#123;</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”</span><br><span class="line">         Iterator&lt;SelectionKey&gt; it &#x3D; selector.selectedKeys().iterator();</span><br><span class="line">         </span><br><span class="line">         while(it.hasNext())&#123;</span><br><span class="line">            &#x2F;&#x2F;8. 获取准备“就绪”的是事件</span><br><span class="line">            SelectionKey sk &#x3D; it.next();</span><br><span class="line">            &#x2F;&#x2F;9. 判断读事件是否准备就绪</span><br><span class="line">            if(sk.isReadable())&#123;</span><br><span class="line">               ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">               &#x2F;&#x2F;10. 若“接收就绪”，读取客户端数据到缓冲区</span><br><span class="line">               dc.receive(buf);</span><br><span class="line">               buf.flip();</span><br><span class="line">               System.out.println(new String(buf.array(), 0, buf.limit()));</span><br><span class="line">               buf.clear();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         it.remove();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/02/18/cNRk15uxOJAaV9z.png" alt="image-20210218152705804"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nacos       查看nacos状态</span><br></pre></td></tr></table></figure>
 
-<p>管道 (Pipe)</p>
-<p>   Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。数据会被写到sink通道，从source通道读取。</p>
-<p><img src="https://i.loli.net/2020/11/17/nFmi9sL2wGkTZPO.png" alt="image-20201117093251966">代码示例:</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() throws IOException&#123;</span><br><span class="line">   &#x2F;&#x2F;1. 获取管道</span><br><span class="line">   Pipe pipe &#x3D; Pipe.open();</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;2. 将缓冲区中的数据写入管道</span><br><span class="line">   ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">   </span><br><span class="line">   Pipe.SinkChannel sinkChannel &#x3D; pipe.sink();</span><br><span class="line">   buf.put(&quot;通过单向管道发送数据&quot;.getBytes());</span><br><span class="line">   buf.flip();</span><br><span class="line">   sinkChannel.write(buf);</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;3. 读取缓冲区中的数据</span><br><span class="line">   Pipe.SourceChannel sourceChannel &#x3D; pipe.source();</span><br><span class="line">   buf.flip();</span><br><span class="line">   int len &#x3D; sourceChannel.read(buf);</span><br><span class="line">   System.out.println(new String(buf.array(), 0, len));</span><br><span class="line">   </span><br><span class="line">   sourceChannel.close();</span><br><span class="line">   sinkChannel.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问   <a target="_blank" rel="noopener" href="http://master:8848/nacos/">http://master:8848/nacos/</a></p>
+<p>用户名：nacos</p>
+<p>密码;nacos</p>
+<p><img src="https://i.loli.net/2021/02/18/d8VXD9ZPnUBeJ5p.png" alt="image-20210218153802457"></p>
+<p>nacos配置外部mysql 数据支持</p>
+<p>单机模式时nacos默认使用嵌入式数据库实现数据的存储，若想使用外部mysql存储nacos数据，需要进行以下步 </p>
+<p>骤： </p>
+<p>1.安装数据库，版本要求：5.6.5+ ，mysql 8 以下 </p>
+<p>2.初始化mysql数据库，新建数据库nacos_confifig，导入数据库初始化文件：/usr/local/nacos/conf/nacos- </p>
+<p>mysql.sql </p>
+<p>3.修改/usr/local/nacos/conf/application.properties文件，增加支持mysql数据源配置（目前只支持 </p>
+<p>mysql），添加mysql数据源的url、用户名和密码。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">### If use MySQL as datasource:</span><br><span class="line">spring.datasource.platform&#x3D;mysql</span><br><span class="line"></span><br><span class="line">### Count of DB:</span><br><span class="line">db.num&#x3D;1</span><br><span class="line"></span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url.0&#x3D;jdbc:mysql:&#x2F;&#x2F;192.168.40.130:3306&#x2F;nacos_config?characterEncoding&#x3D;utf8&amp;connectTimeout&#x3D;1000&amp;socketTimeout&#x3D;3000&amp;autoReconnect&#x3D;true&amp;useUnicode&#x3D;true&amp;useSSL&#x3D;false&amp;serverTimezone&#x3D;UTC</span><br><span class="line">db.user.0&#x3D;root</span><br><span class="line">db.password.0&#x3D;root</span><br></pre></td></tr></table></figure>
+
+
       
 
       
@@ -486,7 +350,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://britney888.github.io/021/02/03/java%20NIO/" alt="微信分享二维码">
+     <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://britney888.github.io/021/03/09/Nacos/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -500,18 +364,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/03/mysql%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/09/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Nacos踩坑日记
         
       </div>
     </a>
   
   
-    <a href="/2020/10/15/hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2020/12/10/zookeeper-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">zookeeper 集群搭建</div>
       <i class="icon-circle-right"></i>
     </a>
   

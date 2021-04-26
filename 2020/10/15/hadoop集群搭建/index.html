@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>hadoop集群搭建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="hadoop集群搭建 1.VMware安装 运行.exe安装文件        安装完成后弹出注册界面，运行VMware10注册机，将生成的序列号复制入内即可完成破解                  编辑虚拟网络设置，选择NAT模式  点击NAT设置，查看网络信息（后面设置ip会用到） 2.配置集群ip 查看虚拟机IP地址(第一个是实际ip)  cd   &#x2F;etc&#x2F;sysconfig&#x2F;netwo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="hadoop集群搭建">
 <meta property="og:url" content="http://example.com/2020/10/15/hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="hadoop集群搭建 1.VMware安装 运行.exe安装文件        安装完成后弹出注册界面，运行VMware10注册机，将生成的序列号复制入内即可完成破解                  编辑虚拟网络设置，选择NAT模式  点击NAT设置，查看网络信息（后面设置ip会用到） 2.配置集群ip 查看虚拟机IP地址(第一个是实际ip)  cd   &#x2F;etc&#x2F;sysconfig&#x2F;netwo">
@@ -49,8 +49,8 @@
 <meta property="og:image" content="https://i.loli.net/2021/02/03/jYICyuSE5iPDxrk.png">
 <meta property="og:image" content="https://i.loli.net/2021/02/03/gcuqmjw8HsfeK9k.png">
 <meta property="og:image" content="https://i.loli.net/2021/02/03/7jIq1AvcmTQUKwP.png">
-<meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20201015204538452.png">
-<meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20201015205302979.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/OGeQb19SXovWqx7.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/26/cy7TPGLWHrd9RXa.png">
 <meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20201015205501418.png">
 <meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20201015205704795.png">
 <meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20201015205829318.png">
@@ -64,8 +64,8 @@
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/886183/201803/886183-20180322093719604-1933425004.jpg">
 <meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20201015212517089.png">
 <meta property="og:image" content="https://i.loli.net/2020/10/14/f4JRM96wdBgIVyS.png">
-<meta property="article:published_time" content="2020-10-15T12:48:32.343Z">
-<meta property="article:modified_time" content="2021-02-03T01:57:01.335Z">
+<meta property="article:published_time" content="2020-10-15T07:05:23.000Z">
+<meta property="article:modified_time" content="2021-04-26T05:57:30.182Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/10/15/OJUMcF6tinK8oLp.png">
@@ -221,6 +221,21 @@
 <article id="post-hadoop集群搭建" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hadoop集群搭建
+    </h1>
+  
+
+        
+        <a href="/2020/10/15/hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2020-10-15T07:05:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-15</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <p>hadoop集群搭建</p>
@@ -290,7 +305,7 @@
 <p>将准备好的jdk包放入虚拟机 /usr/java  目录下</p>
 <p>解压  tar  -zxvf /usr/java/ jdk1.8.0_121.tar.gz</p>
 <p>查看是否安装成功</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015204538452.png" alt="image-20201015204538452"></p>
+<p><img src="https://i.loli.net/2021/04/26/OGeQb19SXovWqx7.png" alt="image-20201015204538452"></p>
 <p>4.安装hadoop</p>
 <p>将准备好的hadoop压缩包上传到虚拟机  /usr/local  目录下</p>
 <p>解压  tar  -zxvf /usr/java/ hadoop-2.7.3.tar.gz</p>
@@ -301,7 +316,7 @@
 </ul>
 <p>添加内容</p>
 <p><code> &lt;!-- 指定HADOOP所使用的文件系统schema（URI），HDFS的老大（NameNode）的&gt;地址 --&gt;         &lt;property&gt;           &lt;name&gt;fs.defaultFS&lt;/name&gt;           &lt;value&gt;hdfs://master:8020&lt;/value&gt;         &lt;/property&gt;         &lt;!--datanode.data.dir 存储文件目录, namenode.name.dir 元数据,namenode.edits.dir 日志目录 三者都依赖于此目录--&gt;         &lt;property&gt;           &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;           &lt;value&gt;/var/log/hadoop/tmp&lt;/value&gt;         &lt;/property&gt;</code></p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201015205302979.png" alt="image-20201015205302979"></p>
+<p><img src="https://i.loli.net/2021/04/26/cy7TPGLWHrd9RXa.png" alt="image-20201015205302979"></p>
 <ul>
 <li><p>修改hadoop-env.sh 文件</p>
 <p>修改jdk的实际位置</p>
@@ -462,11 +477,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/03/java%20NIO/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/10/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          数据结构
         
       </div>
     </a>

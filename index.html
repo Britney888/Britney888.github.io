@@ -256,333 +256,23 @@
 
 
   
-    <article id="post-Nacos" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h1><p>官方文档:<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/architecture.html">https://nacos.io/zh-cn/docs/architecture.html</a></p>
-<p>Nacos是一个<strong>服务发现</strong>、<strong>配置管理</strong>和<strong>服务管理</strong>的组件。</p>
-<p>说到服务注册与发现，我想到Eureka、Zookeeper</p>
-<p>说到服务治理，我想到Dubbo</p>
-<p>说到配置管理，我想到Apollo</p>
-<h2 id="1-什么是Nacos"><a href="#1-什么是Nacos" class="headerlink" title="1.什么是Nacos"></a>1.什么是Nacos</h2><p>Nacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。 </p>
-<p>Nacos 支持几乎所有主流类型的“服务”的发现、配置和管理。</p>
-<p>特性：</p>
-<ul>
-<li><strong>服务发现和服务健康监测</strong></li>
-</ul>
-<p>Nacos 支持基于 DNS 和 基于 RPC 的服务发现。服务提供者使用 原生SDK、OpenAPI、或一个独立的Agent TODO注册 Service 后，服务消费者可以使用DNS TODO 或HTTP&amp;API查找和发现服务。</p>
-<p>Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。 对于复杂的云环境和网络拓扑环境中（如 VPC、边缘网络等）服务的健康检查，Nacos 提供了 agent 上报模式和服务端主动检测2种健康检查模式。Nacos 还提供了统一的健康检查仪表盘，帮助您根据健康状态管理服务的可用性及流量。</p>
-<p><img src="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png" alt="image-20210218143247759"></p>
-<ul>
-<li><strong>动态配置服务</strong> </li>
-</ul>
-<p>更新配置后无需重新部署或重启服务，立即生效； </p>
-<p>Nacos 提供了一个简洁易用的UI（控制台）帮助您管理所有的服务和应用的配置；</p>
-<p>Nacos 提供包括配置版本跟踪、金丝雀发布、一键回滚配置以及客户端配置更新状态跟踪等功能</p>
-<p><img src="https://i.loli.net/2021/02/18/GkafSoXjIgeyrLz.png" alt="image-20210218143220497"></p>
-<ul>
-<li><strong>动态 DNS 服务</strong> </li>
-</ul>
-<p>动态 DNS 服务支持权重路由，你可以更容易地实现中间层负载均衡、更灵活的路由策略、流量控制以及数据中心内网的简单DNS解析服务。</p>
-<ul>
-<li><strong>服务及其元数据管理</strong></li>
-</ul>
-<p>Nacos 能让你从微服务平台建设的视角管理数据中心的所有服务及元数据，包括管理服务的描述、生命周期、服务的静态依赖分析、服务的健康状态、服务的流量管理、路由及安全策略、服务的 SLA 以及最首要的 metrics 统计数据。</p>
-<h2 id="2-为什么用Nacos"><a href="#2-为什么用Nacos" class="headerlink" title="2.为什么用Nacos"></a>2.为什么用Nacos</h2><p>用不用主要取决于：</p>
-<ol>
-<li>是否能够更好为业务发展做支撑；</li>
-<li>功能是否满足需求；</li>
-<li>是否稳定，是否经过大规模的生成环境验证；</li>
-<li>是否有完善的文档和活跃的社区；</li>
-</ol>
-<p><img src="https://i.loli.net/2021/02/18/wXBznRJ1hU4Y89H.png" alt="image-20210218143611698"></p>
-<p>架构图</p>
-<p><img src="https://i.loli.net/2021/02/18/k1PpSMQlhBmWIg7.png" alt="image-20210218144250142"></p>
-<p><img src="https://i.loli.net/2021/02/18/OldgjmJQk1YDyo2.png" alt="image-20210218144409899"></p>
-<p>这张图很眼熟，如果去掉蓝色的块儿，就跟Dubbo的那个结构图很像了（提供方、消费方、注册中心、监控、控制台）</p>
-<p>逻辑架构及其组件介绍</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210218144519631.png" alt="image-20210218144519631"></p>
-<p>3.Nacos下载安装</p>
-<p>从 <a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases">最新稳定版本</a> 下载 nacos-server-$version.zip 包 </p>
-<p><img src="https://i.loli.net/2021/02/18/hug3FVzpjZXM2d6.png" alt="image-20210218152232512"></p>
-<h3 id="nacos-安装"><a href="#nacos-安装" class="headerlink" title="nacos 安装"></a>nacos 安装</h3><p>下载后上传到服务器的/usr/local  目录下</p>
-<p>解压文件        </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nacos-server-1.4.1.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2021/02/18/LEMYpo7vBWTKDXN.png" alt="image-20210218152442108"></p>
-<p>进入解压文件的bin目录下    nacos/bin</p>
-<p>启动nacos</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh startup.sh -m standalone</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2021/02/18/cNRk15uxOJAaV9z.png" alt="image-20210218152705804"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nacos       查看nacos状态</span><br></pre></td></tr></table></figure>
-
-<p>访问   <a target="_blank" rel="noopener" href="http://master:8848/nacos/">http://master:8848/nacos/</a></p>
-<p>用户名：nacos</p>
-<p>密码;nacos</p>
-<p><img src="https://i.loli.net/2021/02/18/d8VXD9ZPnUBeJ5p.png" alt="image-20210218153802457"></p>
-<p>nacos配置外部mysql 数据支持</p>
-<p>单机模式时nacos默认使用嵌入式数据库实现数据的存储，若想使用外部mysql存储nacos数据，需要进行以下步 </p>
-<p>骤： </p>
-<p>1.安装数据库，版本要求：5.6.5+ ，mysql 8 以下 </p>
-<p>2.初始化mysql数据库，新建数据库nacos_confifig，导入数据库初始化文件：/usr/local/nacos/conf/nacos- </p>
-<p>mysql.sql </p>
-<p>3.修改/usr/local/nacos/conf/application.properties文件，增加支持mysql数据源配置（目前只支持 </p>
-<p>mysql），添加mysql数据源的url、用户名和密码。 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">### If use MySQL as datasource:</span><br><span class="line">spring.datasource.platform&#x3D;mysql</span><br><span class="line"></span><br><span class="line">### Count of DB:</span><br><span class="line">db.num&#x3D;1</span><br><span class="line"></span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url.0&#x3D;jdbc:mysql:&#x2F;&#x2F;192.168.40.130:3306&#x2F;nacos_config?characterEncoding&#x3D;utf8&amp;connectTimeout&#x3D;1000&amp;socketTimeout&#x3D;3000&amp;autoReconnect&#x3D;true&amp;useUnicode&#x3D;true&amp;useSSL&#x3D;false&amp;serverTimezone&#x3D;UTC</span><br><span class="line">db.user.0&#x3D;root</span><br><span class="line">db.password.0&#x3D;root</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/Nacos/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Nacos踩坑日记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="nacos踩坑日记"><a href="#nacos踩坑日记" class="headerlink" title="nacos踩坑日记"></a>nacos踩坑日记</h1><h2 id="Spring-cloud-Alibaba-Nacos服务注册发现和配置中心"><a href="#Spring-cloud-Alibaba-Nacos服务注册发现和配置中心" class="headerlink" title="Spring cloud Alibaba Nacos服务注册发现和配置中心"></a>Spring cloud Alibaba Nacos服务注册发现和配置中心</h2><p>版本注意：<br>  孵化版本（groupId为org.springframework.cloud）：<br>      spring-cloud-alibaba-dependencies版本0.9.0：与Spring Cloud Greenwich兼容<br>      spring-cloud-alibaba-dependencies版本0.2.2：与Spring Cloud Finchley兼容<br>      且若想支持动态刷新配置，Spring Boot必须引用2.0.X版本系列的，大于或者等于2.1.X版本的暂时不支持动态刷新配置！</p>
-<p>  毕业版本（groupId为com.alibaba.cloud，目前基本用这个了）：<br>      spring-cloud-alibaba-dependencies版本2.1.0.RELEASE：与Spring Cloud Greenwich兼容<br>      spring-cloud-alibaba-dependencies版本2.2.0.RELEASE：与Spring Cloud Hoxton兼容</p>
-<h3 id="创建服务提供者"><a href="#创建服务提供者" class="headerlink" title="创建服务提供者"></a>创建服务提供者</h3><p>springcloud未集成nacos需要手动添加maven依赖</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;2.2.0.RELEASE&lt;/version&gt;</span><br><span class="line">       &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">   &lt;/parent&gt;</span><br><span class="line">   &lt;groupId&gt;com.example&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;nacos-server&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">   &lt;name&gt;nacos-server&lt;/name&gt;</span><br><span class="line">   &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;</span><br><span class="line">   &lt;properties&gt;</span><br><span class="line">       &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">       &lt;spring-cloud-alibaba.version&gt;2.2.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;</span><br><span class="line">   &lt;/properties&gt;</span><br><span class="line">   &lt;dependencies&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">           &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;!-- nacos配置中心--&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;/artifactId&gt;</span><br><span class="line">          &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;--&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;!-- nacos注册中心--&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;</span><br><span class="line">          &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;--&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.nacos&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;nacos-client&lt;/artifactId&gt;</span><br><span class="line">           &lt;version&gt;1.2.0&lt;/version&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">   &lt;/dependencies&gt;</span><br><span class="line">   &lt;dependencyManagement&gt;</span><br><span class="line">       &lt;dependencies&gt;</span><br><span class="line">           &lt;dependency&gt;</span><br><span class="line">               &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">               &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;/artifactId&gt;</span><br><span class="line">               &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;</span><br><span class="line">               &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">               &lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">               &lt;exclusions&gt;</span><br><span class="line">                   &lt;exclusion&gt;</span><br><span class="line">                       &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">                       &lt;artifactId&gt;nacos-client&lt;/artifactId&gt;</span><br><span class="line">                   &lt;/exclusion&gt;</span><br><span class="line">               &lt;/exclusions&gt;</span><br><span class="line">           &lt;/dependency&gt;</span><br><span class="line">       &lt;/dependencies&gt;</span><br><span class="line">   &lt;/dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
-
-<p>启动器上加上服务发现注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableDiscoveryClient</span>    <span class="comment">//服务发现</span></span><br><span class="line"><span class="meta">@EnableFeignClients(&quot;com.example.democlient.client&quot;)</span><span class="comment">//消费者</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(NacosServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong><code>@EnableDiscoveryClient</code>开启Spring Cloud的服务注册与发现</strong></p>
-<p>创建配置文件<code>bootstrap.properties</code>，并配置服务名称和Nacos地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;nacos-server</span><br><span class="line">server.port&#x3D;8622</span><br><span class="line">spring.cloud.nacos.config.server-addr&#x3D;master:8848</span><br><span class="line">spring.cloud.nacos.discovery.server-addr&#x3D;master:8848</span><br></pre></td></tr></table></figure>
-
-<p>注意:</p>
-<p><strong>注意</strong>：这里必须使用<code>bootstrap.properties</code>或者<code>bootstrap.yaml</code>。同时，<code>spring.application.name</code>值必须与上一阶段Nacos中创建的配置Data Id匹配（除了.properties或者.yaml后缀）。</p>
-<p>在bootstrap.properties中配置需要写成：<br>spring.cloud.nacos.discovery.server-addr=xxx.xxx.xxx.xxx:8848<br>spring.cloud.nacos.config.server-addr=xxx.xxx.xxx.xxx:8848<br>缺任意一个就会报错</p>
-<p>缺少discovery服务发现的地址配置server-addr报错</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">03</span>-<span class="number">02</span> <span class="number">17</span>:<span class="number">42</span>:<span class="number">30.958</span> ERROR <span class="number">6824</span> --- [ main] com.alibaba.nacos.client.naming          : [NA] failed to request</span><br><span class="line"></span><br><span class="line">java.net.ConnectException: Connection refused: connect</span><br><span class="line">	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:<span class="number">85</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:<span class="number">350</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:<span class="number">206</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:<span class="number">188</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:<span class="number">172</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
-
-<p>缺少config<code>下的</code>server-addr报错</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">03</span>-<span class="number">02</span> <span class="number">17</span>:<span class="number">42</span>:<span class="number">30.958</span> ERROR <span class="number">36536</span> --- [ main] c.a.n.client.config.impl.ClientWorker    : [fixed-localhost_8848] [sub-server] get server config exception, dataId=nacos-server, group=DEFAULT_GROUP, tenant=</span><br><span class="line"></span><br><span class="line">java.net.ConnectException: no available server</span><br><span class="line">	at com.alibaba.nacos.client.config.http.ServerHttpAgent.httpGet(ServerHttpAgent.java:<span class="number">123</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.http.MetricsHttpAgent.httpGet(MetricsHttpAgent.java:<span class="number">48</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.impl.ClientWorker.getServerConfig(ClientWorker.java:<span class="number">230</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.NacosConfigService.getConfigInner(NacosConfigService.java:<span class="number">143</span>) [nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.NacosConfigService.getConfig(NacosConfigService.java:<span class="number">92</span>) [nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br></pre></td></tr></table></figure>
-
-<p>在源码中—如果不设置默认是localhost</p>
-<p><img src="https://i.loli.net/2021/03/09/59UvhuBPgL468xW.png" alt="image-20210309150859808"></p>
-<p>在那nacos上添加配置信息</p>
-<p><img src="https://i.loli.net/2021/03/09/RE5weXzlBSNO9oP.png" alt="image-20210309144632746"></p>
-<p>注意:命名是    <code>服务名字.properties</code> 或者 <code>服务名字.yaml</code></p>
-<p>创建controller测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value(value = &quot;$&#123;fileServerBaseUrl&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String URL;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.URL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>@RefreshScope</code>，主要用来让这个类下的配置内容支持动态刷新，也就是当我们的应用启动之后，修改了Nacos中的配置内容之后，这里也会马上生效。</p>
-<p>启动成功后访问 </p>
-<p><img src="https://i.loli.net/2021/03/09/FsMXltyfVigGheB.png" alt="image-20210309145218863"></p>
-<p>可以看到注册中心上服务已注册</p>
-<p><img src="https://i.loli.net/2021/03/09/6xFL2imA1bohWkf.png" alt="image-20210309151037513"></p>
-<h3 id="创建client"><a href="#创建client" class="headerlink" title="创建client"></a>创建client</h3><p>maven依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;commons-lang3&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.8.1&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;io.springfox&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;springfox-swagger-ui&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.7.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
-
-<p>创建开放接口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(value &#x3D; &quot;nacos-server&quot;)</span><br><span class="line">public interface OpenApi &#123;</span><br><span class="line">   @PostMapping(&quot;&#x2F;getInfo&quot;)</span><br><span class="line">   String getOpenMesg(@RequestParam(&quot;name&quot;) String name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建消费者"><a href="#创建消费者" class="headerlink" title="创建消费者"></a>创建消费者</h3><p>maven依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">        &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">        &lt;spring-cloud-alibaba.version&gt;2.2.0.RELEASE&lt;&#x2F;spring-cloud-alibaba.version&gt;</span><br><span class="line">    &lt;&#x2F;properties&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- nacos配置中心--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;--&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- nacos注册中心--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;--&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.nacos&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;nacos-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.0&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.projectlombok&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;lombok&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.example&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;demo-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;0.0.1-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">    &lt;dependencyManagement&gt;</span><br><span class="line">        &lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">                &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">                &lt;exclusions&gt;</span><br><span class="line">                    &lt;exclusion&gt;</span><br><span class="line">                        &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">                        &lt;artifactId&gt;nacos-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">                    &lt;&#x2F;exclusion&gt;</span><br><span class="line">                &lt;&#x2F;exclusions&gt;</span><br><span class="line">            &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;&#x2F;dependencies&gt;</span><br><span class="line">    &lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
-
-<p>启动类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@EnableFeignClients(&quot;com.example.democlient.client&quot;)</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class NacosConsumerApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(NacosConsumerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced &#x2F;&#x2F;开启负载均衡</span><br><span class="line">    public RestTemplate restTemplate() &#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;nacos-consumer</span><br><span class="line">spring.cloud.nacos.config.server-addr&#x3D;master:8848</span><br><span class="line">spring.cloud.nacos.discovery.server-addr&#x3D;master:8848</span><br></pre></td></tr></table></figure>
-
-<p>创建测试类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j</span><br><span class="line">@RestController</span><br><span class="line">@Controller</span><br><span class="line">public class TestController &#123;</span><br><span class="line"></span><br><span class="line">    @Resource</span><br><span class="line">    OpenApi openApi;</span><br><span class="line">    @PostMapping(&quot;&#x2F;test&quot;)</span><br><span class="line">    String test(@RequestParam(&quot;name&quot;)String name)&#123;</span><br><span class="line">        log.info(&quot;请求参数&#123;&#125;&quot;,name);</span><br><span class="line">        return openApi.getOpenMesg(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>启动项目    (项目已注册到配置中心)</p>
-<p><img src="https://i.loli.net/2021/03/09/wbPUTgnhXiG4FaC.png" alt="image-20210309172824492"></p>
-<p>测试接口   localhost:8623/test</p>
-<p><img src="https://i.loli.net/2021/03/09/s2hb5lIxGmECnoR.png" alt="image-20210309172926293"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>​           Nginx是一款轻量级的 Web 服务器’反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个 BSD-like 协议下发行，可以在 UNIX、GNU/Linux、BSD、Mac OS X、Solaris，以及 Microsoft Windows 等操作系统中运行。</p>
-<p>​           Nginx(‘engine’)是一个高性能的HTTP和反向代理服务,也是一个IMAP/POP3/SMTP代理服务器.其特点是占有内存少,并发能力强,事实上nginx的并发能了确实在同类型的网页服务器中表现较好.</p>
-<p>1、静态HTTP服务器</p>
-<p>   首先，Nginx是一个HTTP服务器，可以将服务器上的静态文件（如HTML、图片）通过HTTP协议展现给客户端。</p>
-<p>配置：</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">listen 80; # 端口号</span><br><span class="line">location &#x2F; &#123;</span><br><span class="line">   root &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html; # 静态文件路径</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2、反向代理服务器</p>
-<p>什么是反向代理？</p>
-<p>​    客户端本来可以直接通过HTTP协议访问某网站应用服务器，如果网站管理员在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。</p>
-<p><img src="https://i.loli.net/2020/10/04/eYTWum6dGn1bz87.png" alt="image-20201004141058738"></p>
-<p>配置：</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;192.168.0.112:8080; # 应用服务器HTTP地址</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​      既然服务器可以直接HTTP访问，为什么要在中间加上一个反向代理，不是多此一举吗？反向代理有什么作用？继续往下看，下面的负载均衡、虚拟主机，都基于反向代理实现，当然反向代理的功能也不仅仅是这些。</p>
-<p>3、负载均衡</p>
-<p>​      当网站访问量非常大，也摊上事儿了。因为网站越来越慢，一台服务器已经不够用了。于是将相同的应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。同时带来的好处是，其中一台服务器万一挂了，只要还有其他服务器正常运行，就不会影响用户使用。</p>
-<p>Nginx可以通过反向代理来实现负载均衡。</p>
-<p><img src="https://i.loli.net/2020/10/04/SRwkmcnpLjbhIAP.png" alt="image-20201004141823324"></p>
-<p>4、虚拟主机<br>         网站访问量大，需要负载均衡。然而并不是所有网站都如此出色，有的网站，由于访问量太小，需要节省成本，将多个网站部署在同一台服务器上。</p>
-<p>例如将<a target="_blank" rel="noopener" href="http://www.aaa.com和www.bbb.com两个网站部署在同一台服务器上,两个域名解析到同一个ip地址,但是用户通过两个域名却可以打开两个完全不同的网站,互相不影响,就像访问两个服务器一样,所以叫两个虚拟主机./">www.aaa.com和www.bbb.com两个网站部署在同一台服务器上，两个域名解析到同一个IP地址，但是用户通过两个域名却可以打开两个完全不同的网站，互相不影响，就像访问两个服务器一样，所以叫两个虚拟主机。</a></p>
-<p>配置：</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    server_name _;</span><br><span class="line">    return 444; # 过滤其他域名的请求，返回444状态码</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.aaa.com; # www.aaa.com域名</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;localhost:8080; # 对应端口号8080</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.bbb.com; # www.bbb.com域名</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">            proxy_pass http:&#x2F;&#x2F;localhost:8081; # 对应端口号8081</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在服务器8080和8081分别开了一个应用，客户端通过不同的域名访问，根据server_name可以反向代理到对应的应用服务器。</p>
-<p>虚拟主机的原理是通过HTTP请求头中的Host是否匹配server_name来实现的，有兴趣的同学可以研究一下HTTP协议。</p>
-<p>另外，server_name配置还可以过滤有人恶意将某些域名指向你的主机服务器。</p>
-<h2 id="nginx-原理"><a href="#nginx-原理" class="headerlink" title="nginx 原理"></a>nginx 原理</h2><p>  Nginx采用Master-Worker模式</p>
-<p>启动Nginx后，其实就是在80端口启动了Socket服务进行监听，如图所示，Nginx涉及Master进程和Worker进程。</p>
-<p><img src="https://i.loli.net/2020/10/04/OM9CiS8WYGJZygh.jpg" alt="preview"></p>
-<p><img src="https://i.loli.net/2020/10/04/o12WSuQTe3zGIgc.jpg" alt="preview"></p>
-<p>Master进程的作用</p>
-<p>​      读取并验证配置文件nginx.conf；管理worker进程；</p>
-<p>Worker进程的作用</p>
-<p>​       每一个Worker进程都维护一个线程（避免线程切换），处理连接和请求；注意Worker进程的个数由配置文件决定，一般和CPU个数相关（有利于进程切换），配置几个就有几个Worker进程。</p>
-<p>一个master 和多个 worker 的好处<br>    1 可以使用 nginx -s reload 热部署，利用 nginx 进行如部署操作<br>    2 每个worker 是独立的进程，如果一个出问题，其他的独立worker 还能继续工作，实现请求过程，不会造成服务中断。</p>
-<p>Nginx 相对于 Apache 优点：</p>
-<ol>
-<li><p>高并发响应性能非常好，官方 Nginx 处理静态文件并发 5w/s(静态小文件)</p>
-</li>
-<li><p>反向代理性能非常强。（可用于负载均衡）</p>
-</li>
-<li><p>内存和 cpu 占用率低。（为 Apache 的 1/5-1/10）</p>
-</li>
-<li><p>对后端服务有健康检查功能。</p>
-</li>
-<li><p>支持 PHP cgi 方式和 fastcgi 方式。</p>
-</li>
-<li><p>利用nginx可以对IP限速，可以限制连接数。</p>
-</li>
-<li><p>配置代码简洁且容易上手。 </p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/Nginx/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-RabbitMq" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/20/RabbitMq/">RabbitMq</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/20/RabbitMq/" class="archive-article-date">
+  	<time datetime="2021-03-20T06:19:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-20</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -638,7 +328,7 @@ audit.*   只能匹配 audit.irs</code></pre>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/RabbitMq/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/20/RabbitMq/">展开全文 >></a>
         </p>
       
 
@@ -670,6 +360,21 @@ audit.*   只能匹配 audit.irs</code></pre>
   
     <article id="post-Redis集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/10/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Redis集群搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/10/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2021-03-10T10:02:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -792,7 +497,7 @@ audit.*   只能匹配 audit.irs</code></pre>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/10/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
         </p>
       
 
@@ -822,153 +527,82 @@ audit.*   只能匹配 audit.irs</code></pre>
 
 
   
-    <article id="post-数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Nacos踩坑日记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/09/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">Nacos踩坑日记</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/09/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2021-03-09T09:35:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619150132397.png" alt="image-20200619150132397"></p>
-<h2 id="1-数组"><a href="#1-数组" class="headerlink" title="1.数组"></a>1.数组</h2><p>​    数组可以说是最基本最常见的数据结构。数组一般用来存储相同类型的数据，可通过数组名和下标进行数据的访问和更新。数组中元素的存储是按照先后顺序进行的，同时在内存中也是按照这个顺序进行连续存放。数组相邻元素之间的内存地址的间隔一般就是数组数据类型的大小。</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619095853302.png" alt="image-20200619095853302"></p>
-<h2 id="2-链表"><a href="#2-链表" class="headerlink" title="2.链表"></a>2.链表</h2><p>链表相较于数组，除了数据域，还增加了指针域用于构建链式的存储数据。链表中每一个节点都包含此节点的数据和指向下一节点地址的指针。由于是通过指针进行下一个数据元素的查找和访问，使得链表的自由度更高。</p>
-<p>这表现在对节点进行增加和删除时，只需要对上一节点的指针地址进行修改，而无需变动其它的节点。不过事物皆有两极，指针带来高自由度的同时，自然会牺牲数据查找的效率和多余空间的使用。</p>
-<p>一般常见的是有头有尾的单链表，对指针域进行反向链接，还可以形成双向链表或者循环链表。</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619100057728.png" alt="image-20200619100057728"></p>
-<h4 id="链表和数组对比"><a href="#链表和数组对比" class="headerlink" title="链表和数组对比"></a>链表和数组对比</h4><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619100227440.png" alt="image-20200619100227440"></p>
-<h2 id="3-跳表"><a href="#3-跳表" class="headerlink" title="3.跳表"></a>3.跳表</h2><p>​      跳表全称为跳跃列表，它允许快速查询，插入和删除一个有序连续元素的数据链表。跳跃列表的平均查找和插入时间复杂度都是O(logn)。</p>
-<p>​    一开始时，算法在最稀疏的层次进行搜索，直至需要查找的元素在该层两个相邻的元素中间。这时，算法将跳转到下一个层次，重复刚才的搜索，直到找到需要查找的元素为止。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/7509658-1db5fac5ed4e8c6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1066/format/webp" alt="img"></p>
-<h2 id="4-栈"><a href="#4-栈" class="headerlink" title="4.栈"></a>4.栈</h2><p>栈本身是一种线性结构，它的特点是先进后出。</p>
-<p>栈的常用操作包括入栈push和出栈pop，对应于数据的压入和压出。还有访问栈顶数据、判断栈是否为空和判断栈的大小等。由于栈后进先出的特性，常可以作为数据操作的临时容器，对数据的顺序进行调控，与其它数据结构相结合可获得许多灵活的处理。</p>
-<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619142821.gif" alt="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619142821.gif"></p>
-<h2 id="5-队列"><a href="#5-队列" class="headerlink" title="5.队列"></a>5.队列</h2><p>队列是一种先进先出的数据结构。</p>
-<p>队列的数据存储是如同排队一般，先存入的数据先被压出。</p>
-<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619143420.gif" alt="img"></p>
-<h2 id="6-树"><a href="#6-树" class="headerlink" title="6.树"></a>6.树</h2><p>树作为一种树状的数据结构，其数据节点之间的关系也如大树一样，将有限个节点根据不同层次关系进行排列，从而形成数据与数据之间的父子关系。常见的数的表示形式更接近“倒挂的树”，因为它将根朝上，叶朝下。</p>
-<p>树的数据存储在结点中，每个结点有零个或者多个子结点。没有父结点的结点在最顶端，成为根节点；没有非根结点有且只有一个父节点；每个非根节点又可以分为多个不相交的子树。</p>
-<p>这意味着树是具备层次关系的，父子关系清晰，家庭血缘关系明朗；这也是树与图之间最主要的区别。</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145020868.png" alt="image-20200619145020868"></p>
-<p>树的实现就是对链表的指针域进行了扩充，增加了多个地址指向子结点。同时将“链表”竖起来，从而凸显了结点之间的层次关系，更便于分析和理解。</p>
-<p>树可以衍生出许多的结构，若将指针域设置为双指针，那么即可形成最常见的二叉树，即每个结点最多有两个子树的树结构。二叉树根据结点的排列和数量还可进一度划分为完全二叉树、满二叉树、平衡二叉树、红黑树等。</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145106808.png" alt="image-20200619145106808"></p>
-<blockquote>
-<p><strong>完全二叉树</strong>：除了最后一层结点，其它层的结点数都达到了最大值；同时最后一层的结点都是按照从左到右依次排布。</p>
-</blockquote>
-<blockquote>
-<p><strong>满二叉树</strong>：除了最后一层，其它层的结点都有两个子结点。</p>
-</blockquote>
-<h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><p>平衡二叉树又被称为AVL树，它是一棵二叉排序树，且具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。</p>
-<blockquote>
-<p><strong>二叉排序树</strong>：是一棵空树，或者：若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；它的左、右子树也分别为二叉排序树。</p>
-</blockquote>
-<blockquote>
-<p><strong>树的高度</strong>：结点层次的最大值</p>
-</blockquote>
-<blockquote>
-<p><strong>平衡因子</strong>：左子树高度 - 右子树高度</p>
-</blockquote>
-<p>二叉排序树意味着二叉树中的数据是排好序的，顺序为左结点&lt;根节点&lt;右结点，这表明二叉排序树的中序遍历结果是有序的。（还不懂二叉树四种遍历方式[前序遍历、中序遍历、后序遍历、层序遍历]的同学赶紧补习！）</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145217687.png" alt="image-20200619145217687"></p>
-<p>平衡二叉树的产生是为了解决二叉排序树在插入时发生线性排列的现象。由于二叉排序树本身为有序，当插入一个有序程度十分高的序列时，生成的二叉排序树会持续在某个方向的字数上插入数据，导致最终的二叉排序树会退化为链表，从而使得二叉树的查询和插入效率恶化。</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145258224.png" alt="image-20200619145258224"></p>
-<p>平衡二叉树的出现能够解决上述问题，但是在构造平衡二叉树时，却需要采用不同的调整方式，使得二叉树在插入数据后保持平衡。主要的四种调整方式有LL（左旋）、RR（右旋）、LR（先左旋再右旋）、RL（先右旋再左旋）。这里先给大家介绍下简单的单旋转操作，左旋和右旋。LR和RL本质上只是LL和RR的组合。</p>
-<blockquote>
-<p>在插入一个结点后应该沿搜索路径将路径上的结点平衡因子进行修改，当平衡因子大于1时，就需要进行平衡化处理。从发生不平衡的结点起，沿刚才回溯的路径取直接下两层的结点，如果这三个结点在一条直线上，则采用<strong>单旋转</strong>进行平衡化，如果这三个结点位于一条折线上，则采用<strong>双旋转</strong>进行平衡化。</p>
-</blockquote>
-<p>左旋：S为当前需要左旋的结点，E为当前结点的父节点。</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145418234.png" alt="image-20200619145418234"></p>
-<p>左旋的操作可以用一句话简单表示：将当前结点S的左孩子旋转为当前结点父结点E的右孩子，同时将父结点E旋转为当前结点S的左孩子。可用动画表示：</p>
-<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619145442.gif" alt="img"></p>
-<p>右旋：S为当前需要左旋的结点，E为当前结点的父节点。右单旋是左单旋的镜像旋转。</p>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145600218.png" alt="image-20200619145600218"></p>
-<p>左旋的操作同样可以用一句话简单表示：将当前结点S的左孩子E的右孩子旋转为当前结点S的左孩子，同时将当前结点S旋转为左孩子E的右孩子。可用动画表示：</p>
-<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619145654.gif" alt="img"></p>
-<h4 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h4><p>平衡二叉树（AVL）为了追求高度平衡，需要通过平衡处理使得左右子树的高度差必须小于等于1。高度平衡带来的好处是能够提供更高的搜索效率，其最坏的查找时间复杂度都是O(logN)。但是由于需要维持这份高度平衡，所付出的代价就是当对树种结点进行插入和删除时，需要经过多次旋转实现复衡。这导致AVL的插入和删除效率并不高。</p>
-<p>为了解决这样的问题，能不能找一种结构能够兼顾搜索和插入删除的效率呢？这时候红黑树便申请出战了。</p>
-<p>红黑树具有五个特性：</p>
-<blockquote>
-<ol>
-<li>每个结点要么是红的要么是黑的。</li>
-<li>根结点是黑的。</li>
-<li>每个叶结点（叶结点即指树尾端NIL指针或NULL结点）都是黑的。</li>
-<li>如果一个结点是红的，那么它的两个儿子都是黑的。</li>
-<li>对于任意结点而言，其到叶结点树尾端NIL指针的每条路径都包含相同数目的黑结点。</li>
-</ol>
-</blockquote>
-<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145834193.png" alt="image-20200619145834193"></p>
-<p>红黑树通过将结点进行红黑着色，使得原本高度平衡的树结构被稍微打乱，平衡程度降低。红黑树不追求完全平衡，只要求达到部分平衡。这是一种折中的方案，大大提高了结点删除和插入的效率。C++中的STL就常用到红黑树作为底层的数据结构。</p>
-<h4 id="红黑树VS平衡二叉树"><a href="#红黑树VS平衡二叉树" class="headerlink" title="红黑树VS平衡二叉树"></a>红黑树VS平衡二叉树</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/TdGLaSU675gwBawZm4AtKbyUUqEHRqCK5hPCbpd8CzpmiaUWFT6F8ZLfClgnpEpz3TgnHhgc1nKh3TIaK5fK71Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>除了上面所提及的树结构，还有许多广泛应用在数据库、磁盘存储等场景下的树结构。比如B树、B+树等。这里就先不介绍了诶，下次在讲述相关存储原理的时候将会着重介绍。（其实是因为懒）</p>
-<h2 id="7-堆"><a href="#7-堆" class="headerlink" title="7.堆"></a>7.堆</h2><p>堆通常是一个可以被看做一棵树的数组对象。堆的具体实现一般不通过指针域，而是通过构建一个一维数组与二叉树的父子结点进行对应，因此堆总是一颗完全二叉树。</p>
-<p>对于任意一个父节点的序号n来说（这里n从0算），它的子节点的序号一定是2n+1，2n+2，因此可以直接用数组来表示一个堆。</p>
-<p>不仅如此，堆还有一个性质：堆中某个节点的值总是不大于或不小于其父节点的值。将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKPFK7qibDibUPQE1hmoXf3J2uhibD0IVqvOolw3XgtiaorEsyJDYpBby3jg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>堆常用来实现优先队列，在面试中经常考的问题都是与排序有关，比如堆排序、topK问题等。由于堆的根节点是序列中最大或者最小值，因而可以在建堆以及重建堆的过程中，筛选出数据序列中的极值，从而达到排序或者挑选topK值的目的。</p>
-<h2 id="8-散列表"><a href="#8-散列表" class="headerlink" title="8.散列表"></a>8.散列表</h2><p>散列表也叫哈希表，是一种通过键值对直接访问数据的机构。在初中，我们就学过一种能够将一个x值通过一个函数获得对应的一个y值的操作，叫做映射。散列表的实现原理正是映射的原理，通过设定的一个关键字和一个映射函数，就可以直接获得访问数据的地址，实现O(1)的数据访问效率。在映射的过程中，事先设定的函数就是一个映射表，也可以称作散列函数或者哈希函数。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKs2VE1D9tRL8XrqJCwiaLGY66PiagrRy2M6oLnB22pBtU5qZ6XricqnXeA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>散列表的实现最关键的就是散列函数的定义和选择。一般常用的有以下几种散列函数：</p>
-<blockquote>
-<p><strong>直接寻址法</strong>：取关键字或关键字的某个线性函数值为散列地址。</p>
-<p><strong>数字分析法</strong>：通过对数据的分析，发现数据中冲突较少的部分，并构造散列地址。例如同学们的学号，通常同一届学生的学号，其中前面的部分差别不太大，所以用后面的部分来构造散列地址。</p>
-<p><strong>平方取中**</strong>法**：当无法确定关键字里哪几位的分布相对比较均匀时，可以先求出关键字的平方值，然后按需要取平方值的中间几位作为散列地址。这是因为：计算平方之后的中间几位和关键字中的每一位都相关，所以不同的关键字会以较高的概率产生不同的散列地址。</p>
-<p><strong>取随机数法</strong>：使用一个随机函数，取关键字的随机值作为散列地址，这种方式通常用于关键字长度不同的场合。</p>
-<p><strong>除留取余法</strong>：取关键字被某个不大于散列表的表长 n 的数 m 除后所得的余数 p 为散列地址。这种方式也可以在用过其他方法后再使用。该函数对 m 的选择很重要，一般取素数或者直接用 n。</p>
-</blockquote>
-<p>确定好散列函数之后，通过某个<code>key</code>值的确会得到一个唯一的<code>value</code>地址。但是却会出现一些特殊情况。即通过不同的<code>key</code>值可能会访问到同一个地址，这个现象称之为冲突。</p>
-<p>冲突在发生之后，当在对不同的<code>key</code>值进行操作时会使得造成相同地址的数据发生覆盖或者丢失，是非常危险的。所以在设计散列表往往还需要采用冲突解决的办法。</p>
-<p>常用的冲突处理方式有很多，常用的包括以下几种：</p>
-<blockquote>
-<p><strong>开放地址法</strong>（也叫开放寻址法）：实际上就是当需要存储值时，对Key哈希之后，发现这个地址已经有值了，这时该怎么办？不能放在这个地址，不然之前的映射会被覆盖。这时对计算出来的地址进行一个探测再哈希，比如往后移动一个地址，如果没人占用，就用这个地址。如果超过最大长度，则可以对总长度取余。这里移动的地址是产生冲突时的增列序量。</p>
-<p><strong>再哈希法</strong>：在产生冲突之后，使用关键字的其他部分继续计算地址，如果还是有冲突，则继续使用其他部分再计算地址。这种方式的缺点是时间增加了。</p>
-<p><strong>链地址法</strong>：链地址法其实就是对Key通过哈希之后落在同一个地址上的值，做一个链表。其实在很多高级语言的实现当中，也是使用这种方式处理冲突的。</p>
-<p><strong>公共溢出区</strong>：这种方式是建立一个公共溢出区，当地址存在冲突时，把新的地址放在公共溢出区里。</p>
-</blockquote>
-<p>目前比较常用的冲突解决方法是链地址法，一般可以通过数组和链表的结合达到冲突数据缓存的目的。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKtm3chgpF29leIl4TcNQhLR9JariaUuhicgDgBI6rB3WcIdhJ2Xf2ib90g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>左侧数组的每个成员包括一个指针，指向一个链表的头。每发生一个冲突的数据，就将该数据作为链表的节点链接到链表尾部。这样一来，就可以保证冲突的数据能够区分并顺利访问。</p>
-<p>考虑到链表过长造成的问题，还可以使用红黑树替换链表进行冲突数据的处理操作，来提高散列表的查询稳定性。</p>
-<h2 id="9-图"><a href="#9-图" class="headerlink" title="9.图"></a>9.图</h2><p>图相较于上文的几个结构可能接触的不多，但是在实际的应用场景中却经常出现。比方说交通中的线路图，常见的思维导图都可以看作是图的具体表现形式。</p>
-<p>图结构一般包括顶点和边，顶点通常用圆圈来表示，边就是这些圆圈之间的连线。边还可以根据顶点之间的关系设置不同的权重，默认权重相同皆为1。此外根据边的方向性，还可将图分为有向图和无向图。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKo1hPoa84A4tFXEP5dU99GHibHN5XwLsFp1wPMf3QZoZqXR5IF8PRibVw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>图结构用抽象的图线来表示十分简单，顶点和边之间的关系非常清晰明了。但是在具体的代码实现中，为了将各个顶点和边的关系存储下来，却不是一件易事。</p>
-<h4 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h4><p>目前常用的图存储方式为邻接矩阵，通过所有顶点的二维矩阵来存储两个顶点之间是否相连，或者存储两顶点间的边权重。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKgbQHiaeI0ibicpTrzIXwvKOzwwUfxoJJ1ytFHWaQI6tGsEL3JiavurKUjw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>无向图的邻接矩阵是一个对称矩阵，是因为边不具有方向性，若能从此顶点能够到达彼顶点，那么彼顶点自然也能够达到此顶点。此外，由于顶点本身与本身相连没有意义，所以在邻接矩阵中对角线上皆为0。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKPEKEAhpnQfzsYXOhCtPbXiaF4x1kXoicexOVic8BXSC8Ex9CZBHnClaxw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>有向图由于边具有方向性，因此彼此顶点之间并不能相互达到，所以其邻接矩阵的对称性不再。</p>
-<p>用邻接矩阵可以直接从二维关系中获得任意两个顶点的关系，可直接判断是否相连。但是在对矩阵进行存储时，却需要完整的一个二维数组。若图中顶点数过多，会导致二维数组的大小剧增，从而占用大量的内存空间。</p>
-<p>而根据实际情况可以分析得出，图中的顶点并不是任意两个顶点间都会相连，不是都需要对其边上权重进行存储。那么存储的邻接矩阵实际上会存在大量的0。虽然可以通过稀疏表示等方式对稀疏性高的矩阵进行关键信息的存储，但是却增加了图存储的复杂性。</p>
-<p>因此，为了解决上述问题，一种可以只存储相连顶点关系的邻接表应运而生。</p>
-<h4 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h4><p>在邻接表中，图的每一个顶点都是一个链表的头节点，其后连接着该顶点能够直接达到的相邻顶点。相较于无向图，有向图的情况更为复杂，因此这里采用有向图进行实例分析。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKGjr7y7PpruuiaBuo6R6Q2JRYwKPVSLQ3R8wx8fj9YDZnJJb52TMZO7A/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img">在邻接表中，每一个顶点都对应着一条链表，链表中存储的是顶点能够达到的相邻顶点。存储的顺序可以按照顶点的编号顺序进行。比如上图中对于顶点B来说，其通过有向边可以到达顶点A和顶点E，那么其对应的邻接表中的顺序即B-&gt;A-&gt;E，其它顶点亦如此。</p>
-<p>通过邻接表可以获得从某个顶点出发能够到达的顶点，从而省去了对不相连顶点的存储空间。然而，这还不够。对于有向图而言，图中有效信息除了从顶点“指出去”的信息，还包括从别的顶点“指进来”的信息。这里的“指出去”和“指进来”可以用出度和入度来表示。</p>
-<blockquote>
-<p>入度：有向图的某个顶点作为终点的次数和。</p>
-<p>出度：有向图的某个顶点作为起点的次数和。</p>
-</blockquote>
-<p>由此看出，在对有向图进行表示时，邻接表只能求出图的出度，而无法求出入度。这个问题很好解决，那就是增加一个表用来存储能够到达某个顶点的相邻顶点。这个表称作逆邻接表。</p>
-<h4 id="逆邻接表"><a href="#逆邻接表" class="headerlink" title="逆邻接表"></a>逆邻接表</h4><p>逆邻接表与邻接表结构类似，只不过图的顶点链接着能够到达该顶点的相邻顶点。也就是说，邻接表时顺着图中的箭头寻找相邻顶点，而逆邻接表时逆着图中的箭头寻找相邻顶点。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKqLv4dnM8ibblfCzdabl2RV52ZCiaZlHGobcxp6ydoOzXxalor9mDN8dA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>邻接表和逆邻接表的共同使用下，就能够把一个完整的有向图结构进行表示。可以发现，邻接表和逆邻接表实际上有一部分数据是重合的，因此可以将两个表合二为一，从而得到了所谓的十字链表。</p>
-<h4 id="十字链表"><a href="#十字链表" class="headerlink" title="十字链表"></a>十字链表</h4><p>十字链表似乎很简单，只需要通过相同的顶点分别链向以该顶点为终点和起点的相邻顶点即可。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKORBfPSQiblo2CLzrahdcNeqMvzm93kKiaybG4iaCD2TKH4vs8IkxRmppw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>但这并不是最优的表示方式。虽然这样的方式共用了中间的顶点存储空间，但是邻接表和逆邻接表的链表节点中重复出现的顶点并没有得到重复利用，反而是进行了再次存储。因此，上图的表示方式还可以进行进一步优化。</p>
-<p>十字链表优化后，可通过扩展的顶点结构和边结构来进行正逆邻接表的存储：（下面的弧头可看作是边的箭头那端，弧尾可看作是边的圆点那端）</p>
-<blockquote>
-<p><strong>data</strong>：用于存储该顶点中的数据；</p>
-<p><strong>firstin指针</strong>：用于连接以当前顶点为弧头的其他顶点构成的链表，即从别的顶点指进来的顶点；</p>
-<p><strong>firstout指针</strong>：用于连接以当前顶点为弧尾的其他顶点构成的链表，即从该顶点指出去的顶点；</p>
-</blockquote>
-<p>边结构通过存储两个顶点来确定一条边，同时通过分别代表这两个顶点的指针来与相邻顶点进行链接：</p>
-<blockquote>
-<p><strong>tailvex</strong>：用于存储作为弧尾的顶点的编号；</p>
-<p><strong>headvex</strong>：用于存储作为弧头的顶点的编号；</p>
-<p><strong>headlink</strong> <strong>指针</strong>：用于链接下一个存储作为弧头的顶点的节点；</p>
-<p><strong>taillink</strong> <strong>指针</strong>：用于链接下一个存储作为弧尾的顶点的节点；</p>
-</blockquote>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKsPXqiaIeicYpPEBPrs3jVRs795hLAUQ44748sjFLWhnsZ7fGL2OkicJ6g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>以上图为例子，对于顶点A而言，其作为起点能够到达顶点E。因此在邻接表中顶点A要通过边<code>AE</code>（即边04）指向顶点E，顶点A的<code>firstout</code>指针需要指向边04的<code>tailvex</code>。同时，从B出发能够到达A，所以在逆邻接表中顶点A要通过边<code>AB</code>（即边10）指向B，顶点A的<code>firstin</code>指针需要指向边10的弧头，即<code>headlink</code>指针。依次类推。</p>
-<p>十字链表采用了一种看起来比较繁乱的方式对边的方向性进行了表示，能够在尽可能降低存储空间的情况下增加指针保留顶点之间的方向性。具体的操作可能一时间不好弄懂，建议多看几次上图，弄清指针指向的意义，明白正向和逆向邻接表的表示。</p>
+        <h1 id="nacos踩坑日记"><a href="#nacos踩坑日记" class="headerlink" title="nacos踩坑日记"></a>nacos踩坑日记</h1><h2 id="Spring-cloud-Alibaba-Nacos服务注册发现和配置中心"><a href="#Spring-cloud-Alibaba-Nacos服务注册发现和配置中心" class="headerlink" title="Spring cloud Alibaba Nacos服务注册发现和配置中心"></a>Spring cloud Alibaba Nacos服务注册发现和配置中心</h2><p>版本注意：<br>  孵化版本（groupId为org.springframework.cloud）：<br>      spring-cloud-alibaba-dependencies版本0.9.0：与Spring Cloud Greenwich兼容<br>      spring-cloud-alibaba-dependencies版本0.2.2：与Spring Cloud Finchley兼容<br>      且若想支持动态刷新配置，Spring Boot必须引用2.0.X版本系列的，大于或者等于2.1.X版本的暂时不支持动态刷新配置！</p>
+<p>  毕业版本（groupId为com.alibaba.cloud，目前基本用这个了）：<br>      spring-cloud-alibaba-dependencies版本2.1.0.RELEASE：与Spring Cloud Greenwich兼容<br>      spring-cloud-alibaba-dependencies版本2.2.0.RELEASE：与Spring Cloud Hoxton兼容</p>
+<h3 id="创建服务提供者"><a href="#创建服务提供者" class="headerlink" title="创建服务提供者"></a>创建服务提供者</h3><p>springcloud未集成nacos需要手动添加maven依赖</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;2.2.0.RELEASE&lt;/version&gt;</span><br><span class="line">       &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">   &lt;/parent&gt;</span><br><span class="line">   &lt;groupId&gt;com.example&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;nacos-server&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">   &lt;name&gt;nacos-server&lt;/name&gt;</span><br><span class="line">   &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;</span><br><span class="line">   &lt;properties&gt;</span><br><span class="line">       &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">       &lt;spring-cloud-alibaba.version&gt;2.2.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;</span><br><span class="line">   &lt;/properties&gt;</span><br><span class="line">   &lt;dependencies&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">           &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;!-- nacos配置中心--&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;/artifactId&gt;</span><br><span class="line">          &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;--&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;!-- nacos注册中心--&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;</span><br><span class="line">          &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;--&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.alibaba.nacos&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;nacos-client&lt;/artifactId&gt;</span><br><span class="line">           &lt;version&gt;1.2.0&lt;/version&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">   &lt;/dependencies&gt;</span><br><span class="line">   &lt;dependencyManagement&gt;</span><br><span class="line">       &lt;dependencies&gt;</span><br><span class="line">           &lt;dependency&gt;</span><br><span class="line">               &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">               &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;/artifactId&gt;</span><br><span class="line">               &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;/version&gt;</span><br><span class="line">               &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">               &lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">               &lt;exclusions&gt;</span><br><span class="line">                   &lt;exclusion&gt;</span><br><span class="line">                       &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">                       &lt;artifactId&gt;nacos-client&lt;/artifactId&gt;</span><br><span class="line">                   &lt;/exclusion&gt;</span><br><span class="line">               &lt;/exclusions&gt;</span><br><span class="line">           &lt;/dependency&gt;</span><br><span class="line">       &lt;/dependencies&gt;</span><br><span class="line">   &lt;/dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p>启动器上加上服务发现注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableDiscoveryClient</span>    <span class="comment">//服务发现</span></span><br><span class="line"><span class="meta">@EnableFeignClients(&quot;com.example.democlient.client&quot;)</span><span class="comment">//消费者</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(NacosServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>@EnableDiscoveryClient</code>开启Spring Cloud的服务注册与发现</strong></p>
+<p>创建配置文件<code>bootstrap.properties</code>，并配置服务名称和Nacos地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;nacos-server</span><br><span class="line">server.port&#x3D;8622</span><br><span class="line">spring.cloud.nacos.config.server-addr&#x3D;master:8848</span><br><span class="line">spring.cloud.nacos.discovery.server-addr&#x3D;master:8848</span><br></pre></td></tr></table></figure>
+
+<p>注意:</p>
+<p><strong>注意</strong>：这里必须使用<code>bootstrap.properties</code>或者<code>bootstrap.yaml</code>。同时，<code>spring.application.name</code>值必须与上一阶段Nacos中创建的配置Data Id匹配（除了.properties或者.yaml后缀）。</p>
+<p>在bootstrap.properties中配置需要写成：<br>spring.cloud.nacos.discovery.server-addr=xxx.xxx.xxx.xxx:8848<br>spring.cloud.nacos.config.server-addr=xxx.xxx.xxx.xxx:8848<br>缺任意一个就会报错</p>
+<p>缺少discovery服务发现的地址配置server-addr报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">03</span>-<span class="number">02</span> <span class="number">17</span>:<span class="number">42</span>:<span class="number">30.958</span> ERROR <span class="number">6824</span> --- [ main] com.alibaba.nacos.client.naming          : [NA] failed to request</span><br><span class="line"></span><br><span class="line">java.net.ConnectException: Connection refused: connect</span><br><span class="line">	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:<span class="number">85</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:<span class="number">350</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:<span class="number">206</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:<span class="number">188</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:<span class="number">172</span>) ~[na:<span class="number">1.8</span>.<span class="number">0_101</span>]</span><br><span class="line">	at java</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
+
+<p>缺少config<code>下的</code>server-addr报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">03</span>-<span class="number">02</span> <span class="number">17</span>:<span class="number">42</span>:<span class="number">30.958</span> ERROR <span class="number">36536</span> --- [ main] c.a.n.client.config.impl.ClientWorker    : [fixed-localhost_8848] [sub-server] get server config exception, dataId=nacos-server, group=DEFAULT_GROUP, tenant=</span><br><span class="line"></span><br><span class="line">java.net.ConnectException: no available server</span><br><span class="line">	at com.alibaba.nacos.client.config.http.ServerHttpAgent.httpGet(ServerHttpAgent.java:<span class="number">123</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.http.MetricsHttpAgent.httpGet(MetricsHttpAgent.java:<span class="number">48</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.impl.ClientWorker.getServerConfig(ClientWorker.java:<span class="number">230</span>) ~[nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.NacosConfigService.getConfigInner(NacosConfigService.java:<span class="number">143</span>) [nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br><span class="line">	at com.alibaba.nacos.client.config.NacosConfigService.getConfig(NacosConfigService.java:<span class="number">92</span>) [nacos-client-<span class="number">1.2</span>.<span class="number">0.</span>jar:na]</span><br></pre></td></tr></table></figure>
+
+<p>在源码中—如果不设置默认是localhost</p>
+<p><img src="https://i.loli.net/2021/03/09/59UvhuBPgL468xW.png" alt="image-20210309150859808"></p>
+<p>在那nacos上添加配置信息</p>
+<p><img src="https://i.loli.net/2021/03/09/RE5weXzlBSNO9oP.png" alt="image-20210309144632746"></p>
+<p>注意:命名是    <code>服务名字.properties</code> 或者 <code>服务名字.yaml</code></p>
+<p>创建controller测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value(value = &quot;$&#123;fileServerBaseUrl&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String URL;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.URL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@RefreshScope</code>，主要用来让这个类下的配置内容支持动态刷新，也就是当我们的应用启动之后，修改了Nacos中的配置内容之后，这里也会马上生效。</p>
+<p>启动成功后访问 </p>
+<p><img src="https://i.loli.net/2021/03/09/FsMXltyfVigGheB.png" alt="image-20210309145218863"></p>
+<p>可以看到注册中心上服务已注册</p>
+<p><img src="https://i.loli.net/2021/03/09/6xFL2imA1bohWkf.png" alt="image-20210309151037513"></p>
+<h3 id="创建client"><a href="#创建client" class="headerlink" title="创建client"></a>创建client</h3><p>maven依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;commons-lang3&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.8.1&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;io.springfox&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;springfox-swagger-ui&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.7.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+<p>创建开放接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(value &#x3D; &quot;nacos-server&quot;)</span><br><span class="line">public interface OpenApi &#123;</span><br><span class="line">   @PostMapping(&quot;&#x2F;getInfo&quot;)</span><br><span class="line">   String getOpenMesg(@RequestParam(&quot;name&quot;) String name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建消费者"><a href="#创建消费者" class="headerlink" title="创建消费者"></a>创建消费者</h3><p>maven依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">        &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">        &lt;spring-cloud-alibaba.version&gt;2.2.0.RELEASE&lt;&#x2F;spring-cloud-alibaba.version&gt;</span><br><span class="line">    &lt;&#x2F;properties&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- nacos配置中心--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;--&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- nacos注册中心--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;!-- &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;--&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba.nacos&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;nacos-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.0&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.projectlombok&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;lombok&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.2.2.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.example&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;demo-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;0.0.1-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">    &lt;dependencyManagement&gt;</span><br><span class="line">        &lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;spring-cloud-alibaba.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">                &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">                &lt;exclusions&gt;</span><br><span class="line">                    &lt;exclusion&gt;</span><br><span class="line">                        &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">                        &lt;artifactId&gt;nacos-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">                    &lt;&#x2F;exclusion&gt;</span><br><span class="line">                &lt;&#x2F;exclusions&gt;</span><br><span class="line">            &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;&#x2F;dependencies&gt;</span><br><span class="line">    &lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p>启动类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@EnableFeignClients(&quot;com.example.democlient.client&quot;)</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class NacosConsumerApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(NacosConsumerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced &#x2F;&#x2F;开启负载均衡</span><br><span class="line">    public RestTemplate restTemplate() &#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;nacos-consumer</span><br><span class="line">spring.cloud.nacos.config.server-addr&#x3D;master:8848</span><br><span class="line">spring.cloud.nacos.discovery.server-addr&#x3D;master:8848</span><br></pre></td></tr></table></figure>
+
+<p>创建测试类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j</span><br><span class="line">@RestController</span><br><span class="line">@Controller</span><br><span class="line">public class TestController &#123;</span><br><span class="line"></span><br><span class="line">    @Resource</span><br><span class="line">    OpenApi openApi;</span><br><span class="line">    @PostMapping(&quot;&#x2F;test&quot;)</span><br><span class="line">    String test(@RequestParam(&quot;name&quot;)String name)&#123;</span><br><span class="line">        log.info(&quot;请求参数&#123;&#125;&quot;,name);</span><br><span class="line">        return openApi.getOpenMesg(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动项目    (项目已注册到配置中心)</p>
+<p><img src="https://i.loli.net/2021/03/09/wbPUTgnhXiG4FaC.png" alt="image-20210309172824492"></p>
+<p>测试接口   localhost:8623/test</p>
+<p><img src="https://i.loli.net/2021/03/09/s2hb5lIxGmECnoR.png" alt="image-20210309172926293"></p>
 
       
 
@@ -981,7 +615,7 @@ audit.*   只能匹配 audit.irs</code></pre>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/09/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">展开全文 >></a>
         </p>
       
 
@@ -1011,8 +645,157 @@ audit.*   只能匹配 audit.irs</code></pre>
 
 
   
-    <article id="post-zookeeper集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Nacos" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/09/Nacos/">Nacos</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/09/Nacos/" class="archive-article-date">
+  	<time datetime="2021-03-09T06:13:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h1><p>官方文档:<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/architecture.html">https://nacos.io/zh-cn/docs/architecture.html</a></p>
+<p>Nacos是一个<strong>服务发现</strong>、<strong>配置管理</strong>和<strong>服务管理</strong>的组件。</p>
+<p>说到服务注册与发现，我想到Eureka、Zookeeper</p>
+<p>说到服务治理，我想到Dubbo</p>
+<p>说到配置管理，我想到Apollo</p>
+<h2 id="1-什么是Nacos"><a href="#1-什么是Nacos" class="headerlink" title="1.什么是Nacos"></a>1.什么是Nacos</h2><p>Nacos 可以快速实现动态服务发现、服务配置、服务元数据及流量管理。 </p>
+<p>Nacos 支持几乎所有主流类型的“服务”的发现、配置和管理。</p>
+<p>特性：</p>
+<ul>
+<li><strong>服务发现和服务健康监测</strong></li>
+</ul>
+<p>Nacos 支持基于 DNS 和 基于 RPC 的服务发现。服务提供者使用 原生SDK、OpenAPI、或一个独立的Agent TODO注册 Service 后，服务消费者可以使用DNS TODO 或HTTP&amp;API查找和发现服务。</p>
+<p>Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。 对于复杂的云环境和网络拓扑环境中（如 VPC、边缘网络等）服务的健康检查，Nacos 提供了 agent 上报模式和服务端主动检测2种健康检查模式。Nacos 还提供了统一的健康检查仪表盘，帮助您根据健康状态管理服务的可用性及流量。</p>
+<p><img src="https://i.loli.net/2021/02/18/YUoOPxT2DHMdynX.png" alt="image-20210218143247759"></p>
+<ul>
+<li><strong>动态配置服务</strong> </li>
+</ul>
+<p>更新配置后无需重新部署或重启服务，立即生效； </p>
+<p>Nacos 提供了一个简洁易用的UI（控制台）帮助您管理所有的服务和应用的配置；</p>
+<p>Nacos 提供包括配置版本跟踪、金丝雀发布、一键回滚配置以及客户端配置更新状态跟踪等功能</p>
+<p><img src="https://i.loli.net/2021/02/18/GkafSoXjIgeyrLz.png" alt="image-20210218143220497"></p>
+<ul>
+<li><strong>动态 DNS 服务</strong> </li>
+</ul>
+<p>动态 DNS 服务支持权重路由，你可以更容易地实现中间层负载均衡、更灵活的路由策略、流量控制以及数据中心内网的简单DNS解析服务。</p>
+<ul>
+<li><strong>服务及其元数据管理</strong></li>
+</ul>
+<p>Nacos 能让你从微服务平台建设的视角管理数据中心的所有服务及元数据，包括管理服务的描述、生命周期、服务的静态依赖分析、服务的健康状态、服务的流量管理、路由及安全策略、服务的 SLA 以及最首要的 metrics 统计数据。</p>
+<h2 id="2-为什么用Nacos"><a href="#2-为什么用Nacos" class="headerlink" title="2.为什么用Nacos"></a>2.为什么用Nacos</h2><p>用不用主要取决于：</p>
+<ol>
+<li>是否能够更好为业务发展做支撑；</li>
+<li>功能是否满足需求；</li>
+<li>是否稳定，是否经过大规模的生成环境验证；</li>
+<li>是否有完善的文档和活跃的社区；</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/18/wXBznRJ1hU4Y89H.png" alt="image-20210218143611698"></p>
+<p>架构图</p>
+<p><img src="https://i.loli.net/2021/02/18/k1PpSMQlhBmWIg7.png" alt="image-20210218144250142"></p>
+<p><img src="https://i.loli.net/2021/02/18/OldgjmJQk1YDyo2.png" alt="image-20210218144409899"></p>
+<p>这张图很眼熟，如果去掉蓝色的块儿，就跟Dubbo的那个结构图很像了（提供方、消费方、注册中心、监控、控制台）</p>
+<p>逻辑架构及其组件介绍</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20210218144519631.png" alt="image-20210218144519631"></p>
+<p>3.Nacos下载安装</p>
+<p>从 <a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases">最新稳定版本</a> 下载 nacos-server-$version.zip 包 </p>
+<p><img src="https://i.loli.net/2021/02/18/hug3FVzpjZXM2d6.png" alt="image-20210218152232512"></p>
+<h3 id="nacos-安装"><a href="#nacos-安装" class="headerlink" title="nacos 安装"></a>nacos 安装</h3><p>下载后上传到服务器的/usr/local  目录下</p>
+<p>解压文件        </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nacos-server-1.4.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/18/LEMYpo7vBWTKDXN.png" alt="image-20210218152442108"></p>
+<p>进入解压文件的bin目录下    nacos/bin</p>
+<p>启动nacos</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh startup.sh -m standalone</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/18/cNRk15uxOJAaV9z.png" alt="image-20210218152705804"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep nacos       查看nacos状态</span><br></pre></td></tr></table></figure>
+
+<p>访问   <a target="_blank" rel="noopener" href="http://master:8848/nacos/">http://master:8848/nacos/</a></p>
+<p>用户名：nacos</p>
+<p>密码;nacos</p>
+<p><img src="https://i.loli.net/2021/02/18/d8VXD9ZPnUBeJ5p.png" alt="image-20210218153802457"></p>
+<p>nacos配置外部mysql 数据支持</p>
+<p>单机模式时nacos默认使用嵌入式数据库实现数据的存储，若想使用外部mysql存储nacos数据，需要进行以下步 </p>
+<p>骤： </p>
+<p>1.安装数据库，版本要求：5.6.5+ ，mysql 8 以下 </p>
+<p>2.初始化mysql数据库，新建数据库nacos_confifig，导入数据库初始化文件：/usr/local/nacos/conf/nacos- </p>
+<p>mysql.sql </p>
+<p>3.修改/usr/local/nacos/conf/application.properties文件，增加支持mysql数据源配置（目前只支持 </p>
+<p>mysql），添加mysql数据源的url、用户名和密码。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">### If use MySQL as datasource:</span><br><span class="line">spring.datasource.platform&#x3D;mysql</span><br><span class="line"></span><br><span class="line">### Count of DB:</span><br><span class="line">db.num&#x3D;1</span><br><span class="line"></span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url.0&#x3D;jdbc:mysql:&#x2F;&#x2F;192.168.40.130:3306&#x2F;nacos_config?characterEncoding&#x3D;utf8&amp;connectTimeout&#x3D;1000&amp;socketTimeout&#x3D;3000&amp;autoReconnect&#x3D;true&amp;useUnicode&#x3D;true&amp;useSSL&#x3D;false&amp;serverTimezone&#x3D;UTC</span><br><span class="line">db.user.0&#x3D;root</span><br><span class="line">db.password.0&#x3D;root</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/09/Nacos/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-zookeeper-集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/10/zookeeper-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">zookeeper 集群搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/10/zookeeper-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2020-12-10T06:08:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-10</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -1029,7 +812,7 @@ audit.*   只能匹配 audit.irs</code></pre>
 <p>停止开机自启动                 systemctl disable zookeeper.service</p>
 <p>查看服务当前状态             systemctl status zookeeper.service</p>
 <p>重新启动服务                     systemctl restart zookeeper.service</p>
-<p>查看所有已启动的服务      systemctl list-units –type=service</p>
+<p>查看所有已启动的服务      systemctl list-units –type=service </p>
 
       
 
@@ -1042,7 +825,7 @@ audit.*   只能匹配 audit.irs</code></pre>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/03/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/10/zookeeper-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
         </p>
       
 
@@ -1072,8 +855,400 @@ audit.*   只能匹配 audit.irs</code></pre>
 
 
   
-    <article id="post-mysql集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-docker安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/27/docker%E5%AE%89%E8%A3%85/">docker安装</a>
+    </h1>
+  
+
+        
+        <a href="/2020/11/27/docker%E5%AE%89%E8%A3%85/" class="archive-article-date">
+  	<time datetime="2020-11-27T09:00:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>docker官方说至少3.8以上，建议3.10以上</p>
+<ol>
+<li>首先查看Linux系统内核是否满足要求</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#查看centos版本号</span><br><span class="line">cat &#x2F;etc&#x2F;centos-release</span><br><span class="line">#查看系统内核版本</span><br><span class="line">uname -r</span><br><span class="line">#查看操作系统位数</span><br><span class="line">getconf LONG_BIT</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/27/cXAd8hb35FU9lxM.png" alt="image-20201127135212552"></p>
+<p>2、使用 <code>root</code> 权限登录 Centos。确保 yum 包更新到最新。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update</span><br></pre></td></tr></table></figure>
+
+<p>3.安装需要的软件包， yum-util 提供yum-config-manager功能，另外两个是devicemapper驱动依赖的</p>
+<p><img src="https://i.loli.net/2020/11/27/jGOzwiN2UmY9MWt.png" alt="image-20201127150114997"></p>
+<p>4，设置yum源（选择其中一个）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo（中央仓库）</span><br><span class="line"></span><br><span class="line">yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo（阿里仓库）</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/27/EsnvTmHVarfuZLU.png" alt="image-20201127150136174"></p>
+<p>5，可以查看所有仓库中所有docker版本，并选择特定版本安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list docker-ce --showduplicates | sort -r</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/27/8gTSZ3XLe2IWob4.png" alt="image-20201127150309755"></p>
+<p>6，安装Docker，命令：yum install docker-ce-版本号，我选的是docker-ce-18.03.1.ce，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  yum install docker-ce-18.03.1.ce</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/27/XylaJAdDHkGYwru.png" alt="image-20201127150658788"></p>
+<p>期间要选择确认，输入 y 即可）</p>
+<p>7， 启动Docker，命令：systemctl start docker，然后加入开机启动，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master &#x2F;]# systemctl start docker</span><br><span class="line">[root@master &#x2F;]# systemctl enable  docker</span><br><span class="line">[root@master &#x2F;]# docker version</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/27/UNAlhegtTq9QYJO.png" alt="image-20201127150802626"></p>
+<p>附一些常用Docker命令，更多命令详解，请访问：<a target="_blank" rel="noopener" href="https://www.docker.org.cn/dockerppt/106.html">https://www.docker.org.cn/dockerppt/106.html</a></p>
+<p> —————–   docker ps 查看当前正在运行的容器</p>
+<p> —————–  docker ps -a 查看所有容器的状态</p>
+<p> —————–  docker start/stop id/name 启动/停止某个容器</p>
+<p> —————–  docker attach id 进入某个容器(使用exit退出后容器也跟着停止运行)</p>
+<p> —————–  docker exec -ti id 启动一个伪终端以交互式的方式进入某个容器（使用exit退出后容器不停止运行）</p>
+<p> —————–  docker images 查看本地镜像<br>  —————–  docker rm id/name 删除某个容器<br> —————–   docker rmi id/name 删除某个镜像</p>
+<p> —————–  docker run –name test -ti ubuntu /bin/bash 复制ubuntu容器并且重命名为test且运行，然后以伪终端交互式方式进入容器，运行bash</p>
+<p>—————–   docker build -t soar/centos:7.1 . 通过当前目录下的Dockerfile创建一个名为soar/centos:7.1的镜像</p>
+<p> —————–  docker run -d -p 2222:22 –name  test soar/centos:7.1  以镜像soar/centos:7.1创建名为test的容器，并以后台模式运行，并做端口映射到宿主机2222端口，P参数重启容器宿主机端口会发生改变</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/27/docker%E5%AE%89%E8%A3%85/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-java-NIO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/17/java-NIO/">java NIO</a>
+    </h1>
+  
+
+        
+        <a href="/2020/11/17/java-NIO/" class="archive-article-date">
+  	<time datetime="2020-11-17T01:35:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java-NIO"><a href="#java-NIO" class="headerlink" title="java NIO"></a>java NIO</h1><p>前言</p>
+<p>1.1. Java IO读写原理</p>
+<p>   无论是Socket的读写还是文件的独写,在java层面的应用开发或者Linux系统的底层开发,都属于输入input和输出output的处理,简称为IO读写.在原理上和处理流程上,都是一致的.区别在于参数的不同</p>
+<p>​    用户程序进行读写操作,基本上都会用到read和write两大系统的调用,不同的操作系统名称可能不完全一样,但功能是一样的.</p>
+<p>   read系统调用，并不是把数据直接从物理设备，读数据到内存。write系统调用，也不是直接把数据，写入到物理设备。</p>
+<p>   read系统调用，是把数据从内核缓冲区复制到进程缓冲区；而write系统调用，是把数据从进程缓冲区复制到内核缓冲区。这个两个系统调用，都不负责数据在内核缓冲区和磁盘之间的交换。底层的读写交换，是由操作系统kernel内核完成的。</p>
+<p>1.1.1. 内核缓冲与进程缓冲区</p>
+<p>​    缓冲区的目的,是为了减少频繁的操作系统IO的调用.通常系统调用需要保存之前的进程数据和状态等信息,而调用结束之后回来还要恢复之前的信息,为了减少这种损耗时间,也损耗性能的系统调用,就出现了缓冲区.</p>
+<p>​    有了缓冲区,操作系统使用read函数把数据从内核缓冲区复制到进程缓冲区,write函数吧进程缓冲区复制到内核缓冲区中,等待缓冲区大大一定数量时,再进行IO的调用,提升性能.至于什么时候读取和村塾则由内核决定,用户程序不需要关心.</p>
+<p>​    在Linux系统中,系统内核也有个缓冲区叫做内核缓冲区.每个进程有自己独立的缓冲区,叫做进程缓冲区.</p>
+<p>​    所以用户程序的IO独写程序,大多数情况下,并没有进行实际的IO操作,而是独写自己的进程缓冲区.</p>
+<p>1.1.2. java IO读写的底层流程</p>
+<p>​    用户程序进行IO的读写，基本上会用到系统调用read&amp;write，read把数据从内核缓冲区复制到进程缓冲区，write把数据从进程缓冲区复制到内核缓冲区，它们不等价于数据在内核缓冲区和磁盘之间的交换。</p>
+<p><img src="https://i.loli.net/2020/11/11/oiuK4LlsCzTvU5Z.png" alt="image-20201111172329870"></p>
+<p>首先看看一个典型Java 服务端处理网络请求的典型过程：</p>
+<p>（1）客户端请求</p>
+<p>Linux通过网卡，读取客户断的请求数据，将数据读取到内核缓冲区。</p>
+<p>（2）获取请求数据</p>
+<p>服务器从内核缓冲区读取数据到Java进程缓冲区。</p>
+<p>​      （1）服务器端业务处理</p>
+<p>​                 Java服务端在自己的用户空间中，处理客户端的请求。</p>
+<p>​      （2）服务器端返回数据</p>
+<p>​                Java服务端已构建好的响应，从用户缓冲区写入系统缓冲区。</p>
+<p>（3）发送给客户端</p>
+<p>Linux内核通过网络 I/O ，将内核缓冲区中的数据，写入网卡，网卡通过底层的通讯协议，会将数据发送给目标客户端。</p>
+<p>1.2. 四种主要的IO模型</p>
+<p>服务器端编程经常需要构造高性能的IO模型，常见的IO模型有四种：</p>
+<p>（1）同步阻塞IO（Blocking IO）</p>
+<p>首先，解释一下这里的阻塞与非阻塞：</p>
+<p>​    阻塞IO，指的是需要内核IO操作彻底完成后，才返回到用户空间，执行用户的操作。阻塞指的是用户空间程序的执行状态，用户空间程序需等到IO操作彻底完成。传统的IO模型都是同步阻塞IO。在java中，默认创建的socket都是阻塞的。</p>
+<p>其次，解释一下同步与异步：</p>
+<p>   同步IO，是一种用户空间与内核空间的调用发起方式。同步IO是指用户空间线程是主动发起IO请求的一方，内核空间是被动接受方。异步IO则反过来，是指内核kernel是主动发起IO请求的一方，用户线程是被动接受方。</p>
+<p>（2）同步非阻塞IO（Non-blocking IO）</p>
+<p>  非阻塞IO，指的是用户程序不需要等待内核IO操作完成后，内核立即返回给用户一个状态值，用户空间无需等到内核的IO操作彻底完成，可以立即返回用户空间，执行用户的操作，处于非阻塞的状态。</p>
+<p>简单的说：阻塞是指用户空间（调用线程）一直在等待，而且别的事情什么都不做；非阻塞是指用户空间（调用线程）拿到状态就返回，IO操作可以干就干，不可以干，就去干的事情。</p>
+<p>非阻塞IO要求socket被设置为NONBLOCK。</p>
+<p>强调一下，这里所说的NIO（同步非阻塞IO）模型，并非Java的NIO（New IO）库。</p>
+<p>（3）IO多路复用（IO Multiplexing）</p>
+<p>即经典的Reactor设计模式，有时也称为异步阻塞IO，Java中的Selector和Linux中的epoll都是这种模型。</p>
+<p>（4）异步IO（Asynchronous IO）</p>
+<p>异步IO，指的是用户空间与内核空间的调用方式反过来。用户空间线程是变成被动接受的，内核空间是主动调用者。</p>
+<p>这一点，有点类似于Java中比较典型的模式是回调模式，用户空间线程向内核空间注册各种IO事件的回调函数，由内核去主动调用。</p>
+<h2 id="1-3-同步阻塞IO（Blocking-IO）"><a href="#1-3-同步阻塞IO（Blocking-IO）" class="headerlink" title="1.3. 同步阻塞IO（Blocking IO）"></a>1.3. <strong>同步阻塞IO（Blocking IO）</strong></h2><p>在linux中的Java进程中，默认情况下所有的socket都是blocking IO。在阻塞式 I/O 模型中，应用程序在从IO系统调用开始，一直到到系统调用返回，这段时间是阻塞的。返回成功后，应用进程开始处理用户空间的缓存数据。</p>
+<p><img src="https://i.loli.net/2020/11/11/L5KU3Pb7EnV4c68.png" alt="image-20201111174100730"></p>
+<p>举个栗子，发起一个blocking socket的read读操作系统调用，流程大概是这样：</p>
+<p>（1）当用户线程调用了read系统调用，内核（kernel）就开始了IO的第一个阶段：准备数据。很多时候，数据在一开始还没有到达（比如，还没有收到一个完整的Socket数据包），这个时候kernel就要等待足够的数据到来。</p>
+<p>（2）当kernel一直等到数据准备好了，它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
+<p>（3）从开始IO读的read系统调用开始，用户线程就进入阻塞状态。一直到kernel返回结果后，用户线程才解除block的状态，重新运行起来。</p>
+<p>所以，blocking IO的特点就是在内核进行IO执行的两个阶段，用户线程都被block了。</p>
+<p>BIO的优点：</p>
+<p>程序简单，在阻塞等待数据期间，用户线程挂起。用户线程基本不会占用 CPU 资源。</p>
+<p>BIO的缺点：</p>
+<p>一般情况下，会为每个连接配套一条独立的线程，或者说一条线程维护一个连接成功的IO流的读写。在并发量小的情况下，这个没有什么问题。但是，当在高并发的场景下，需要大量的线程来维护大量的网络连接，内存、线程切换开销会非常巨大。因此，基本上，BIO模型在高并发场景下是不可用的。</p>
+<h2 id="1-4-同步非阻塞NIO（None-Blocking-IO）"><a href="#1-4-同步非阻塞NIO（None-Blocking-IO）" class="headerlink" title="1.4. 同步非阻塞NIO（None Blocking IO）"></a>1.4. <strong>同步非阻塞NIO（None Blocking IO）</strong></h2><p>在linux系统下，可以通过设置socket使其变为non-blocking。NIO 模型中应用程序在一旦开始IO系统调用，会出现以下两种情况：</p>
+<p>（1）在内核缓冲区没有数据的情况下，系统调用会立即返回，返回一个调用失败的信息。</p>
+<p>（2）在内核缓冲区有数据的情况下，是阻塞的，直到数据从内核缓冲复制到用户进程缓冲。复制完成后，系统调用返回成功，应用进程开始处理用户空间的缓存数据。</p>
+<p><img src="https://i.loli.net/2020/11/11/SndohFwjkcNqx1J.png" alt="image-20201111174658790"></p>
+<p>举个栗子。发起一个non-blocking socket的read读操作系统调用，流程是这个样子：</p>
+<p>（1）在内核数据没有准备好的阶段，用户线程发起IO请求时，立即返回。用户线程需要不断地发起IO系统调用。</p>
+<p>（2）内核数据到达后，用户线程发起系统调用，用户线程阻塞。内核开始复制数据。它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
+<p>（3）用户线程才解除block的状态，重新运行起来。经过多次的尝试，用户线程终于真正读取到数据，继续执行。</p>
+<p>NIO的特点：</p>
+<p>应用程序的线程需要不断的进行 I/O 系统调用，轮询数据是否已经准备好，如果没有准备好，继续轮询，直到完成系统调用为止。</p>
+<p>NIO的优点：每次发起的 IO 系统调用，在内核的等待数据过程中可以立即返回。用户线程不会阻塞，实时性较好。</p>
+<p>NIO的缺点：需要不断的重复发起IO系统调用，这种不断的轮询，将会不断地询问内核，这将占用大量的 CPU 时间，系统资源利用率较低。</p>
+<p>总之，NIO模型在高并发场景下，也是不可用的。一般 Web 服务器不使用这种 IO 模型。一般很少直接使用这种模型，而是在其他IO模型中使用非阻塞IO这一特性。java的实际开发中，也不会涉及这种IO模型。</p>
+<p>再次说明，Java NIO（New IO） 不是IO模型中的NIO模型，而是另外的一种模型，叫做IO多路复用模型（ IO multiplexing ）。</p>
+<h2 id="1-5-IO多路复用模型-I-O-multiplexing）"><a href="#1-5-IO多路复用模型-I-O-multiplexing）" class="headerlink" title="1.5. IO多路复用模型(I/O multiplexing）"></a>1.5. <strong>IO多路复用模型(I/O multiplexing）</strong></h2><p>如何避免同步非阻塞NIO模型中轮询等待的问题呢？这就是IO多路复用模型。</p>
+<p>IO多路复用模型，就是通过一种新的系统调用，一个进程可以监视多个文件描述符，一旦某个描述符就绪（一般是内核缓冲区可读/可写），内核kernel能够通知程序进行相应的IO系统调用。</p>
+<p>目前支持IO多路复用的系统调用，有 select，epoll等等。select系统调用，是目前几乎在所有的操作系统上都有支持，具有良好跨平台特性。epoll是在linux 2.6内核中提出的，是select系统调用的linux增强版本。</p>
+<p>IO多路复用模型的基本原理就是select/epoll系统调用，单个线程不断的轮询select/epoll系统调用所负责的成百上千的socket连接，当某个或者某些socket网络连接有数据到达了，就返回这些可以读写的连接。因此，好处也就显而易见了——通过一次select/epoll系统调用，就查询到到可以读写的一个甚至是成百上千的网络连接。</p>
+<p>举个栗子。发起一个多路复用IO的的read读操作系统调用，流程是这个样子：</p>
+<p><img src="https://i.loli.net/2020/11/11/PMTCBmV3g4jpkI5.png" alt="image-20201111175156864"></p>
+<p>在这种模式中，首先不是进行read系统调动，而是进行select/epoll系统调用。当然，这里有一个前提，需要将目标网络连接，提前注册到select/epoll的可查询socket列表中。然后，才可以开启整个的IO多路复用模型的读流程。</p>
+<p>（1）进行select/epoll系统调用，查询可以读的连接。kernel会查询所有select的可查询socket列表，当任何一个socket中的数据准备好了，select就会返回。</p>
+<p>当用户进程调用了select，那么整个线程会被block（阻塞掉）。</p>
+<p>（2）用户线程获得了目标连接后，发起read系统调用，用户线程阻塞。内核开始复制数据。它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
+<p>（3）用户线程才解除block的状态，用户线程终于真正读取到数据，继续执行。</p>
+<p>多路复用IO的特点：</p>
+<p>IO多路复用模型，建立在操作系统kernel内核能够提供的多路分离系统调用select/epoll基础之上的。多路复用IO需要用到两个系统调用（system call）， 一个select/epoll查询调用，一个是IO的读取调用。</p>
+<p>和NIO模型相似，多路复用IO需要轮询。负责select/epoll查询调用的线程，需要不断的进行select/epoll轮询，查找出可以进行IO操作的连接。</p>
+<p>另外，多路复用IO模型与前面的NIO模型，是有关系的。对于每一个可以查询的socket，一般都设置成为non-blocking模型。只是这一点，对于用户程序是透明的（不感知）。</p>
+<p>多路复用IO的优点：</p>
+<p>用select/epoll的优势在于，它可以同时处理成千上万个连接（connection）。与一条线程维护一个连接相比，I/O多路复用技术的最大优势是：系统不必创建线程，也不必维护这些线程，从而大大减小了系统的开销。</p>
+<p>Java的NIO（new IO）技术，使用的就是IO多路复用模型。在linux系统上，使用的是epoll系统调用。</p>
+<p>多路复用IO的缺点：</p>
+<p>本质上，select/epoll系统调用，属于同步IO，也是阻塞IO。都需要在读写事件就绪后，自己负责进行读写，也就是说这个读写过程是阻塞的。</p>
+<p>如何充分的解除线程的阻塞呢？那就是异步IO模型。</p>
+<h2 id="1-6-异步IO模型（asynchronous-IO）"><a href="#1-6-异步IO模型（asynchronous-IO）" class="headerlink" title="1.6. 异步IO模型（asynchronous IO）"></a>1.6. <strong>异步IO模型（asynchronous IO）</strong></h2><p>如何进一步提升效率，解除最后一点阻塞呢？这就是异步IO模型，全称asynchronous I/O，简称为AIO。</p>
+<p>AIO的基本流程是：用户线程通过系统调用，告知kernel内核启动某个IO操作，用户线程返回。kernel内核在整个IO操作（包括数据准备、数据复制）完成后，通知用户程序，用户执行后续的业务操作。</p>
+<p>kernel的数据准备是将数据从网络物理设备（网卡）读取到内核缓冲区；kernel的数据复制是将数据从内核缓冲区拷贝到用户程序空间的缓冲区。</p>
+<p><img src="https://i.loli.net/2020/11/11/74Oeo6qracAxTsd.png" alt="image-20201111180018167"></p>
+<p>（1）当用户线程调用了read系统调用，立刻就可以开始去做其它的事，用户线程不阻塞。</p>
+<p>（2）内核（kernel）就开始了IO的第一个阶段：准备数据。当kernel一直等到数据准备好了，它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存）。</p>
+<p>（3）kernel会给用户线程发送一个信号（signal），或者回调用户线程注册的回调接口，告诉用户线程read操作完成了。</p>
+<p>（4）用户线程读取用户缓冲区的数据，完成后续的业务操作。</p>
+<p>异步IO模型的特点：</p>
+<p>在内核kernel的等待数据和复制数据的两个阶段，用户线程都不是block(阻塞)的。用户线程需要接受kernel的IO操作完成的事件，或者说注册IO操作完成的回调函数，到操作系统的内核。所以说，异步IO有的时候，也叫做信号驱动 IO 。</p>
+<p>异步IO模型缺点：</p>
+<p>需要完成事件的注册与传递，这里边需要底层操作系统提供大量的支持，去做大量的工作。</p>
+<p>目前来说， Windows 系统下通过 IOCP 实现了真正的异步 I/O。但是，就目前的业界形式来说，Windows 系统，很少作为百万级以上或者说高并发应用的服务器操作系统来使用。</p>
+<p>而在 Linux 系统下，异步IO模型在2.6版本才引入，目前并不完善。所以，这也是在 Linux 下，实现高并发网络编程时都是以 IO 复用模型模式为主。</p>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p>​     NIO 即New IO ,这个库是在JDK1.4中引入的.NIO与IO有着相同的作用和目的,但是实现方式不同,NIO支持面向缓冲区的、基于通道的IO操作,所以NIO的效率比IO的效率高很多.</p>
+<h2 id="2-NIO和IO的主要区别"><a href="#2-NIO和IO的主要区别" class="headerlink" title="2.NIO和IO的主要区别"></a>2.NIO和IO的主要区别</h2><table>
+<thead>
+<tr>
+<th>IO模型</th>
+<th>IO</th>
+<th>NIO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>方式</td>
+<td>从硬盘到内存</td>
+<td>从内存到硬盘</td>
+</tr>
+<tr>
+<td>通信</td>
+<td>面向流(只能单向传输)</td>
+<td>面向缓存(可双向传输数据,多路复用)</td>
+</tr>
+<tr>
+<td>处理</td>
+<td>阻塞IO(多线程)</td>
+<td>非阻塞IO(反应堆)</td>
+</tr>
+<tr>
+<td>触发</td>
+<td>无</td>
+<td>选择器(采用轮询机 Selectors)</td>
+</tr>
+</tbody></table>
+<p>1)、面向流与面向缓冲</p>
+<p>​      Java IO面向流意味着每次从流中读一个或多个字节，直至读取所有字节，它们没有被缓存在任何地方。此外，它不能前后移动流中的数据。如果需要前后移动从流中读取的数据，需要先将它缓存到一个缓冲区。</p>
+<p>JavaNIO的缓冲导向方法略有不同,当读到一个数据时会把它放在一个它稍后处理的缓冲区,需要时可在缓冲区中前后移动.这样极大的增加了数据的灵活性。但是，还需要检查是否该缓冲区中包含所有您需要处理的数据。而且，需确保当更多的数据读入缓冲区时，不要覆盖缓冲区里尚未处理的数据。</p>
+<p>2)阻塞(Block)和非租塞(NonBlock)</p>
+<p>阻塞与非阻塞是描述进程在访问某个资源时，数据是否准备就绪的的一种处理方式。当数据没有准备就绪时：</p>
+<p>​    阻塞:县城持续等待资源中数据准备完成,才会返回响应结果,否则会一直等待</p>
+<p>​    非阻塞:当进程访问数据缓冲区时,如果数据没有准备就绪直接返回,不会等待.如果数据准备就绪,也直接返回.</p>
+<p>3)同步与异步</p>
+<p>同步与异步是指访问数据的机智</p>
+<p>同步:指主动请求并等待IO操作完成的方式</p>
+<p>异步:是指主动请求数据后可以继续处理其他任务,随后等待IO操作完毕的通知。</p>
+<p>4)选择器（Selectors）</p>
+<p>JavaNIO的选择器允许一个单独的线程监视多个输入通道,我们可以注册多个通道到一个选择器上,然后使用以后个单独的线程选择通道,这些通道里已经有可以处理的输入,或者选择已准备写入的通道.这种机制,使得一个单独的线程很容易来管理多个线程</p>
+<h2 id="3-Java-NIO系统的核心"><a href="#3-Java-NIO系统的核心" class="headerlink" title="3.Java NIO系统的核心"></a>3.Java NIO系统的核心</h2><p>​    Java NIO系统的核心在于：通道(Channel)和缓冲区(Buffer)。</p>
+<p>   Channel 负责传输， Buffer 负责存储</p>
+<h3 id="1-通道Channel"><a href="#1-通道Channel" class="headerlink" title="1) 通道Channel"></a>1) 通道Channel</h3><p>通道表示打开到 IO 设备(例如：文件、套接字)的连接。通过它可以读取和写入数据</p>
+<p>在NIO中，提供了多种通道对象，而所有的通道对象都实现了Channel接口。它们之间的继承关系如下图所示：</p>
+<p><img src="https://i.loli.net/2020/11/12/XRF2B3pk1qrOPWt.png" alt="img"></p>
+<ul>
+<li>使用NIO读取数据</li>
+</ul>
+<p>任何时候读取数据，都不是直接从通道读取，而是从通道读取到缓冲区。所以使用NIO读取数据可以分为下面三个步骤：</p>
+<pre><code>           1.  从FileInputStream获取Channel
+                 2.  创建Buffer
+                    3.  将数据从Channel读取到Buffer中</code></pre>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fis &#x3D; new FileInputStream(&quot;1.txt&quot;);</span><br><span class="line">FileChannel inChannel &#x3D; fis.getChannel();</span><br><span class="line">&#x2F;&#x2F;②分配指定大小的缓冲区</span><br><span class="line">ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;③读取缓冲区中的数据</span><br><span class="line">while(inChannel.read(buf) !&#x3D; -1)&#123;</span><br><span class="line">    byte b &#x3D; buf.get();</span><br><span class="line">    System.out.print(((char)b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用NIO写入数据</li>
+</ul>
+<p>使用NIO写入数据与读取数据的过程类似，同样数据不是直接写入通道，而是写入缓冲区，可以分为下面三个步骤：</p>
+<ol>
+<li>从FileInputStream获取Channel</li>
+<li>创建Buffer</li>
+<li>将数据从Channel写入到Buffer中</li>
+</ol>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream  fis &#x3D; new FileInputStream(&quot;1.txt&quot;);</span><br><span class="line">FileOutputStream fos &#x3D; new FileOutputStream(&quot;2.txt&quot;);</span><br><span class="line"></span><br><span class="line">inChannel &#x3D; fis.getChannel();</span><br><span class="line">outChannel &#x3D; fos.getChannel();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;②分配指定大小的缓冲区</span><br><span class="line">ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;③将通道中的数据存入缓冲区中</span><br><span class="line">while(inChannel.read(buf) !&#x3D; -1)&#123;</span><br><span class="line">    buf.flip(); &#x2F;&#x2F;切换读取数据的模式</span><br><span class="line">    &#x2F;&#x2F;④将缓冲区中的数据写入通道中</span><br><span class="line">    outChannel.write(buf);</span><br><span class="line">    buf.clear(); &#x2F;&#x2F;清空缓冲区</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;关闭通道</span><br><span class="line">outChannel.close();</span><br><span class="line">inChannel.close();</span><br><span class="line">fos.close();</span><br><span class="line">fis.close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-缓冲区Buffer"><a href="#2-缓冲区Buffer" class="headerlink" title="2)缓冲区Buffer"></a>2)缓冲区Buffer</h3><p>​     缓冲区实际上是一个容器对象,相当于一个数组,在NIO库中，所有数据都是用缓冲区处理的。在读取数据时，它是直接读到缓冲区中的； 在写入数据时，它也是写入到缓冲区中的；任何时候访问 NIO 中的数据，都是将它放到缓冲区中。</p>
+<p><img src="https://i.loli.net/2020/11/12/e8nlXwpxJhBfV9W.png" alt="img"></p>
+<p>​     在NIO中，所有的缓冲区类型都继承于抽象类Buffer，最常用的就是ByteBuffer，对于Java中的基本类型，基本都有一个具体Buffer类型与之相对应，它们之间的继承关系如下图所示：</p>
+<p><img src="https://i.loli.net/2020/11/12/9GVmsJf7RbilegS.png" alt="image3.png | center | 650x368"></p>
+<p>   <strong>Buffer 中的四个属性的含义分别如下：</strong></p>
+<p>​            1.容量 (capacity) ：表示 Buffer 最大数据容量，缓冲区容量不能为负，并且创建后不能更改。<br>​            2.限制 (limit)：第一个不能读取或写入的数据的索引，即位于 limit 后的数据不可读写。缓冲区的限制不能为负，并且不能大于其容量。<br>​            3.位置 (position)：下一个要读取或写入的数据的索引。缓冲区的位置不能为负，并且不能大于其限制<br>​            4.标记 (mark)与重置 (reset)：标记是一个索引，通过 Buffer 中的 mark() 方法指定 Buffer 中一个特定的 position，之后可以通过调用 reset() 方法恢复到这个 position,<strong>它是下一个要被读或写的元素的索引。位置会自动由相应的 get( )和 put( )函数更新。</strong></p>
+<p><strong>Buffer 中的常见方法如下：</strong></p>
+<p><img src="https://i.loli.net/2020/11/12/EyrUgtB4VZHT3oP.png" alt="image-20201112145943715"></p>
+<p><strong>Buffer 常见类型：</strong></p>
+<p><img src="https://i.loli.net/2020/11/12/3uyS9LJ68AHQGmg.png" alt="image-20201112150053058"></p>
+<p>基本操作:get() 与 put() 方法</p>
+<p><img src="https://i.loli.net/2020/11/12/Bl57o8N24cFZuSx.png" alt="image-20201112150829870"></p>
+<p><img src="https://i.loli.net/2020/11/12/DlZFrJMjkTSHVyE.png" alt="image-20201112151042265"></p>
+<p>非直接缓冲区:通过allocate()方法分配缓冲区,将缓冲区建立在JVM的内存中</p>
+<p>直接缓冲区:通过allocateDirect()方法分配缓冲区,将缓冲区建立在物理内存中</p>
+<h3 id="3-选择器-Selector"><a href="#3-选择器-Selector" class="headerlink" title="3)选择器(Selector)"></a>3)选择器(Selector)</h3><p>选择器是 SelectableChannle 对象的多路复用器，选择器可以同时监控多个 SelectableChannel 的 IO 状况，也就是说，利用 选择器可使一个单独的线程管理多个 通道。</p>
+<p>SelectableChannel 的结构图如下</p>
+<p><img src="https://i.loli.net/2020/11/16/8XHEuDwnhqFGKBi.png" alt="image-20201116103822634"></p>
+<p>选择器的应用</p>
+<p><img src="https://i.loli.net/2020/11/16/HpPL3aEKFykXJMf.png" alt="image-20201116104336734"></p>
+<p><img src="https://i.loli.net/2020/11/16/TJfpyEmR7I1WzYV.png" alt="image-20201116104556472"></p>
+<p>SelectionKey</p>
+<p>SelectionKey：表示 SelectableChannel 和 Selector 之间的注册关系。每次向选择器注册通道时就会选择一个事件(选择键)。选择键包含两个表示为整数值的操作集。操作集的每一位都表示该键的通道所支持的一类可选择操作</p>
+<p><img src="https://i.loli.net/2020/11/16/BzMQHfiRCA7YGPK.png" alt="image-20201116110830724"></p>
+<p><strong>SocketChannel</strong></p>
+<p><img src="https://i.loli.net/2020/11/16/nvU47kaDBS9ZMAW.png" alt="image-20201116110920112"></p>
+<p><img src="https://i.loli.net/2020/11/16/Q2cqtHARdIu5C8V.png" alt="image-20201116110952400"></p>
+<p>TCP网络传输示例:</p>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">public class TestNonBlockingNIO &#123;</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;客户端</span><br><span class="line">   @Test</span><br><span class="line">   public void client() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      SocketChannel sChannel &#x3D; SocketChannel.open(new InetSocketAddress(&quot;127.0.0.1&quot;, 9898));</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      sChannel.configureBlocking(false);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;3. 分配指定大小的缓冲区</span><br><span class="line">      ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;4. 发送数据给服务端</span><br><span class="line">      Scanner scan &#x3D; new Scanner(System.in);</span><br><span class="line">      </span><br><span class="line">      while(scan.hasNext())&#123;</span><br><span class="line">         String str &#x3D; scan.next();</span><br><span class="line">         buf.put((new Date().toString() + &quot;\n&quot; + str).getBytes());</span><br><span class="line">         buf.flip();</span><br><span class="line">         sChannel.write(buf);</span><br><span class="line">         buf.clear();</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;5. 关闭通道</span><br><span class="line">      sChannel.close();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   &#x2F;&#x2F;服务端</span><br><span class="line">   @Test</span><br><span class="line">   public void server() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      ServerSocketChannel ssChannel &#x3D; ServerSocketChannel.open();</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      ssChannel.configureBlocking(false);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;3. 绑定连接</span><br><span class="line">      ssChannel.bind(new InetSocketAddress(9898));</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;4. 获取选择器</span><br><span class="line">      Selector selector &#x3D; Selector.open();</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;5. 将通道注册到选择器上, 并且指定“监听接收事件”</span><br><span class="line">      ssChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;6. 轮询式的获取选择器上已经“准备就绪”的事件</span><br><span class="line">      while(selector.select() &gt; 0)&#123;&#x2F;&#x2F;说明至少有一个准备就绪了</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”</span><br><span class="line">         Iterator&lt;SelectionKey&gt; it &#x3D; selector.selectedKeys().iterator();</span><br><span class="line">         </span><br><span class="line">         while(it.hasNext())&#123;</span><br><span class="line">            &#x2F;&#x2F;8. 获取准备“就绪”的是事件</span><br><span class="line">            SelectionKey sk &#x3D; it.next();</span><br><span class="line">            </span><br><span class="line">            &#x2F;&#x2F;9. 判断具体是什么事件准备就绪</span><br><span class="line">            if(sk.isAcceptable())&#123;</span><br><span class="line">               &#x2F;&#x2F;10. 若“接收就绪”，获取客户端连接</span><br><span class="line">               SocketChannel sChannel &#x3D; ssChannel.accept();</span><br><span class="line">               </span><br><span class="line">               &#x2F;&#x2F;11. 切换非阻塞模式</span><br><span class="line">               sChannel.configureBlocking(false);</span><br><span class="line">               </span><br><span class="line">               &#x2F;&#x2F;12. 将该通道注册到选择器上</span><br><span class="line">               sChannel.register(selector, SelectionKey.OP_READ);</span><br><span class="line">            &#125;else if(sk.isReadable())&#123;</span><br><span class="line">               &#x2F;&#x2F;13. 获取当前选择器上“读就绪”状态的通道</span><br><span class="line">               SocketChannel sChannel &#x3D; (SocketChannel) sk.channel();</span><br><span class="line">               </span><br><span class="line">               &#x2F;**14. 读取数据*&#x2F;</span><br><span class="line">               ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">               </span><br><span class="line">               int len &#x3D; 0;</span><br><span class="line">               while((len &#x3D; sChannel.read(buf)) &gt; 0 )&#123;</span><br><span class="line">                  buf.flip();</span><br><span class="line">                  System.out.println(new String(buf.array(), 0, len));</span><br><span class="line">                  buf.clear();</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            &#x2F;&#x2F;15. 取消选择键 SelectionKey</span><br><span class="line">            it.remove();</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DatagramChannel</strong></p>
+<p><img src="https://i.loli.net/2020/11/16/tKTsBYqvmgpkL1N.png" alt="image-20201116132937689"></p>
+<p>UDP网络传输示例:</p>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public class TestNonBlockingNIO2UDP &#123;</span><br><span class="line">   </span><br><span class="line">   @Test</span><br><span class="line">   public void send() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      DatagramChannel dc &#x3D; DatagramChannel.open();</span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      dc.configureBlocking(false);</span><br><span class="line">      &#x2F;&#x2F;3. 分配指定大小的缓冲区</span><br><span class="line">      ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">      </span><br><span class="line">      Scanner scan &#x3D; new Scanner(System.in);</span><br><span class="line">      &#x2F;&#x2F;4. 发送数据给服务端</span><br><span class="line">      while(scan.hasNext())&#123;</span><br><span class="line">         String str &#x3D; scan.next();</span><br><span class="line">         buf.put((new Date().toString() + &quot;:\n&quot; + str).getBytes());</span><br><span class="line">         buf.flip();</span><br><span class="line">         dc.send(buf, new InetSocketAddress(&quot;127.0.0.1&quot;, 9898));</span><br><span class="line">         buf.clear();</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F;5. 关闭通道</span><br><span class="line">      dc.close();</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   @Test</span><br><span class="line">   public void receive() throws IOException&#123;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      DatagramChannel dc &#x3D; DatagramChannel.open();</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      dc.configureBlocking(false);</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;3. 绑定连接</span><br><span class="line">      dc.bind(new InetSocketAddress(9898));</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;4. 获取选择器</span><br><span class="line">      Selector selector &#x3D; Selector.open();</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;5. 将通道注册到选择器上, 并且指定“监听接收事件”</span><br><span class="line">      dc.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;6. 轮询式的获取选择器上已经“准备就绪”的事件</span><br><span class="line">      while(selector.select() &gt; 0)&#123;</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”</span><br><span class="line">         Iterator&lt;SelectionKey&gt; it &#x3D; selector.selectedKeys().iterator();</span><br><span class="line">         </span><br><span class="line">         while(it.hasNext())&#123;</span><br><span class="line">            &#x2F;&#x2F;8. 获取准备“就绪”的是事件</span><br><span class="line">            SelectionKey sk &#x3D; it.next();</span><br><span class="line">            &#x2F;&#x2F;9. 判断读事件是否准备就绪</span><br><span class="line">            if(sk.isReadable())&#123;</span><br><span class="line">               ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">               &#x2F;&#x2F;10. 若“接收就绪”，读取客户端数据到缓冲区</span><br><span class="line">               dc.receive(buf);</span><br><span class="line">               buf.flip();</span><br><span class="line">               System.out.println(new String(buf.array(), 0, buf.limit()));</span><br><span class="line">               buf.clear();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         it.remove();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>管道 (Pipe)</p>
+<p>   Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。数据会被写到sink通道，从source通道读取。</p>
+<p><img src="https://i.loli.net/2020/11/17/nFmi9sL2wGkTZPO.png" alt="image-20201117093251966"></p>
+<p>代码示例:</p>
+<p>``</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() throws IOException&#123;</span><br><span class="line">   &#x2F;&#x2F;1. 获取管道</span><br><span class="line">   Pipe pipe &#x3D; Pipe.open();</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;2. 将缓冲区中的数据写入管道</span><br><span class="line">   ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">   </span><br><span class="line">   Pipe.SinkChannel sinkChannel &#x3D; pipe.sink();</span><br><span class="line">   buf.put(&quot;通过单向管道发送数据&quot;.getBytes());</span><br><span class="line">   buf.flip();</span><br><span class="line">   sinkChannel.write(buf);</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;3. 读取缓冲区中的数据</span><br><span class="line">   Pipe.SourceChannel sourceChannel &#x3D; pipe.source();</span><br><span class="line">   buf.flip();</span><br><span class="line">   int len &#x3D; sourceChannel.read(buf);</span><br><span class="line">   System.out.println(new String(buf.array(), 0, len));</span><br><span class="line">   </span><br><span class="line">   sourceChannel.close();</span><br><span class="line">   sinkChannel.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/17/java-NIO/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql-集群搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/16/mysql-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">mysql 集群搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2020/11/16/mysql-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2020-11-16T02:05:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -1247,7 +1422,7 @@ audit.*   只能匹配 audit.irs</code></pre>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/03/mysql%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/11/16/mysql-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">展开全文 >></a>
         </p>
       
 
@@ -1277,225 +1452,169 @@ audit.*   只能匹配 audit.irs</code></pre>
 
 
   
-    <article id="post-java NIO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+    </h1>
+  
+
+        
+        <a href="/2020/10/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2020-10-26T05:48:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-26</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="java-NIO"><a href="#java-NIO" class="headerlink" title="java NIO"></a>java NIO</h1><p>前言</p>
-<p>1.1. Java IO读写原理</p>
-<p>   无论是Socket的读写还是文件的独写,在java层面的应用开发或者Linux系统的底层开发,都属于输入input和输出output的处理,简称为IO读写.在原理上和处理流程上,都是一致的.区别在于参数的不同</p>
-<p>​    用户程序进行读写操作,基本上都会用到read和write两大系统的调用,不同的操作系统名称可能不完全一样,但功能是一样的.</p>
-<p>   read系统调用，并不是把数据直接从物理设备，读数据到内存。write系统调用，也不是直接把数据，写入到物理设备。</p>
-<p>   read系统调用，是把数据从内核缓冲区复制到进程缓冲区；而write系统调用，是把数据从进程缓冲区复制到内核缓冲区。这个两个系统调用，都不负责数据在内核缓冲区和磁盘之间的交换。底层的读写交换，是由操作系统kernel内核完成的。</p>
-<p>1.1.1. 内核缓冲与进程缓冲区</p>
-<p>​    缓冲区的目的,是为了减少频繁的操作系统IO的调用.通常系统调用需要保存之前的进程数据和状态等信息,而调用结束之后回来还要恢复之前的信息,为了减少这种损耗时间,也损耗性能的系统调用,就出现了缓冲区.</p>
-<p>​    有了缓冲区,操作系统使用read函数把数据从内核缓冲区复制到进程缓冲区,write函数吧进程缓冲区复制到内核缓冲区中,等待缓冲区大大一定数量时,再进行IO的调用,提升性能.至于什么时候读取和村塾则由内核决定,用户程序不需要关心.</p>
-<p>​    在Linux系统中,系统内核也有个缓冲区叫做内核缓冲区.每个进程有自己独立的缓冲区,叫做进程缓冲区.</p>
-<p>​    所以用户程序的IO独写程序,大多数情况下,并没有进行实际的IO操作,而是独写自己的进程缓冲区.</p>
-<p>1.1.2. java IO读写的底层流程</p>
-<p>​    用户程序进行IO的读写，基本上会用到系统调用read&amp;write，read把数据从内核缓冲区复制到进程缓冲区，write把数据从进程缓冲区复制到内核缓冲区，它们不等价于数据在内核缓冲区和磁盘之间的交换。</p>
-<p><img src="https://i.loli.net/2020/11/11/oiuK4LlsCzTvU5Z.png" alt="image-20201111172329870"></p>
-<p>首先看看一个典型Java 服务端处理网络请求的典型过程：</p>
-<p>（1）客户端请求</p>
-<p>Linux通过网卡，读取客户断的请求数据，将数据读取到内核缓冲区。</p>
-<p>（2）获取请求数据</p>
-<p>服务器从内核缓冲区读取数据到Java进程缓冲区。</p>
-<p>​      （1）服务器端业务处理</p>
-<p>​                 Java服务端在自己的用户空间中，处理客户端的请求。</p>
-<p>​      （2）服务器端返回数据</p>
-<p>​                Java服务端已构建好的响应，从用户缓冲区写入系统缓冲区。</p>
-<p>（3）发送给客户端</p>
-<p>Linux内核通过网络 I/O ，将内核缓冲区中的数据，写入网卡，网卡通过底层的通讯协议，会将数据发送给目标客户端。</p>
-<p>1.2. 四种主要的IO模型</p>
-<p>服务器端编程经常需要构造高性能的IO模型，常见的IO模型有四种：</p>
-<p>（1）同步阻塞IO（Blocking IO）</p>
-<p>首先，解释一下这里的阻塞与非阻塞：</p>
-<p>​    阻塞IO，指的是需要内核IO操作彻底完成后，才返回到用户空间，执行用户的操作。阻塞指的是用户空间程序的执行状态，用户空间程序需等到IO操作彻底完成。传统的IO模型都是同步阻塞IO。在java中，默认创建的socket都是阻塞的。</p>
-<p>其次，解释一下同步与异步：</p>
-<p>   同步IO，是一种用户空间与内核空间的调用发起方式。同步IO是指用户空间线程是主动发起IO请求的一方，内核空间是被动接受方。异步IO则反过来，是指内核kernel是主动发起IO请求的一方，用户线程是被动接受方。</p>
-<p>（2）同步非阻塞IO（Non-blocking IO）</p>
-<p>  非阻塞IO，指的是用户程序不需要等待内核IO操作完成后，内核立即返回给用户一个状态值，用户空间无需等到内核的IO操作彻底完成，可以立即返回用户空间，执行用户的操作，处于非阻塞的状态。</p>
-<p>简单的说：阻塞是指用户空间（调用线程）一直在等待，而且别的事情什么都不做；非阻塞是指用户空间（调用线程）拿到状态就返回，IO操作可以干就干，不可以干，就去干的事情。</p>
-<p>非阻塞IO要求socket被设置为NONBLOCK。</p>
-<p>强调一下，这里所说的NIO（同步非阻塞IO）模型，并非Java的NIO（New IO）库。</p>
-<p>（3）IO多路复用（IO Multiplexing）</p>
-<p>即经典的Reactor设计模式，有时也称为异步阻塞IO，Java中的Selector和Linux中的epoll都是这种模型。</p>
-<p>（4）异步IO（Asynchronous IO）</p>
-<p>异步IO，指的是用户空间与内核空间的调用方式反过来。用户空间线程是变成被动接受的，内核空间是主动调用者。</p>
-<p>这一点，有点类似于Java中比较典型的模式是回调模式，用户空间线程向内核空间注册各种IO事件的回调函数，由内核去主动调用。</p>
-<h2 id="1-3-同步阻塞IO（Blocking-IO）"><a href="#1-3-同步阻塞IO（Blocking-IO）" class="headerlink" title="1.3. 同步阻塞IO（Blocking IO）"></a>1.3. <strong>同步阻塞IO（Blocking IO）</strong></h2><p>在linux中的Java进程中，默认情况下所有的socket都是blocking IO。在阻塞式 I/O 模型中，应用程序在从IO系统调用开始，一直到到系统调用返回，这段时间是阻塞的。返回成功后，应用进程开始处理用户空间的缓存数据。</p>
-<p><img src="https://i.loli.net/2020/11/11/L5KU3Pb7EnV4c68.png" alt="image-20201111174100730"></p>
-<p>举个栗子，发起一个blocking socket的read读操作系统调用，流程大概是这样：</p>
-<p>（1）当用户线程调用了read系统调用，内核（kernel）就开始了IO的第一个阶段：准备数据。很多时候，数据在一开始还没有到达（比如，还没有收到一个完整的Socket数据包），这个时候kernel就要等待足够的数据到来。</p>
-<p>（2）当kernel一直等到数据准备好了，它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
-<p>（3）从开始IO读的read系统调用开始，用户线程就进入阻塞状态。一直到kernel返回结果后，用户线程才解除block的状态，重新运行起来。</p>
-<p>所以，blocking IO的特点就是在内核进行IO执行的两个阶段，用户线程都被block了。</p>
-<p>BIO的优点：</p>
-<p>程序简单，在阻塞等待数据期间，用户线程挂起。用户线程基本不会占用 CPU 资源。</p>
-<p>BIO的缺点：</p>
-<p>一般情况下，会为每个连接配套一条独立的线程，或者说一条线程维护一个连接成功的IO流的读写。在并发量小的情况下，这个没有什么问题。但是，当在高并发的场景下，需要大量的线程来维护大量的网络连接，内存、线程切换开销会非常巨大。因此，基本上，BIO模型在高并发场景下是不可用的。</p>
-<h2 id="1-4-同步非阻塞NIO（None-Blocking-IO）"><a href="#1-4-同步非阻塞NIO（None-Blocking-IO）" class="headerlink" title="1.4. 同步非阻塞NIO（None Blocking IO）"></a>1.4. <strong>同步非阻塞NIO（None Blocking IO）</strong></h2><p>在linux系统下，可以通过设置socket使其变为non-blocking。NIO 模型中应用程序在一旦开始IO系统调用，会出现以下两种情况：</p>
-<p>（1）在内核缓冲区没有数据的情况下，系统调用会立即返回，返回一个调用失败的信息。</p>
-<p>（2）在内核缓冲区有数据的情况下，是阻塞的，直到数据从内核缓冲复制到用户进程缓冲。复制完成后，系统调用返回成功，应用进程开始处理用户空间的缓存数据。</p>
-<p><img src="https://i.loli.net/2020/11/11/SndohFwjkcNqx1J.png" alt="image-20201111174658790"></p>
-<p>举个栗子。发起一个non-blocking socket的read读操作系统调用，流程是这个样子：</p>
-<p>（1）在内核数据没有准备好的阶段，用户线程发起IO请求时，立即返回。用户线程需要不断地发起IO系统调用。</p>
-<p>（2）内核数据到达后，用户线程发起系统调用，用户线程阻塞。内核开始复制数据。它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
-<p>（3）用户线程才解除block的状态，重新运行起来。经过多次的尝试，用户线程终于真正读取到数据，继续执行。</p>
-<p>NIO的特点：</p>
-<p>应用程序的线程需要不断的进行 I/O 系统调用，轮询数据是否已经准备好，如果没有准备好，继续轮询，直到完成系统调用为止。</p>
-<p>NIO的优点：每次发起的 IO 系统调用，在内核的等待数据过程中可以立即返回。用户线程不会阻塞，实时性较好。</p>
-<p>NIO的缺点：需要不断的重复发起IO系统调用，这种不断的轮询，将会不断地询问内核，这将占用大量的 CPU 时间，系统资源利用率较低。</p>
-<p>总之，NIO模型在高并发场景下，也是不可用的。一般 Web 服务器不使用这种 IO 模型。一般很少直接使用这种模型，而是在其他IO模型中使用非阻塞IO这一特性。java的实际开发中，也不会涉及这种IO模型。</p>
-<p>再次说明，Java NIO（New IO） 不是IO模型中的NIO模型，而是另外的一种模型，叫做IO多路复用模型（ IO multiplexing ）。</p>
-<h2 id="1-5-IO多路复用模型-I-O-multiplexing）"><a href="#1-5-IO多路复用模型-I-O-multiplexing）" class="headerlink" title="1.5. IO多路复用模型(I/O multiplexing）"></a>1.5. <strong>IO多路复用模型(I/O multiplexing）</strong></h2><p>如何避免同步非阻塞NIO模型中轮询等待的问题呢？这就是IO多路复用模型。</p>
-<p>IO多路复用模型，就是通过一种新的系统调用，一个进程可以监视多个文件描述符，一旦某个描述符就绪（一般是内核缓冲区可读/可写），内核kernel能够通知程序进行相应的IO系统调用。</p>
-<p>目前支持IO多路复用的系统调用，有 select，epoll等等。select系统调用，是目前几乎在所有的操作系统上都有支持，具有良好跨平台特性。epoll是在linux 2.6内核中提出的，是select系统调用的linux增强版本。</p>
-<p>IO多路复用模型的基本原理就是select/epoll系统调用，单个线程不断的轮询select/epoll系统调用所负责的成百上千的socket连接，当某个或者某些socket网络连接有数据到达了，就返回这些可以读写的连接。因此，好处也就显而易见了——通过一次select/epoll系统调用，就查询到到可以读写的一个甚至是成百上千的网络连接。</p>
-<p>举个栗子。发起一个多路复用IO的的read读操作系统调用，流程是这个样子：</p>
-<p><img src="https://i.loli.net/2020/11/11/PMTCBmV3g4jpkI5.png" alt="image-20201111175156864"></p>
-<p>在这种模式中，首先不是进行read系统调动，而是进行select/epoll系统调用。当然，这里有一个前提，需要将目标网络连接，提前注册到select/epoll的可查询socket列表中。然后，才可以开启整个的IO多路复用模型的读流程。</p>
-<p>（1）进行select/epoll系统调用，查询可以读的连接。kernel会查询所有select的可查询socket列表，当任何一个socket中的数据准备好了，select就会返回。</p>
-<p>当用户进程调用了select，那么整个线程会被block（阻塞掉）。</p>
-<p>（2）用户线程获得了目标连接后，发起read系统调用，用户线程阻塞。内核开始复制数据。它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存），然后kernel返回结果。</p>
-<p>（3）用户线程才解除block的状态，用户线程终于真正读取到数据，继续执行。</p>
-<p>多路复用IO的特点：</p>
-<p>IO多路复用模型，建立在操作系统kernel内核能够提供的多路分离系统调用select/epoll基础之上的。多路复用IO需要用到两个系统调用（system call）， 一个select/epoll查询调用，一个是IO的读取调用。</p>
-<p>和NIO模型相似，多路复用IO需要轮询。负责select/epoll查询调用的线程，需要不断的进行select/epoll轮询，查找出可以进行IO操作的连接。</p>
-<p>另外，多路复用IO模型与前面的NIO模型，是有关系的。对于每一个可以查询的socket，一般都设置成为non-blocking模型。只是这一点，对于用户程序是透明的（不感知）。</p>
-<p>多路复用IO的优点：</p>
-<p>用select/epoll的优势在于，它可以同时处理成千上万个连接（connection）。与一条线程维护一个连接相比，I/O多路复用技术的最大优势是：系统不必创建线程，也不必维护这些线程，从而大大减小了系统的开销。</p>
-<p>Java的NIO（new IO）技术，使用的就是IO多路复用模型。在linux系统上，使用的是epoll系统调用。</p>
-<p>多路复用IO的缺点：</p>
-<p>本质上，select/epoll系统调用，属于同步IO，也是阻塞IO。都需要在读写事件就绪后，自己负责进行读写，也就是说这个读写过程是阻塞的。</p>
-<p>如何充分的解除线程的阻塞呢？那就是异步IO模型。</p>
-<h2 id="1-6-异步IO模型（asynchronous-IO）"><a href="#1-6-异步IO模型（asynchronous-IO）" class="headerlink" title="1.6. 异步IO模型（asynchronous IO）"></a>1.6. <strong>异步IO模型（asynchronous IO）</strong></h2><p>如何进一步提升效率，解除最后一点阻塞呢？这就是异步IO模型，全称asynchronous I/O，简称为AIO。</p>
-<p>AIO的基本流程是：用户线程通过系统调用，告知kernel内核启动某个IO操作，用户线程返回。kernel内核在整个IO操作（包括数据准备、数据复制）完成后，通知用户程序，用户执行后续的业务操作。</p>
-<p>kernel的数据准备是将数据从网络物理设备（网卡）读取到内核缓冲区；kernel的数据复制是将数据从内核缓冲区拷贝到用户程序空间的缓冲区。</p>
-<p><img src="https://i.loli.net/2020/11/11/74Oeo6qracAxTsd.png" alt="image-20201111180018167"></p>
-<p>（1）当用户线程调用了read系统调用，立刻就可以开始去做其它的事，用户线程不阻塞。</p>
-<p>（2）内核（kernel）就开始了IO的第一个阶段：准备数据。当kernel一直等到数据准备好了，它就会将数据从kernel内核缓冲区，拷贝到用户缓冲区（用户内存）。</p>
-<p>（3）kernel会给用户线程发送一个信号（signal），或者回调用户线程注册的回调接口，告诉用户线程read操作完成了。</p>
-<p>（4）用户线程读取用户缓冲区的数据，完成后续的业务操作。</p>
-<p>异步IO模型的特点：</p>
-<p>在内核kernel的等待数据和复制数据的两个阶段，用户线程都不是block(阻塞)的。用户线程需要接受kernel的IO操作完成的事件，或者说注册IO操作完成的回调函数，到操作系统的内核。所以说，异步IO有的时候，也叫做信号驱动 IO 。</p>
-<p>异步IO模型缺点：</p>
-<p>需要完成事件的注册与传递，这里边需要底层操作系统提供大量的支持，去做大量的工作。</p>
-<p>目前来说， Windows 系统下通过 IOCP 实现了真正的异步 I/O。但是，就目前的业界形式来说，Windows 系统，很少作为百万级以上或者说高并发应用的服务器操作系统来使用。</p>
-<p>而在 Linux 系统下，异步IO模型在2.6版本才引入，目前并不完善。所以，这也是在 Linux 下，实现高并发网络编程时都是以 IO 复用模型模式为主。</p>
-<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p>​     NIO 即New IO ,这个库是在JDK1.4中引入的.NIO与IO有着相同的作用和目的,但是实现方式不同,NIO支持面向缓冲区的、基于通道的IO操作,所以NIO的效率比IO的效率高很多.</p>
-<h2 id="2-NIO和IO的主要区别"><a href="#2-NIO和IO的主要区别" class="headerlink" title="2.NIO和IO的主要区别"></a>2.NIO和IO的主要区别</h2><table>
-<thead>
-<tr>
-<th>IO模型</th>
-<th>IO</th>
-<th>NIO</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>方式</td>
-<td>从硬盘到内存</td>
-<td>从内存到硬盘</td>
-</tr>
-<tr>
-<td>通信</td>
-<td>面向流(只能单向传输)</td>
-<td>面向缓存(可双向传输数据,多路复用)</td>
-</tr>
-<tr>
-<td>处理</td>
-<td>阻塞IO(多线程)</td>
-<td>非阻塞IO(反应堆)</td>
-</tr>
-<tr>
-<td>触发</td>
-<td>无</td>
-<td>选择器(采用轮询机 Selectors)</td>
-</tr>
-</tbody></table>
-<p>1)、面向流与面向缓冲</p>
-<p>​      Java IO面向流意味着每次从流中读一个或多个字节，直至读取所有字节，它们没有被缓存在任何地方。此外，它不能前后移动流中的数据。如果需要前后移动从流中读取的数据，需要先将它缓存到一个缓冲区。</p>
-<p>JavaNIO的缓冲导向方法略有不同,当读到一个数据时会把它放在一个它稍后处理的缓冲区,需要时可在缓冲区中前后移动.这样极大的增加了数据的灵活性。但是，还需要检查是否该缓冲区中包含所有您需要处理的数据。而且，需确保当更多的数据读入缓冲区时，不要覆盖缓冲区里尚未处理的数据。</p>
-<p>2)阻塞(Block)和非租塞(NonBlock)</p>
-<p>阻塞与非阻塞是描述进程在访问某个资源时，数据是否准备就绪的的一种处理方式。当数据没有准备就绪时：</p>
-<p>​    阻塞:县城持续等待资源中数据准备完成,才会返回响应结果,否则会一直等待</p>
-<p>​    非阻塞:当进程访问数据缓冲区时,如果数据没有准备就绪直接返回,不会等待.如果数据准备就绪,也直接返回.</p>
-<p>3)同步与异步</p>
-<p>同步与异步是指访问数据的机智</p>
-<p>同步:指主动请求并等待IO操作完成的方式</p>
-<p>异步:是指主动请求数据后可以继续处理其他任务,随后等待IO操作完毕的通知。</p>
-<p>4)选择器（Selectors）</p>
-<p>JavaNIO的选择器允许一个单独的线程监视多个输入通道,我们可以注册多个通道到一个选择器上,然后使用以后个单独的线程选择通道,这些通道里已经有可以处理的输入,或者选择已准备写入的通道.这种机制,使得一个单独的线程很容易来管理多个线程</p>
-<h2 id="3-Java-NIO系统的核心"><a href="#3-Java-NIO系统的核心" class="headerlink" title="3.Java NIO系统的核心"></a>3.Java NIO系统的核心</h2><p>​    Java NIO系统的核心在于：通道(Channel)和缓冲区(Buffer)。</p>
-<p>   Channel 负责传输， Buffer 负责存储</p>
-<h3 id="1-通道Channel"><a href="#1-通道Channel" class="headerlink" title="1) 通道Channel"></a>1) 通道Channel</h3><p>通道表示打开到 IO 设备(例如：文件、套接字)的连接。通过它可以读取和写入数据</p>
-<p>在NIO中，提供了多种通道对象，而所有的通道对象都实现了Channel接口。它们之间的继承关系如下图所示：</p>
-<p><img src="https://i.loli.net/2020/11/12/XRF2B3pk1qrOPWt.png" alt="img"></p>
-<ul>
-<li>使用NIO读取数据</li>
-</ul>
-<p>任何时候读取数据，都不是直接从通道读取，而是从通道读取到缓冲区。所以使用NIO读取数据可以分为下面三个步骤：</p>
-<pre><code>           1.  从FileInputStream获取Channel
-              2.  创建Buffer
-                 3.  将数据从Channel读取到Buffer中</code></pre>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fis &#x3D; new FileInputStream(&quot;1.txt&quot;);</span><br><span class="line">FileChannel inChannel &#x3D; fis.getChannel();</span><br><span class="line">&#x2F;&#x2F;②分配指定大小的缓冲区</span><br><span class="line">ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;③读取缓冲区中的数据</span><br><span class="line">while(inChannel.read(buf) !&#x3D; -1)&#123;</span><br><span class="line">    byte b &#x3D; buf.get();</span><br><span class="line">    System.out.print(((char)b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>使用NIO写入数据</li>
-</ul>
-<p>使用NIO写入数据与读取数据的过程类似，同样数据不是直接写入通道，而是写入缓冲区，可以分为下面三个步骤：</p>
+        <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619150132397.png" alt="image-20200619150132397"></p>
+<h2 id="1-数组"><a href="#1-数组" class="headerlink" title="1.数组"></a>1.数组</h2><p>​    数组可以说是最基本最常见的数据结构。数组一般用来存储相同类型的数据，可通过数组名和下标进行数据的访问和更新。数组中元素的存储是按照先后顺序进行的，同时在内存中也是按照这个顺序进行连续存放。数组相邻元素之间的内存地址的间隔一般就是数组数据类型的大小。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619095853302.png" alt="image-20200619095853302"></p>
+<h2 id="2-链表"><a href="#2-链表" class="headerlink" title="2.链表"></a>2.链表</h2><p>链表相较于数组，除了数据域，还增加了指针域用于构建链式的存储数据。链表中每一个节点都包含此节点的数据和指向下一节点地址的指针。由于是通过指针进行下一个数据元素的查找和访问，使得链表的自由度更高。</p>
+<p>这表现在对节点进行增加和删除时，只需要对上一节点的指针地址进行修改，而无需变动其它的节点。不过事物皆有两极，指针带来高自由度的同时，自然会牺牲数据查找的效率和多余空间的使用。</p>
+<p>一般常见的是有头有尾的单链表，对指针域进行反向链接，还可以形成双向链表或者循环链表。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619100057728.png" alt="image-20200619100057728"></p>
+<h4 id="链表和数组对比"><a href="#链表和数组对比" class="headerlink" title="链表和数组对比"></a>链表和数组对比</h4><p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619100227440.png" alt="image-20200619100227440"></p>
+<h2 id="3-跳表"><a href="#3-跳表" class="headerlink" title="3.跳表"></a>3.跳表</h2><p>​      跳表全称为跳跃列表，它允许快速查询，插入和删除一个有序连续元素的数据链表。跳跃列表的平均查找和插入时间复杂度都是O(logn)。</p>
+<p>​    一开始时，算法在最稀疏的层次进行搜索，直至需要查找的元素在该层两个相邻的元素中间。这时，算法将跳转到下一个层次，重复刚才的搜索，直到找到需要查找的元素为止。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/7509658-1db5fac5ed4e8c6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1066/format/webp" alt="img"></p>
+<h2 id="4-栈"><a href="#4-栈" class="headerlink" title="4.栈"></a>4.栈</h2><p>栈本身是一种线性结构，它的特点是先进后出。</p>
+<p>栈的常用操作包括入栈push和出栈pop，对应于数据的压入和压出。还有访问栈顶数据、判断栈是否为空和判断栈的大小等。由于栈后进先出的特性，常可以作为数据操作的临时容器，对数据的顺序进行调控，与其它数据结构相结合可获得许多灵活的处理。</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619142821.gif" alt="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619142821.gif"></p>
+<h2 id="5-队列"><a href="#5-队列" class="headerlink" title="5.队列"></a>5.队列</h2><p>队列是一种先进先出的数据结构。</p>
+<p>队列的数据存储是如同排队一般，先存入的数据先被压出。</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619143420.gif" alt="img"></p>
+<h2 id="6-树"><a href="#6-树" class="headerlink" title="6.树"></a>6.树</h2><p>树作为一种树状的数据结构，其数据节点之间的关系也如大树一样，将有限个节点根据不同层次关系进行排列，从而形成数据与数据之间的父子关系。常见的数的表示形式更接近“倒挂的树”，因为它将根朝上，叶朝下。</p>
+<p>树的数据存储在结点中，每个结点有零个或者多个子结点。没有父结点的结点在最顶端，成为根节点；没有非根结点有且只有一个父节点；每个非根节点又可以分为多个不相交的子树。</p>
+<p>这意味着树是具备层次关系的，父子关系清晰，家庭血缘关系明朗；这也是树与图之间最主要的区别。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145020868.png" alt="image-20200619145020868"></p>
+<p>树的实现就是对链表的指针域进行了扩充，增加了多个地址指向子结点。同时将“链表”竖起来，从而凸显了结点之间的层次关系，更便于分析和理解。</p>
+<p>树可以衍生出许多的结构，若将指针域设置为双指针，那么即可形成最常见的二叉树，即每个结点最多有两个子树的树结构。二叉树根据结点的排列和数量还可进一度划分为完全二叉树、满二叉树、平衡二叉树、红黑树等。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145106808.png" alt="image-20200619145106808"></p>
+<blockquote>
+<p><strong>完全二叉树</strong>：除了最后一层结点，其它层的结点数都达到了最大值；同时最后一层的结点都是按照从左到右依次排布。</p>
+</blockquote>
+<blockquote>
+<p><strong>满二叉树</strong>：除了最后一层，其它层的结点都有两个子结点。</p>
+</blockquote>
+<h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><p>平衡二叉树又被称为AVL树，它是一棵二叉排序树，且具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。</p>
+<blockquote>
+<p><strong>二叉排序树</strong>：是一棵空树，或者：若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；它的左、右子树也分别为二叉排序树。</p>
+</blockquote>
+<blockquote>
+<p><strong>树的高度</strong>：结点层次的最大值</p>
+</blockquote>
+<blockquote>
+<p><strong>平衡因子</strong>：左子树高度 - 右子树高度</p>
+</blockquote>
+<p>二叉排序树意味着二叉树中的数据是排好序的，顺序为左结点&lt;根节点&lt;右结点，这表明二叉排序树的中序遍历结果是有序的。（还不懂二叉树四种遍历方式[前序遍历、中序遍历、后序遍历、层序遍历]的同学赶紧补习！）</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145217687.png" alt="image-20200619145217687"></p>
+<p>平衡二叉树的产生是为了解决二叉排序树在插入时发生线性排列的现象。由于二叉排序树本身为有序，当插入一个有序程度十分高的序列时，生成的二叉排序树会持续在某个方向的字数上插入数据，导致最终的二叉排序树会退化为链表，从而使得二叉树的查询和插入效率恶化。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145258224.png" alt="image-20200619145258224"></p>
+<p>平衡二叉树的出现能够解决上述问题，但是在构造平衡二叉树时，却需要采用不同的调整方式，使得二叉树在插入数据后保持平衡。主要的四种调整方式有LL（左旋）、RR（右旋）、LR（先左旋再右旋）、RL（先右旋再左旋）。这里先给大家介绍下简单的单旋转操作，左旋和右旋。LR和RL本质上只是LL和RR的组合。</p>
+<blockquote>
+<p>在插入一个结点后应该沿搜索路径将路径上的结点平衡因子进行修改，当平衡因子大于1时，就需要进行平衡化处理。从发生不平衡的结点起，沿刚才回溯的路径取直接下两层的结点，如果这三个结点在一条直线上，则采用<strong>单旋转</strong>进行平衡化，如果这三个结点位于一条折线上，则采用<strong>双旋转</strong>进行平衡化。</p>
+</blockquote>
+<p>左旋：S为当前需要左旋的结点，E为当前结点的父节点。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145418234.png" alt="image-20200619145418234"></p>
+<p>左旋的操作可以用一句话简单表示：将当前结点S的左孩子旋转为当前结点父结点E的右孩子，同时将父结点E旋转为当前结点S的左孩子。可用动画表示：</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619145442.gif" alt="img"></p>
+<p>右旋：S为当前需要左旋的结点，E为当前结点的父节点。右单旋是左单旋的镜像旋转。</p>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145600218.png" alt="image-20200619145600218"></p>
+<p>左旋的操作同样可以用一句话简单表示：将当前结点S的左孩子E的右孩子旋转为当前结点S的左孩子，同时将当前结点S旋转为左孩子E的右孩子。可用动画表示：</p>
+<p><img src="file:///C:/Users/10792/Desktop/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200619145654.gif" alt="img"></p>
+<h4 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h4><p>平衡二叉树（AVL）为了追求高度平衡，需要通过平衡处理使得左右子树的高度差必须小于等于1。高度平衡带来的好处是能够提供更高的搜索效率，其最坏的查找时间复杂度都是O(logN)。但是由于需要维持这份高度平衡，所付出的代价就是当对树种结点进行插入和删除时，需要经过多次旋转实现复衡。这导致AVL的插入和删除效率并不高。</p>
+<p>为了解决这样的问题，能不能找一种结构能够兼顾搜索和插入删除的效率呢？这时候红黑树便申请出战了。</p>
+<p>红黑树具有五个特性：</p>
+<blockquote>
 <ol>
-<li>从FileInputStream获取Channel</li>
-<li>创建Buffer</li>
-<li>将数据从Channel写入到Buffer中</li>
+<li>每个结点要么是红的要么是黑的。</li>
+<li>根结点是黑的。</li>
+<li>每个叶结点（叶结点即指树尾端NIL指针或NULL结点）都是黑的。</li>
+<li>如果一个结点是红的，那么它的两个儿子都是黑的。</li>
+<li>对于任意结点而言，其到叶结点树尾端NIL指针的每条路径都包含相同数目的黑结点。</li>
 </ol>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream  fis &#x3D; new FileInputStream(&quot;1.txt&quot;);</span><br><span class="line">FileOutputStream fos &#x3D; new FileOutputStream(&quot;2.txt&quot;);</span><br><span class="line"></span><br><span class="line">inChannel &#x3D; fis.getChannel();</span><br><span class="line">outChannel &#x3D; fos.getChannel();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;②分配指定大小的缓冲区</span><br><span class="line">ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;③将通道中的数据存入缓冲区中</span><br><span class="line">while(inChannel.read(buf) !&#x3D; -1)&#123;</span><br><span class="line">    buf.flip(); &#x2F;&#x2F;切换读取数据的模式</span><br><span class="line">    &#x2F;&#x2F;④将缓冲区中的数据写入通道中</span><br><span class="line">    outChannel.write(buf);</span><br><span class="line">    buf.clear(); &#x2F;&#x2F;清空缓冲区</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;关闭通道</span><br><span class="line">outChannel.close();</span><br><span class="line">inChannel.close();</span><br><span class="line">fos.close();</span><br><span class="line">fis.close();</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20200619145834193.png" alt="image-20200619145834193"></p>
+<p>红黑树通过将结点进行红黑着色，使得原本高度平衡的树结构被稍微打乱，平衡程度降低。红黑树不追求完全平衡，只要求达到部分平衡。这是一种折中的方案，大大提高了结点删除和插入的效率。C++中的STL就常用到红黑树作为底层的数据结构。</p>
+<h4 id="红黑树VS平衡二叉树"><a href="#红黑树VS平衡二叉树" class="headerlink" title="红黑树VS平衡二叉树"></a>红黑树VS平衡二叉树</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/TdGLaSU675gwBawZm4AtKbyUUqEHRqCK5hPCbpd8CzpmiaUWFT6F8ZLfClgnpEpz3TgnHhgc1nKh3TIaK5fK71Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>除了上面所提及的树结构，还有许多广泛应用在数据库、磁盘存储等场景下的树结构。比如B树、B+树等。这里就先不介绍了诶，下次在讲述相关存储原理的时候将会着重介绍。（其实是因为懒）</p>
+<h2 id="7-堆"><a href="#7-堆" class="headerlink" title="7.堆"></a>7.堆</h2><p>堆通常是一个可以被看做一棵树的数组对象。堆的具体实现一般不通过指针域，而是通过构建一个一维数组与二叉树的父子结点进行对应，因此堆总是一颗完全二叉树。</p>
+<p>对于任意一个父节点的序号n来说（这里n从0算），它的子节点的序号一定是2n+1，2n+2，因此可以直接用数组来表示一个堆。</p>
+<p>不仅如此，堆还有一个性质：堆中某个节点的值总是不大于或不小于其父节点的值。将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKPFK7qibDibUPQE1hmoXf3J2uhibD0IVqvOolw3XgtiaorEsyJDYpBby3jg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>堆常用来实现优先队列，在面试中经常考的问题都是与排序有关，比如堆排序、topK问题等。由于堆的根节点是序列中最大或者最小值，因而可以在建堆以及重建堆的过程中，筛选出数据序列中的极值，从而达到排序或者挑选topK值的目的。</p>
+<h2 id="8-散列表"><a href="#8-散列表" class="headerlink" title="8.散列表"></a>8.散列表</h2><p>散列表也叫哈希表，是一种通过键值对直接访问数据的机构。在初中，我们就学过一种能够将一个x值通过一个函数获得对应的一个y值的操作，叫做映射。散列表的实现原理正是映射的原理，通过设定的一个关键字和一个映射函数，就可以直接获得访问数据的地址，实现O(1)的数据访问效率。在映射的过程中，事先设定的函数就是一个映射表，也可以称作散列函数或者哈希函数。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKs2VE1D9tRL8XrqJCwiaLGY66PiagrRy2M6oLnB22pBtU5qZ6XricqnXeA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>散列表的实现最关键的就是散列函数的定义和选择。一般常用的有以下几种散列函数：</p>
+<blockquote>
+<p><strong>直接寻址法</strong>：取关键字或关键字的某个线性函数值为散列地址。</p>
+<p><strong>数字分析法</strong>：通过对数据的分析，发现数据中冲突较少的部分，并构造散列地址。例如同学们的学号，通常同一届学生的学号，其中前面的部分差别不太大，所以用后面的部分来构造散列地址。</p>
+<p><strong>平方取中**</strong>法**：当无法确定关键字里哪几位的分布相对比较均匀时，可以先求出关键字的平方值，然后按需要取平方值的中间几位作为散列地址。这是因为：计算平方之后的中间几位和关键字中的每一位都相关，所以不同的关键字会以较高的概率产生不同的散列地址。</p>
+<p><strong>取随机数法</strong>：使用一个随机函数，取关键字的随机值作为散列地址，这种方式通常用于关键字长度不同的场合。</p>
+<p><strong>除留取余法</strong>：取关键字被某个不大于散列表的表长 n 的数 m 除后所得的余数 p 为散列地址。这种方式也可以在用过其他方法后再使用。该函数对 m 的选择很重要，一般取素数或者直接用 n。</p>
+</blockquote>
+<p>确定好散列函数之后，通过某个<code>key</code>值的确会得到一个唯一的<code>value</code>地址。但是却会出现一些特殊情况。即通过不同的<code>key</code>值可能会访问到同一个地址，这个现象称之为冲突。</p>
+<p>冲突在发生之后，当在对不同的<code>key</code>值进行操作时会使得造成相同地址的数据发生覆盖或者丢失，是非常危险的。所以在设计散列表往往还需要采用冲突解决的办法。</p>
+<p>常用的冲突处理方式有很多，常用的包括以下几种：</p>
+<blockquote>
+<p><strong>开放地址法</strong>（也叫开放寻址法）：实际上就是当需要存储值时，对Key哈希之后，发现这个地址已经有值了，这时该怎么办？不能放在这个地址，不然之前的映射会被覆盖。这时对计算出来的地址进行一个探测再哈希，比如往后移动一个地址，如果没人占用，就用这个地址。如果超过最大长度，则可以对总长度取余。这里移动的地址是产生冲突时的增列序量。</p>
+<p><strong>再哈希法</strong>：在产生冲突之后，使用关键字的其他部分继续计算地址，如果还是有冲突，则继续使用其他部分再计算地址。这种方式的缺点是时间增加了。</p>
+<p><strong>链地址法</strong>：链地址法其实就是对Key通过哈希之后落在同一个地址上的值，做一个链表。其实在很多高级语言的实现当中，也是使用这种方式处理冲突的。</p>
+<p><strong>公共溢出区</strong>：这种方式是建立一个公共溢出区，当地址存在冲突时，把新的地址放在公共溢出区里。</p>
+</blockquote>
+<p>目前比较常用的冲突解决方法是链地址法，一般可以通过数组和链表的结合达到冲突数据缓存的目的。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKtm3chgpF29leIl4TcNQhLR9JariaUuhicgDgBI6rB3WcIdhJ2Xf2ib90g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>左侧数组的每个成员包括一个指针，指向一个链表的头。每发生一个冲突的数据，就将该数据作为链表的节点链接到链表尾部。这样一来，就可以保证冲突的数据能够区分并顺利访问。</p>
+<p>考虑到链表过长造成的问题，还可以使用红黑树替换链表进行冲突数据的处理操作，来提高散列表的查询稳定性。</p>
+<h2 id="9-图"><a href="#9-图" class="headerlink" title="9.图"></a>9.图</h2><p>图相较于上文的几个结构可能接触的不多，但是在实际的应用场景中却经常出现。比方说交通中的线路图，常见的思维导图都可以看作是图的具体表现形式。</p>
+<p>图结构一般包括顶点和边，顶点通常用圆圈来表示，边就是这些圆圈之间的连线。边还可以根据顶点之间的关系设置不同的权重，默认权重相同皆为1。此外根据边的方向性，还可将图分为有向图和无向图。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKo1hPoa84A4tFXEP5dU99GHibHN5XwLsFp1wPMf3QZoZqXR5IF8PRibVw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>图结构用抽象的图线来表示十分简单，顶点和边之间的关系非常清晰明了。但是在具体的代码实现中，为了将各个顶点和边的关系存储下来，却不是一件易事。</p>
+<h4 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h4><p>目前常用的图存储方式为邻接矩阵，通过所有顶点的二维矩阵来存储两个顶点之间是否相连，或者存储两顶点间的边权重。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKgbQHiaeI0ibicpTrzIXwvKOzwwUfxoJJ1ytFHWaQI6tGsEL3JiavurKUjw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>无向图的邻接矩阵是一个对称矩阵，是因为边不具有方向性，若能从此顶点能够到达彼顶点，那么彼顶点自然也能够达到此顶点。此外，由于顶点本身与本身相连没有意义，所以在邻接矩阵中对角线上皆为0。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKPEKEAhpnQfzsYXOhCtPbXiaF4x1kXoicexOVic8BXSC8Ex9CZBHnClaxw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>有向图由于边具有方向性，因此彼此顶点之间并不能相互达到，所以其邻接矩阵的对称性不再。</p>
+<p>用邻接矩阵可以直接从二维关系中获得任意两个顶点的关系，可直接判断是否相连。但是在对矩阵进行存储时，却需要完整的一个二维数组。若图中顶点数过多，会导致二维数组的大小剧增，从而占用大量的内存空间。</p>
+<p>而根据实际情况可以分析得出，图中的顶点并不是任意两个顶点间都会相连，不是都需要对其边上权重进行存储。那么存储的邻接矩阵实际上会存在大量的0。虽然可以通过稀疏表示等方式对稀疏性高的矩阵进行关键信息的存储，但是却增加了图存储的复杂性。</p>
+<p>因此，为了解决上述问题，一种可以只存储相连顶点关系的邻接表应运而生。</p>
+<h4 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h4><p>在邻接表中，图的每一个顶点都是一个链表的头节点，其后连接着该顶点能够直接达到的相邻顶点。相较于无向图，有向图的情况更为复杂，因此这里采用有向图进行实例分析。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKGjr7y7PpruuiaBuo6R6Q2JRYwKPVSLQ3R8wx8fj9YDZnJJb52TMZO7A/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img">在邻接表中，每一个顶点都对应着一条链表，链表中存储的是顶点能够达到的相邻顶点。存储的顺序可以按照顶点的编号顺序进行。比如上图中对于顶点B来说，其通过有向边可以到达顶点A和顶点E，那么其对应的邻接表中的顺序即B-&gt;A-&gt;E，其它顶点亦如此。</p>
+<p>通过邻接表可以获得从某个顶点出发能够到达的顶点，从而省去了对不相连顶点的存储空间。然而，这还不够。对于有向图而言，图中有效信息除了从顶点“指出去”的信息，还包括从别的顶点“指进来”的信息。这里的“指出去”和“指进来”可以用出度和入度来表示。</p>
+<blockquote>
+<p>入度：有向图的某个顶点作为终点的次数和。</p>
+<p>出度：有向图的某个顶点作为起点的次数和。</p>
+</blockquote>
+<p>由此看出，在对有向图进行表示时，邻接表只能求出图的出度，而无法求出入度。这个问题很好解决，那就是增加一个表用来存储能够到达某个顶点的相邻顶点。这个表称作逆邻接表。</p>
+<h4 id="逆邻接表"><a href="#逆邻接表" class="headerlink" title="逆邻接表"></a>逆邻接表</h4><p>逆邻接表与邻接表结构类似，只不过图的顶点链接着能够到达该顶点的相邻顶点。也就是说，邻接表时顺着图中的箭头寻找相邻顶点，而逆邻接表时逆着图中的箭头寻找相邻顶点。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKqLv4dnM8ibblfCzdabl2RV52ZCiaZlHGobcxp6ydoOzXxalor9mDN8dA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>邻接表和逆邻接表的共同使用下，就能够把一个完整的有向图结构进行表示。可以发现，邻接表和逆邻接表实际上有一部分数据是重合的，因此可以将两个表合二为一，从而得到了所谓的十字链表。</p>
+<h4 id="十字链表"><a href="#十字链表" class="headerlink" title="十字链表"></a>十字链表</h4><p>十字链表似乎很简单，只需要通过相同的顶点分别链向以该顶点为终点和起点的相邻顶点即可。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKORBfPSQiblo2CLzrahdcNeqMvzm93kKiaybG4iaCD2TKH4vs8IkxRmppw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>但这并不是最优的表示方式。虽然这样的方式共用了中间的顶点存储空间，但是邻接表和逆邻接表的链表节点中重复出现的顶点并没有得到重复利用，反而是进行了再次存储。因此，上图的表示方式还可以进行进一步优化。</p>
+<p>十字链表优化后，可通过扩展的顶点结构和边结构来进行正逆邻接表的存储：（下面的弧头可看作是边的箭头那端，弧尾可看作是边的圆点那端）</p>
+<blockquote>
+<p><strong>data</strong>：用于存储该顶点中的数据；</p>
+<p><strong>firstin指针</strong>：用于连接以当前顶点为弧头的其他顶点构成的链表，即从别的顶点指进来的顶点；</p>
+<p><strong>firstout指针</strong>：用于连接以当前顶点为弧尾的其他顶点构成的链表，即从该顶点指出去的顶点；</p>
+</blockquote>
+<p>边结构通过存储两个顶点来确定一条边，同时通过分别代表这两个顶点的指针来与相邻顶点进行链接：</p>
+<blockquote>
+<p><strong>tailvex</strong>：用于存储作为弧尾的顶点的编号；</p>
+<p><strong>headvex</strong>：用于存储作为弧头的顶点的编号；</p>
+<p><strong>headlink</strong> <strong>指针</strong>：用于链接下一个存储作为弧头的顶点的节点；</p>
+<p><strong>taillink</strong> <strong>指针</strong>：用于链接下一个存储作为弧尾的顶点的节点；</p>
+</blockquote>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/TdGLaSU675gwBawZm4AtKbyUUqEHRqCKsPXqiaIeicYpPEBPrs3jVRs795hLAUQ44748sjFLWhnsZ7fGL2OkicJ6g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>以上图为例子，对于顶点A而言，其作为起点能够到达顶点E。因此在邻接表中顶点A要通过边<code>AE</code>（即边04）指向顶点E，顶点A的<code>firstout</code>指针需要指向边04的<code>tailvex</code>。同时，从B出发能够到达A，所以在逆邻接表中顶点A要通过边<code>AB</code>（即边10）指向B，顶点A的<code>firstin</code>指针需要指向边10的弧头，即<code>headlink</code>指针。依次类推。</p>
+<p>十字链表采用了一种看起来比较繁乱的方式对边的方向性进行了表示，能够在尽可能降低存储空间的情况下增加指针保留顶点之间的方向性。具体的操作可能一时间不好弄懂，建议多看几次上图，弄清指针指向的意义，明白正向和逆向邻接表的表示。</p>
 
-<h3 id="2-缓冲区Buffer"><a href="#2-缓冲区Buffer" class="headerlink" title="2)缓冲区Buffer"></a>2)缓冲区Buffer</h3><p>​     缓冲区实际上是一个容器对象,相当于一个数组,在NIO库中，所有数据都是用缓冲区处理的。在读取数据时，它是直接读到缓冲区中的； 在写入数据时，它也是写入到缓冲区中的；任何时候访问 NIO 中的数据，都是将它放到缓冲区中。</p>
-<p><img src="https://i.loli.net/2020/11/12/e8nlXwpxJhBfV9W.png" alt="img"></p>
-<p>​     在NIO中，所有的缓冲区类型都继承于抽象类Buffer，最常用的就是ByteBuffer，对于Java中的基本类型，基本都有一个具体Buffer类型与之相对应，它们之间的继承关系如下图所示：</p>
-<p><img src="https://i.loli.net/2020/11/12/9GVmsJf7RbilegS.png" alt="image3.png | center | 650x368"></p>
-<p>   <strong>Buffer 中的四个属性的含义分别如下：</strong></p>
-<p>​            1.容量 (capacity) ：表示 Buffer 最大数据容量，缓冲区容量不能为负，并且创建后不能更改。<br>​            2.限制 (limit)：第一个不能读取或写入的数据的索引，即位于 limit 后的数据不可读写。缓冲区的限制不能为负，并且不能大于其容量。<br>​            3.位置 (position)：下一个要读取或写入的数据的索引。缓冲区的位置不能为负，并且不能大于其限制<br>​            4.标记 (mark)与重置 (reset)：标记是一个索引，通过 Buffer 中的 mark() 方法指定 Buffer 中一个特定的 position，之后可以通过调用 reset() 方法恢复到这个 position,<strong>它是下一个要被读或写的元素的索引。位置会自动由相应的 get( )和 put( )函数更新。</strong></p>
-<p><strong>Buffer 中的常见方法如下：</strong></p>
-<p><img src="https://i.loli.net/2020/11/12/EyrUgtB4VZHT3oP.png" alt="image-20201112145943715"></p>
-<p><strong>Buffer 常见类型：</strong></p>
-<p><img src="https://i.loli.net/2020/11/12/3uyS9LJ68AHQGmg.png" alt="image-20201112150053058"></p>
-<p>基本操作:get() 与 put() 方法</p>
-<p><img src="https://i.loli.net/2020/11/12/Bl57o8N24cFZuSx.png" alt="image-20201112150829870"></p>
-<p><img src="https://i.loli.net/2020/11/12/DlZFrJMjkTSHVyE.png" alt="image-20201112151042265"></p>
-<p>非直接缓冲区:通过allocate()方法分配缓冲区,将缓冲区建立在JVM的内存中</p>
-<p>直接缓冲区:通过allocateDirect()方法分配缓冲区,将缓冲区建立在物理内存中</p>
-<h3 id="3-选择器-Selector"><a href="#3-选择器-Selector" class="headerlink" title="3)选择器(Selector)"></a>3)选择器(Selector)</h3><p>选择器是 SelectableChannle 对象的多路复用器，选择器可以同时监控多个 SelectableChannel 的 IO 状况，也就是说，利用 选择器可使一个单独的线程管理多个 通道。</p>
-<p>SelectableChannel 的结构图如下</p>
-<p><img src="https://i.loli.net/2020/11/16/8XHEuDwnhqFGKBi.png" alt="image-20201116103822634"></p>
-<p>选择器的应用</p>
-<p><img src="https://i.loli.net/2020/11/16/HpPL3aEKFykXJMf.png" alt="image-20201116104336734"></p>
-<p><img src="https://i.loli.net/2020/11/16/TJfpyEmR7I1WzYV.png" alt="image-20201116104556472"></p>
-<p>SelectionKey</p>
-<p>SelectionKey：表示 SelectableChannel 和 Selector 之间的注册关系。每次向选择器注册通道时就会选择一个事件(选择键)。选择键包含两个表示为整数值的操作集。操作集的每一位都表示该键的通道所支持的一类可选择操作</p>
-<p><img src="https://i.loli.net/2020/11/16/BzMQHfiRCA7YGPK.png" alt="image-20201116110830724"></p>
-<p><strong>SocketChannel</strong></p>
-<p><img src="https://i.loli.net/2020/11/16/nvU47kaDBS9ZMAW.png" alt="image-20201116110920112"></p>
-<p><img src="https://i.loli.net/2020/11/16/Q2cqtHARdIu5C8V.png" alt="image-20201116110952400"></p>
-<p>TCP网络传输示例:</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">public class TestNonBlockingNIO &#123;</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;客户端</span><br><span class="line">   @Test</span><br><span class="line">   public void client() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      SocketChannel sChannel &#x3D; SocketChannel.open(new InetSocketAddress(&quot;127.0.0.1&quot;, 9898));</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      sChannel.configureBlocking(false);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;3. 分配指定大小的缓冲区</span><br><span class="line">      ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;4. 发送数据给服务端</span><br><span class="line">      Scanner scan &#x3D; new Scanner(System.in);</span><br><span class="line">      </span><br><span class="line">      while(scan.hasNext())&#123;</span><br><span class="line">         String str &#x3D; scan.next();</span><br><span class="line">         buf.put((new Date().toString() + &quot;\n&quot; + str).getBytes());</span><br><span class="line">         buf.flip();</span><br><span class="line">         sChannel.write(buf);</span><br><span class="line">         buf.clear();</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;5. 关闭通道</span><br><span class="line">      sChannel.close();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   &#x2F;&#x2F;服务端</span><br><span class="line">   @Test</span><br><span class="line">   public void server() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      ServerSocketChannel ssChannel &#x3D; ServerSocketChannel.open();</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      ssChannel.configureBlocking(false);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;3. 绑定连接</span><br><span class="line">      ssChannel.bind(new InetSocketAddress(9898));</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;4. 获取选择器</span><br><span class="line">      Selector selector &#x3D; Selector.open();</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;5. 将通道注册到选择器上, 并且指定“监听接收事件”</span><br><span class="line">      ssChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;6. 轮询式的获取选择器上已经“准备就绪”的事件</span><br><span class="line">      while(selector.select() &gt; 0)&#123;&#x2F;&#x2F;说明至少有一个准备就绪了</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”</span><br><span class="line">         Iterator&lt;SelectionKey&gt; it &#x3D; selector.selectedKeys().iterator();</span><br><span class="line">         </span><br><span class="line">         while(it.hasNext())&#123;</span><br><span class="line">            &#x2F;&#x2F;8. 获取准备“就绪”的是事件</span><br><span class="line">            SelectionKey sk &#x3D; it.next();</span><br><span class="line">            </span><br><span class="line">            &#x2F;&#x2F;9. 判断具体是什么事件准备就绪</span><br><span class="line">            if(sk.isAcceptable())&#123;</span><br><span class="line">               &#x2F;&#x2F;10. 若“接收就绪”，获取客户端连接</span><br><span class="line">               SocketChannel sChannel &#x3D; ssChannel.accept();</span><br><span class="line">               </span><br><span class="line">               &#x2F;&#x2F;11. 切换非阻塞模式</span><br><span class="line">               sChannel.configureBlocking(false);</span><br><span class="line">               </span><br><span class="line">               &#x2F;&#x2F;12. 将该通道注册到选择器上</span><br><span class="line">               sChannel.register(selector, SelectionKey.OP_READ);</span><br><span class="line">            &#125;else if(sk.isReadable())&#123;</span><br><span class="line">               &#x2F;&#x2F;13. 获取当前选择器上“读就绪”状态的通道</span><br><span class="line">               SocketChannel sChannel &#x3D; (SocketChannel) sk.channel();</span><br><span class="line">               </span><br><span class="line">               &#x2F;**14. 读取数据*&#x2F;</span><br><span class="line">               ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">               </span><br><span class="line">               int len &#x3D; 0;</span><br><span class="line">               while((len &#x3D; sChannel.read(buf)) &gt; 0 )&#123;</span><br><span class="line">                  buf.flip();</span><br><span class="line">                  System.out.println(new String(buf.array(), 0, len));</span><br><span class="line">                  buf.clear();</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            &#x2F;&#x2F;15. 取消选择键 SelectionKey</span><br><span class="line">            it.remove();</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>DatagramChannel</strong></p>
-<p><img src="https://i.loli.net/2020/11/16/tKTsBYqvmgpkL1N.png" alt="image-20201116132937689"></p>
-<p>UDP网络传输示例:</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public class TestNonBlockingNIO2UDP &#123;</span><br><span class="line">   </span><br><span class="line">   @Test</span><br><span class="line">   public void send() throws IOException&#123;</span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      DatagramChannel dc &#x3D; DatagramChannel.open();</span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      dc.configureBlocking(false);</span><br><span class="line">      &#x2F;&#x2F;3. 分配指定大小的缓冲区</span><br><span class="line">      ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">      </span><br><span class="line">      Scanner scan &#x3D; new Scanner(System.in);</span><br><span class="line">      &#x2F;&#x2F;4. 发送数据给服务端</span><br><span class="line">      while(scan.hasNext())&#123;</span><br><span class="line">         String str &#x3D; scan.next();</span><br><span class="line">         buf.put((new Date().toString() + &quot;:\n&quot; + str).getBytes());</span><br><span class="line">         buf.flip();</span><br><span class="line">         dc.send(buf, new InetSocketAddress(&quot;127.0.0.1&quot;, 9898));</span><br><span class="line">         buf.clear();</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F;5. 关闭通道</span><br><span class="line">      dc.close();</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   @Test</span><br><span class="line">   public void receive() throws IOException&#123;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;1. 获取通道</span><br><span class="line">      DatagramChannel dc &#x3D; DatagramChannel.open();</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;2. 切换非阻塞模式</span><br><span class="line">      dc.configureBlocking(false);</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;3. 绑定连接</span><br><span class="line">      dc.bind(new InetSocketAddress(9898));</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;4. 获取选择器</span><br><span class="line">      Selector selector &#x3D; Selector.open();</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;5. 将通道注册到选择器上, 并且指定“监听接收事件”</span><br><span class="line">      dc.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;6. 轮询式的获取选择器上已经“准备就绪”的事件</span><br><span class="line">      while(selector.select() &gt; 0)&#123;</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”</span><br><span class="line">         Iterator&lt;SelectionKey&gt; it &#x3D; selector.selectedKeys().iterator();</span><br><span class="line">         </span><br><span class="line">         while(it.hasNext())&#123;</span><br><span class="line">            &#x2F;&#x2F;8. 获取准备“就绪”的是事件</span><br><span class="line">            SelectionKey sk &#x3D; it.next();</span><br><span class="line">            &#x2F;&#x2F;9. 判断读事件是否准备就绪</span><br><span class="line">            if(sk.isReadable())&#123;</span><br><span class="line">               ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">               &#x2F;&#x2F;10. 若“接收就绪”，读取客户端数据到缓冲区</span><br><span class="line">               dc.receive(buf);</span><br><span class="line">               buf.flip();</span><br><span class="line">               System.out.println(new String(buf.array(), 0, buf.limit()));</span><br><span class="line">               buf.clear();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         it.remove();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>管道 (Pipe)</p>
-<p>   Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。数据会被写到sink通道，从source通道读取。</p>
-<p><img src="https://i.loli.net/2020/11/17/nFmi9sL2wGkTZPO.png" alt="image-20201117093251966">代码示例:</p>
-<p>``</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() throws IOException&#123;</span><br><span class="line">   &#x2F;&#x2F;1. 获取管道</span><br><span class="line">   Pipe pipe &#x3D; Pipe.open();</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;2. 将缓冲区中的数据写入管道</span><br><span class="line">   ByteBuffer buf &#x3D; ByteBuffer.allocate(1024);</span><br><span class="line">   </span><br><span class="line">   Pipe.SinkChannel sinkChannel &#x3D; pipe.sink();</span><br><span class="line">   buf.put(&quot;通过单向管道发送数据&quot;.getBytes());</span><br><span class="line">   buf.flip();</span><br><span class="line">   sinkChannel.write(buf);</span><br><span class="line">   </span><br><span class="line">   &#x2F;&#x2F;3. 读取缓冲区中的数据</span><br><span class="line">   Pipe.SourceChannel sourceChannel &#x3D; pipe.source();</span><br><span class="line">   buf.flip();</span><br><span class="line">   int len &#x3D; sourceChannel.read(buf);</span><br><span class="line">   System.out.println(new String(buf.array(), 0, len));</span><br><span class="line">   </span><br><span class="line">   sourceChannel.close();</span><br><span class="line">   sinkChannel.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -1507,7 +1626,7 @@ audit.*   只能匹配 audit.irs</code></pre>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/03/java%20NIO/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">展开全文 >></a>
         </p>
       
 

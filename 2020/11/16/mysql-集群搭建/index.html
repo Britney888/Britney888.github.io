@@ -6,15 +6,44 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021/4 | Hexo</title>
+  <title>mysql 集群搭建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/04/index.html">
+  <meta name="description" content="mysql集群搭建 一.CentOS7位安装MySql1.首先检查是否安装mysql1rpm -qa | grep mysql   返回空值表示没有安装 2.下载mysql的repo源1wget http:&#x2F;&#x2F;repo.mysql.com&#x2F;mysql-community-release-el7-5.noarch.rpm   显示100%代表下载成功 3.安装 mysq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql 集群搭建">
+<meta property="og:url" content="http://example.com/2020/11/16/mysql-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="mysql集群搭建 一.CentOS7位安装MySql1.首先检查是否安装mysql1rpm -qa | grep mysql   返回空值表示没有安装 2.下载mysql的repo源1wget http:&#x2F;&#x2F;repo.mysql.com&#x2F;mysql-community-release-el7-5.noarch.rpm   显示100%代表下载成功 3.安装 mysq">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/TQNYCsOcFifj4gr.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/5Egq1vduyjhrePQ.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/KaQy4RHj6shMb2p.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/rVEtsaw6YRe9b3f.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/49cR61HmiFUTp7v.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/C6vRYMb92TQUDJg.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/6VB1PatjFfn82Tk.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/PzEQk9tF3jY2dHc.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/27/8nqucXPZCzxWgGl.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/1gJUS84qINPtY53.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/1DqnMlwCXpeQdPI.png">
+<meta property="og:image" content="c:/Users/10792/AppData/Roaming/Typora/typora-user-images/image-20201126151037282.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/57dyWtBoOehxMzD.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/c1SmLyCxkQ9KI2s.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/lnUAermVas4xziN.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/mF7ctJhOrn4zuPB.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/26/wXGqokcVH7vOZmu.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/27/Pg1yW3trFJxI6hO.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/27/okBpF9wWbCLrK6M.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/27/Gqut4FPSr8ckAMK.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/X7Urxc5awTAQWpC.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/27/4csqag3CHUYKTIN.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/27/mfVM4DoLEihHaWc.png">
+<meta property="og:image" content="https://i.loli.net/2020/11/27/xGPtkfuS29rp1lb.png">
+<meta property="article:published_time" content="2020-11-16T02:05:17.000Z">
+<meta property="article:modified_time" content="2021-04-26T06:06:49.462Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/03/TQNYCsOcFifj4gr.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -164,147 +193,322 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-mysql-集群搭建" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql 集群搭建
+    </h1>
+  
+
+        
+        <a href="/2020/11/16/mysql-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2020-11-16T02:05:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mysql集群搭建</p>
+<h2 id="一-CentOS7位安装MySql"><a href="#一-CentOS7位安装MySql" class="headerlink" title="一.CentOS7位安装MySql"></a>一.CentOS7位安装MySql</h2><h3 id="1-首先检查是否安装mysql"><a href="#1-首先检查是否安装mysql" class="headerlink" title="1.首先检查是否安装mysql"></a>1.首先检查是否安装mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep mysql</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/03/TQNYCsOcFifj4gr.png" alt="image-20201126142735240"></p>
+<p>返回空值表示没有安装</p>
+<h3 id="2-下载mysql的repo源"><a href="#2-下载mysql的repo源" class="headerlink" title="2.下载mysql的repo源"></a>2.下载mysql的repo源</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;repo.mysql.com&#x2F;mysql-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/5Egq1vduyjhrePQ.png" alt="image-20201126143312127"></p>
+<p>显示100%代表下载成功</p>
+<h3 id="3-安装-mysql-community-release-el7-5-noarch-rpm包"><a href="#3-安装-mysql-community-release-el7-5-noarch-rpm包" class="headerlink" title="3.安装 mysql-community-release-el7-5.noarch.rpm包"></a>3.安装 mysql-community-release-el7-5.noarch.rpm包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/03/KaQy4RHj6shMb2p.png" alt="image-20201126143835995"></p>
+<p>安装这个包后，会获得两个mysql的yum repo源：/etc/yum.repos.d/mysql-community.repo，/etc/yum.repos.d/mysql-community-source.repo。</p>
+<p><img src="https://i.loli.net/2020/11/26/rVEtsaw6YRe9b3f.png" alt="image-20201126144123318"></p>
+<h3 id="4-安装MySQL"><a href="#4-安装MySQL" class="headerlink" title="4.安装MySQL"></a><strong>4.安装MySQL</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql-server</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/49cR61HmiFUTp7v.png" alt="image-20201126144735868"></p>
+<p>在远程工具上一直安装失败,尝试在主机上安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-server</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/C6vRYMb92TQUDJg.png" alt="image-20201126145056010"></p>
+<p>安装完成</p>
+<h3 id="5-重置密码"><a href="#5-重置密码" class="headerlink" title="5.重置密码"></a>5.重置密码</h3><p>登录mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/03/6VB1PatjFfn82Tk.png" alt="image-20201126145238168"></p>
+<p>登录时报这样的错：ERROR 2002 (HY000): Can’t connect to local MySQL server  through socket ‘/var/lib/mysql/mysql.sock’  (2)，原因是/var/lib/mysql的访问权限问题。</p>
+<p>把/var/lib/mysql的拥有者改为当前用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R openscanner:openscanner &#x2F;var&#x2F;lib&#x2F;mysql</span><br></pre></td></tr></table></figure>
+
+<p>如果报<code>chown: 无效的用户: &quot;openscanner:openscanner&quot;</code>错误，更换命令，并用 ll 查看目录权限列表</p>
+<p><img src="https://i.loli.net/2020/11/26/PzEQk9tF3jY2dHc.png" alt="image-20201126145555215"></p>
+<p>查看权限,可以看到root用户没有操作权限</p>
+<p><img src="https://i.loli.net/2020/11/27/8nqucXPZCzxWgGl.png" alt="image-20201127101138714"></p>
+<p>修改mysql的权限(更改文件拥有者 (chown ) )</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown root &#x2F;var&#x2F;lib&#x2F;mysql&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/1gJUS84qINPtY53.png" alt="image-20201126145843689"></p>
+<p>重启服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart        &#96;</span><br></pre></td></tr></table></figure>
+
+<p>接下来登录重置密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/1DqnMlwCXpeQdPI.png" alt="image-20201126150316491"></p>
+<p>刚开始无密码 直接enter进入</p>
+<p>设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line"></span><br><span class="line">update user set password&#x3D;password(&#39;123456&#39;) where user&#x3D;&#39;root&#39;;</span><br><span class="line"></span><br><span class="line">exit;</span><br></pre></td></tr></table></figure>
+
+<p>密码重置在重启mysql服务后才生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+
+<p>重新登录–输入密码时自己设置的密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p>为root添加远程连接的能力。链接密码为 “root”（不包括双引号）</p>
+<p>必要时加入以下命令行，为root添加远程连接的能力。链接密码为 “root”（不包括双引号）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO root@&quot;%&quot; IDENTIFIED BY &quot;root&quot;;　　</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\10792\AppData\Roaming\Typora\typora-user-images\image-20201126151037282.png" alt="image-20201126151037282"></p>
+<h3 id="6-设置数据库编码"><a href="#6-设置数据库编码" class="headerlink" title="6.设置数据库编码"></a>6.设置数据库编码</h3><p>查询数据库编码格式，确保是 UTF-8</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &quot;%char%&quot;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/57dyWtBoOehxMzD.png" alt="image-20201126151621018"></p>
+<p>需要修改编码格式为UTF-8，导入数据库sql的时候，请确保sql文件为utf8编码<br> 进入mysql命令行后 输入 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set names utf8;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/c1SmLyCxkQ9KI2s.png" alt="image-20201126151715833"></p>
+<h3 id="7-使用外网工具连接MySQL"><a href="#7-使用外网工具连接MySQL" class="headerlink" title="7.使用外网工具连接MySQL"></a>7.使用外网工具连接MySQL</h3><p><strong>连接mysql的用户名和密码都是 root</strong></p>
+<h3 id="8-关闭防火墙"><a href="#8-关闭防火墙" class="headerlink" title="8.关闭防火墙"></a>8.关闭防火墙</h3><p>查看防火墙状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld.service</span><br></pre></td></tr></table></figure>
+
+<p>关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-MYSQL集群环境搭建"><a href="#二-MYSQL集群环境搭建" class="headerlink" title="二.MYSQL集群环境搭建"></a>二.MYSQL集群环境搭建</h2><p>MySQL主从复制配置</p>
+<p>主节点服务器 地址 192.168.40.130</p>
+<p>从节点服务器 地址  192.168.40.131</p>
+<p>主节点服务器安装好之后，直接clone 一个即可，不需要重复安装2次。</p>
+<h3 id="主节点服务器配置"><a href="#主节点服务器配置" class="headerlink" title="主节点服务器配置"></a>主节点服务器配置</h3><p>1.进入配置页面命令</p>
+<p>   vi /etc/my.cnf<br>2.配置服务器id server_id </p>
+<p>这里的server_id 尽量配置为服务器地址的后3位 以用来区分</p>
+<p>  server_id=131<br>3.开启日志文件(binLog)</p>
+<p>  log-bin=mysql-bin </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">######服务器 server_id ######</span><br><span class="line">server_id&#x3D;130</span><br><span class="line">######开启日志文件(binLog)#####</span><br><span class="line">log-bin&#x3D;mysql-bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>配置文件的地址应该在 ： # Recommended in standard MySQL setup，否则配置不起作用</p>
+<p>如下图所示</p>
+<p><img src="https://i.loli.net/2021/02/03/lnUAermVas4xziN.png" alt="image-20201126154909107"></p>
+<p>4.重启mysql服务<br>service mysqld restart</p>
+<p>验证是否已经配置成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#39;%server_id%&#39;</span><br><span class="line">show master status;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/26/mF7ctJhOrn4zuPB.png" alt="image-20201126155141028"></p>
+<p>6.show master status;</p>
+<p>能够看到同步的文件，和行数说明已经配置成功。</p>
+<p><img src="https://i.loli.net/2020/11/26/wXGqokcVH7vOZmu.png" alt="image-20201126155417831"></p>
+<ol start="7">
+<li>创建备份专用账户</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT REPLICATION SLAVE ON *.* TO &#39;backup&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;;</span><br><span class="line"></span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
+<p>（3）查看master主机状态</p>
+<p>mysql&gt; show master status;</p>
+<p><img src="https://i.loli.net/2020/11/27/Pg1yW3trFJxI6hO.png" alt="image-20201127102340069"></p>
+<h3 id="从服务器节点配置"><a href="#从服务器节点配置" class="headerlink" title="从服务器节点配置"></a>从服务器节点配置</h3><ol>
+<li><p>进入配置页面命令</p>
+<p>vi /etc/my.cnf </p>
+</li>
+<li><p>配置服务器id server_id </p>
+</li>
+</ol>
+<p>这里的server_id 尽量配置为服务器地址的后3位 以用来区分</p>
+<p>  server_id=131</p>
+<ol start="3">
+<li><p>开启日志文件(binLog)</p>
+<p>log-bin=mysql-bin </p>
+</li>
+<li><p>启用中继日志</p>
+</li>
+</ol>
+<p>relay-log=relay-log </p>
+<ol start="5">
+<li>重启mysql服务<br>service mysqld restart</li>
+</ol>
+<p>验证是否已经配置成功</p>
+<ol start="6">
+<li>show variables like ‘%server_id%’;</li>
+</ol>
+<p>能够查询对应配置文件中的server_id 说明已经配置成功</p>
+<p><img src="https://i.loli.net/2020/11/27/okBpF9wWbCLrK6M.png" alt="image-20201127094043072"></p>
+<ol start="7">
+<li>从服务器同步主服务器配置</li>
+</ol>
+<p>master_host 主服务器地址</p>
+<p>master_user 主服务器用户名</p>
+<p>master_password 主服务器密码</p>
+<p>master_log_file 主服务器配置文件</p>
+<p>master_log_pos 主服务器读取配置文件的开始位置，也就是从第多少行开始读取。</p>
+<p>在mysql命令行运行以下命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change master to  master_host&#x3D;&#39;192.168.40.130&#39; ,master_user&#x3D;&#39;backup&#39; ,master_password&#x3D;&#39;123456&#39; ,master_log_file&#x3D;&#39;mysql-bin.000001&#39;,master_log_pos&#x3D;120;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/27/Gqut4FPSr8ckAMK.png" alt="image-20201127102908050"></p>
+<ol start="8">
+<li>启动从服务器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start slave;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/03/X7Urxc5awTAQWpC.png" alt="image-20201127103015321"></p>
+<ol start="9">
+<li>检查从服务器复制功能状态</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/11/27/4csqag3CHUYKTIN.png" alt="image-20201127103138711"></p>
+<p><img src="https://i.loli.net/2020/11/27/mfVM4DoLEihHaWc.png" alt="image-20201127131440609"></p>
+<p>可以看到主从库已同步</p>
+<p><img src="https://i.loli.net/2020/11/27/xGPtkfuS29rp1lb.png" alt="image-20201127131625106"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nacos/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:51.948Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://britney888.github.io/020/11/16/mysql-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nacos%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:49.366Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Nginx/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:27.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2020/11/17/java-NIO/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          java NIO
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据结构</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/RabbitMq/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:14.835Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:12:11.179Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2021-04-26T02:11:58.555Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -330,8 +534,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
